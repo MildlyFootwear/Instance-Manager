@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Instance_Manager
 {
@@ -19,12 +21,16 @@ namespace Instance_Manager
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/MildlyFootwear/Instance-Manager");
+            System.Diagnostics.Process.Start("explorer.exe","https://github.com/MildlyFootwear/Instance-Manager");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://next.nexusmods.com/profile/MildlyFootwear/about-me");
+            System.Diagnostics.Process.Start("explorer.exe", "https://next.nexusmods.com/profile/MildlyFootwear/about-me");
+        }
+
+        private void Info_Load(object sender, EventArgs e)
+        {
         }
     }
 }

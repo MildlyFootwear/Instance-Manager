@@ -96,6 +96,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Instance Manager - Info";
+            Load += Info_Load;
             ResumeLayout(false);
             PerformLayout();
         }
