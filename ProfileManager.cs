@@ -33,6 +33,8 @@ namespace Instance_Manager
                 Button deleteProfile = new();
                 profileName.Text = Profile;
                 profileName.AutoSize = true;
+                profileName.TextAlign = ContentAlignment.MiddleLeft;
+                profileName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
                 renameProfile.Text = "Rename";
                 duplicateProfile.Text = "Duplicate";
                 deleteProfile.Text = "Delete";
@@ -44,7 +46,7 @@ namespace Instance_Manager
 
                 void DeleteProfile(object sender, EventArgs e)
                 {
-                    if (MessageBox.Show("Are you sure you want to delete profile " + Profile + "?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("Are you sure you want to delete profile " + Profile + "?\nAll subfolders and files will be deleted too.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         Directory.Delete(Settings.Default.ProfilesDirectory + "\\" + Profile, true);
                         LoadProfiles();

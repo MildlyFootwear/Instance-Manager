@@ -41,9 +41,9 @@
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 69F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 118F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.Location = new Point(12, 40);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RightToLeft = RightToLeft.No;

@@ -33,6 +33,8 @@ namespace Instance_Manager
                 string[] splitexe = exe.Split(";");
                 ExeLabel.Text = splitexe[0];
                 ExeLabel.AutoSize = true;
+                ExeLabel.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
+                ExeLabel.TextAlign = ContentAlignment.MiddleLeft;
                 Button dupe = new();
                 Button commandargs = new();
                 Button remove = new();

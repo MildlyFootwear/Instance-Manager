@@ -40,7 +40,7 @@
             tableLayoutPanel1.BackColor = SystemColors.Control;
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());

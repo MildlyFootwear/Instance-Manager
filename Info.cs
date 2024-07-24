@@ -21,7 +21,7 @@ namespace Instance_Manager
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe","https://github.com/MildlyFootwear/Instance-Manager");
+            System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -31,6 +31,14 @@ namespace Instance_Manager
 
         private void Info_Load(object sender, EventArgs e)
         {
+            linkLabel2.Width = linkLabel1.Width;
+            label1.Width = linkLabel1.Width;
+            label2.Width = linkLabel1.Width;
+        }
+
+        private void linkLabel1_Resize(object sender, EventArgs e)
+        { 
+
         }
     }
 }

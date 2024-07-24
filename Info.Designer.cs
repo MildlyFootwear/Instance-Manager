@@ -38,7 +38,7 @@
             // 
             label1.Location = new Point(12, 8);
             label1.Name = "label1";
-            label1.Size = new Size(297, 15);
+            label1.Size = new Size(310, 15);
             label1.TabIndex = 0;
             label1.Text = "GitHub";
             label1.TextAlign = ContentAlignment.TopCenter;
@@ -54,13 +54,14 @@
             linkLabel1.Text = "https://github.com/MildlyFootwear/Instance-Manager";
             linkLabel1.TextAlign = ContentAlignment.TopCenter;
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            linkLabel1.Resize += linkLabel1_Resize;
             // 
             // label2
             // 
             label2.Location = new Point(12, 44);
             label2.Margin = new Padding(3);
             label2.Name = "label2";
-            label2.Size = new Size(297, 15);
+            label2.Size = new Size(310, 15);
             label2.TabIndex = 2;
             label2.Text = "Nexus Mods";
             label2.TextAlign = ContentAlignment.TopCenter;
@@ -70,7 +71,7 @@
             linkLabel2.Location = new Point(12, 62);
             linkLabel2.Margin = new Padding(3, 3, 12, 12);
             linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new Size(297, 15);
+            linkLabel2.Size = new Size(310, 15);
             linkLabel2.TabIndex = 3;
             linkLabel2.TabStop = true;
             linkLabel2.Text = "https://next.nexusmods.com/profile/MildlyFootwear";
