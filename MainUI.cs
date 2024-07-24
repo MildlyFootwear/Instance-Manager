@@ -295,7 +295,8 @@ namespace Instance_Manager
 
         private void toolHelp_Click(object sender, EventArgs e)
         {
-
+            Form Info = new Info();
+            Info.ShowDialog();
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)

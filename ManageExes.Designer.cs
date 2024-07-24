@@ -50,7 +50,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(785, 205);
+            tableLayoutPanel1.Size = new Size(960, 205);
             tableLayoutPanel1.TabIndex = 0;
             tableLayoutPanel1.Resize += tableLayoutPanel1_Resize;
             // 
@@ -74,7 +74,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScrollMargin = new Size(3, 3);
-            ClientSize = new Size(809, 257);
+            ClientSize = new Size(984, 257);
             Controls.Add(addExe);
             Controls.Add(tableLayoutPanel1);
             MaximizeBox = false;

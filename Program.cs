@@ -23,6 +23,7 @@ namespace Instance_Manager
 
             if (Debug)
                 AllocConsole();
+
             SetDriveVariables();
             Console.WriteLine("Loading environment variables...");
 
@@ -40,7 +41,8 @@ namespace Instance_Manager
             
             if (!File.Exists(usvfsdll))
             {
-                MessageBox.Show("Can't find "+usvfsdll,"Instance Manager - Fatal Error");
+                MessageBox.Show("Can't find "+usvfsdll+"\nGo to the VFSLauncher github or this tool's page to download and install.","Instance Manager - Fatal Error");
+
                 return;
             }
 
@@ -48,7 +50,7 @@ namespace Instance_Manager
 
             if (!File.Exists(VFSLauncher))
             {
-                MessageBox.Show("Can't find "+VFSLauncher, "Instance Manager - Fatal Error");
+                MessageBox.Show("Can't find "+VFSLauncher + "\nGo to the VFSLauncher github or this tool's page to download and install.", "Instance Manager - Fatal Error");
                 return;
             }
 

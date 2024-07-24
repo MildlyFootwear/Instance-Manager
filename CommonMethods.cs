@@ -116,13 +116,14 @@ namespace Instance_Manager
             if (!Directory.Exists(Settings.Default.ProfilesDirectory))
             {
                 Directory.CreateDirectory(Settings.Default.ProfilesDirectory);
-                Console.WriteLine("Built profiles directory.");
+                Console.WriteLine("Created profiles directory.");
             }
             if (!Directory.EnumerateDirectories(Settings.Default.ProfilesDirectory).Any())
             {
-                Directory.CreateDirectory(Settings.Default.ProfilesDirectory + "\\Profile1");
-                Settings.Default.ActiveProfile = "Profile1";
+                Directory.CreateDirectory(Settings.Default.ProfilesDirectory + "\\Default");
+                Settings.Default.ActiveProfile = "Default";
                 Settings.Default.Save();
+                MessageBox.Show("No profiles found. Created default profile.","Instance Manager");
                 Console.WriteLine("Created default profile.");
             }
 
@@ -137,7 +138,7 @@ namespace Instance_Manager
             {
                 CurrentProfileList += prof + ", ";
             }
-            Console.WriteLine(CurrentProfileList+"\n");
+            Console.WriteLine(CurrentProfileList.Substring(0, CurrentProfileList.Length-2)+".\n");
 
         }
 
@@ -177,7 +178,13 @@ namespace Instance_Manager
                 foreach (var line in lines)
                 {
                     DirectoryLinks.Add(line);
+                    string[] links = line.Split(";");
                     Console.WriteLine(line.Replace(";"," to "));
+                    if (!Directory.Exists(ReplaceVariables(links[0])))
+                        MessageBox.Show("Directory\n" + ReplaceVariables(links[0])+"\nfor link\n"+line+"\nDoes not exist.");
+
+                    if (!Directory.Exists(ReplaceVariables(links[1])))
+                        MessageBox.Show("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
                 }
             }
         }
@@ -213,7 +220,7 @@ namespace Instance_Manager
             {
                 CurrentExeList += exe + ", ";
             }
-            Console.WriteLine(CurrentExeList);
+            Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length-2)+".\n");
 
         }
 
@@ -228,7 +235,7 @@ namespace Instance_Manager
         {
             ProfileExes.Add(amend);
             SaveProfileExes();
-            Console.WriteLine("\nAmmended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt", ProfileExes);
+            Console.WriteLine("\nAmmended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt\n");
         }
 
         public static void LaunchExe()
@@ -293,6 +300,7 @@ namespace Instance_Manager
                 
                 if (argspresent)
                 {
+                    Thread.Sleep(1000);
                     Console.WriteLine("Launching "+exe);
                     File.WriteAllText(envEXELOC + "\\usvfs\\launchargs.txt", exe[1]);
                     Thread.Sleep(1000);
