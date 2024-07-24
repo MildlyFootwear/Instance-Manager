@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Instance_Manager.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SavedPosition" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">1, 1</Value>
+    </Setting>
+    <Setting Name="ActiveProfile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NotInitialized</Value>
+    </Setting>
+    <Setting Name="ProfilesDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NotInitialized</Value>
+    </Setting>
+    <Setting Name="CustomProfilesDirectory" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SavedSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1, 1</Value>
+    </Setting>
+    <Setting Name="SavedExe" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
