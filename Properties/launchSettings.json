@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Instance-Manager": {
+      "commandName": "Project",
+      "commandLineArgs": "-debug",
+      "hotReloadEnabled": false
+    }
+  }
+}

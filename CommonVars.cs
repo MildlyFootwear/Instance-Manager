@@ -15,6 +15,7 @@ namespace Instance_Manager
         public static List<string> ProfileExes = [];
 
         public static bool QuickLaunch = false;
+        public static bool Debug = false;
 
         public static string SelectedExe = "";
         public static string ProfilePath = "";

@@ -4,6 +4,7 @@ using static Instance_Manager.CommonVars;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections;
+using System.Collections.Immutable;
 
 namespace Instance_Manager
 {
@@ -11,12 +12,17 @@ namespace Instance_Manager
     {
         
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             // To customize application configuration such as set high DPI settings or default font,
             
             ApplicationConfiguration.Initialize();
 
+            if (args.ToImmutableList().IndexOf("-debug") != -1)
+                Debug = true;
+
+            if (Debug)
+                AllocConsole();
             SetDriveVariables();
             Console.WriteLine("Loading environment variables...");
 

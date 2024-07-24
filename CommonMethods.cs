@@ -15,6 +15,8 @@ namespace Instance_Manager
     public class CommonMethods
     {
 
+        [DllImport("kernel32.dll")] public static extern bool AllocConsole();
+
         public static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
         {
             // Get information about the source directory
