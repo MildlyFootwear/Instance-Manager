@@ -19,13 +19,15 @@ namespace Instance_Manager
             
             ApplicationConfiguration.Initialize();
 
-            if (args.ToImmutableList().IndexOf("-debug") != -1)
+            ImmutableList<string> argsL = args.ToImmutableList();
+
+            if (argsL.IndexOf("-debug") != -1)
                 Debug = true;
 
             if (Debug)
                 AllocConsole();
 
-            if (args.ToImmutableList().IndexOf("-quicklaunch") != -1)
+            if (argsL.IndexOf("-quicklaunch") != -1)
                 QuickLaunch = true;
 
             SetDriveVariables();
@@ -86,7 +88,8 @@ namespace Instance_Manager
 
                 foreach (string arg in args)
                 {
-                    if (Path.GetExtension(arg) == "exe")
+                    Console.WriteLine(arg);
+                    if (Path.GetExtension(arg) == ".exe")
                     {
                         if (File.Exists(arg))
                         {
@@ -118,8 +121,18 @@ namespace Instance_Manager
                         Form QuickExe = new QuickExe();
                         QuickExe.ShowDialog();
                     } else { MessageBox.Show("No executables to show for " + Settings.Default.ActiveProfile); }
+                } else
+                {
+                    index = argsL.IndexOf(SelectedExe) + 1;
+                    SelectedExe += ";";
+                    while (index < argsL.Count)
+                    {
+                        SelectedExe += " "+argsL[index];
+                        index++;
+                    }
                 }
 
+                if (QuickLaunch)
                 LaunchExe();
 
             } else

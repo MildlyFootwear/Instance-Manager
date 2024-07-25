@@ -42,6 +42,7 @@ namespace Instance_Manager.UtilityForms
 
         private void QuickExe_FormClosing(object sender, FormClosingEventArgs e)
         {
+            QuickLaunch = false;
             Application.Exit();
         }
     }

@@ -21,6 +21,7 @@ namespace Instance_Manager.UtilityForms
         {
             this.Text = "Select Profile";
             this.comboBox1.DataSource = Profiles;
+            this.comboBox1.SelectedIndex = Profiles.IndexOf(Settings.Default.ActiveProfile);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,6 +34,7 @@ namespace Instance_Manager.UtilityForms
 
         private void QuickProfile_FormClosing(object sender, FormClosingEventArgs e)
         {
+            QuickLaunch = false;
             Application.Exit();
         }
     }

@@ -295,27 +295,29 @@ namespace Instance_Manager.Methods
                     instruct.Close();
                 }
 
+                string launchargs = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[0] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff");
+
+                Process VFS = new Process();
+                VFS.StartInfo.FileName = envEXELOC + "\\usvfs\\VFSLauncher.exe";
+
                 if (argspresent)
                 {
-                    Thread.Sleep(1000);
-                    Console.WriteLine("Launching " + exe);
+                    Console.WriteLine("Launching " + exe[0] + " withs args " + exe[1]);
                     File.WriteAllText(envEXELOC + "\\usvfs\\launchargs.txt", exe[1]);
-                    Thread.Sleep(1000);
-                    Process VFS = new Process();
-                    VFS.StartInfo.FileName = envEXELOC + "\\usvfs\\VFSLauncher.exe";
-                    VFS.StartInfo.Arguments = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[0] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff") + " \"" + envEXELOC + "\\usvfs\\launchargs.txt" + "\"";
-                    Console.WriteLine("VFSLauncher path " + VFS.StartInfo.FileName + " Command args " + VFS.StartInfo.Arguments);
-                    VFS.Start();
+                    launchargs += " \"" + envEXELOC + "\\usvfs\\launchargs.txt" + "\"";
                 }
                 else
                 {
-                    Thread.Sleep(1000);
-                    Process VFS = new Process();
-                    VFS.StartInfo.FileName = envEXELOC + "\\usvfs\\VFSLauncher.exe";
-                    VFS.StartInfo.Arguments = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[0] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff");
-                    Console.WriteLine("VFSLauncher path " + VFS.StartInfo.FileName + " Command args " + VFS.StartInfo.Arguments);
-                    VFS.Start();
+                    launchargs += " noargs";
+                    Console.WriteLine("Launching " + exe[0]);
                 }
+
+                if (CommonVars.Debug)
+                    launchargs += " debug ";
+
+                VFS.StartInfo.Arguments = launchargs;
+                Console.WriteLine("VFSLauncher path " + VFS.StartInfo.FileName + " Command args " + VFS.StartInfo.Arguments);
+                VFS.Start();
             }
             else
             {
