@@ -47,7 +47,7 @@ namespace Instance_Manager
 
                 void DeleteProfile(object sender, EventArgs e)
                 {
-                    if (MessageBox.Show("Are you sure you want to delete profile " + Profile + "?\nAll subfolders and files will be deleted too.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (MessageBox.Show("Are you sure you want to delete profile " + Profile + "?\nAll subfolders and files will be deleted.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         Directory.Delete(Settings.Default.ProfilesDirectory + "\\" + Profile, true);
                         LoadProfiles();
@@ -101,11 +101,7 @@ namespace Instance_Manager
         private void ProfileManager_Load(object sender, EventArgs e)
         {
             PopulateManager();
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            Text = ToolName+ " - Manage Profiles";
         }
 
         private void AddProfile_Click(object sender, EventArgs e)
@@ -116,9 +112,9 @@ namespace Instance_Manager
             if (TextInputString != "")
             {
                 Directory.CreateDirectory(Settings.Default.ProfilesDirectory+"\\"+TextInputString);
+                LoadProfiles();
+                PopulateManager();
             }
-            LoadProfiles();
-            PopulateManager();
         }
     }
 }
