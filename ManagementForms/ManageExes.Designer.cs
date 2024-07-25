@@ -52,7 +52,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.Size = new Size(960, 205);
             tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Resize += tableLayoutPanel1_Resize;
             // 
             // ExeBrowserDialog
             // 
@@ -77,15 +76,15 @@
             ClientSize = new Size(984, 257);
             Controls.Add(addExe);
             Controls.Add(tableLayoutPanel1);
+            DoubleBuffered = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ManageExes";
             RightToLeft = RightToLeft.No;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "ManageExes";
             Load += ManageExes_Load;
-            SizeChanged += ManageExes_SizeChanged;
-            Resize += ManageExes_Resize;
             ResumeLayout(false);
             PerformLayout();
         }

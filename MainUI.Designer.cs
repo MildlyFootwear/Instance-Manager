@@ -127,11 +127,11 @@
             // 
             LinkButton.Anchor = AnchorStyles.Top;
             LinkButton.AutoSize = true;
-            LinkButton.Location = new Point(427, 46);
+            LinkButton.Location = new Point(421, 46);
             LinkButton.Name = "LinkButton";
-            LinkButton.Size = new Size(90, 25);
+            LinkButton.Size = new Size(98, 25);
             LinkButton.TabIndex = 5;
-            LinkButton.Text = "Link Directory";
+            LinkButton.Text = "Link Directories";
             LinkButton.UseVisualStyleBackColor = true;
             LinkButton.Click += LinkButton_Click;
             // 
@@ -215,6 +215,7 @@
             Controls.Add(ProfilesBox);
             Controls.Add(ProfilesLabel);
             Controls.Add(tableLayoutPanel1);
+            DoubleBuffered = true;
             MinimumSize = new Size(600, 210);
             Name = "MainUI";
             StartPosition = FormStartPosition.CenterScreen;

@@ -60,7 +60,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(193, 450);
+            ClientSize = new Size(193, 86);
             Controls.Add(button1);
             Controls.Add(comboBox1);
             MaximizeBox = false;

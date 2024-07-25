@@ -24,6 +24,7 @@ namespace Instance_Manager
         void RefreshExes()
         {
             int row = 0;
+            tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel1.Controls.Clear();
             exelabels.Clear();
             foreach (string exe in ProfileExes)
@@ -93,6 +94,7 @@ namespace Instance_Manager
                 row++;
             }
             tableLayoutPanel1.Controls.Add(new Label(), 0, row);
+            tableLayoutPanel1.ResumeLayout();
 
         }
 

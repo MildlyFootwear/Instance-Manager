@@ -261,6 +261,12 @@ namespace Instance_Manager.Methods
                         argspresent = true;
                     }
                 }
+                if (!File.Exists(exe[0]))
+                {
+                    MessageBox.Show("Could not locate executable.\n" + exe[0], ToolName);
+                    return;
+                }
+
                 if (File.Exists(envEXELOC + "\\usvfs\\VFSinstructions.txt"))
                     File.Delete(envEXELOC + "\\usvfs\\VFSinstructions.txt");
 

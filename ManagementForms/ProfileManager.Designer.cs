@@ -70,6 +70,7 @@
             ClientSize = new Size(411, 216);
             Controls.Add(AddProfile);
             Controls.Add(tableLayoutPanel1);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;

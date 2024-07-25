@@ -39,6 +39,7 @@ namespace Instance_Manager
 
         private void RefreshList()
         {
+            tableLayoutPanel1.SuspendLayout();
             RefreshProfiles();
             Console.WriteLine("\nRefreshing lists\n");
             if (Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile) == false)
@@ -159,6 +160,7 @@ namespace Instance_Manager
                 row++;
             }
             tableLayoutPanel1.Controls.Add(new Label(), 0, row);
+            tableLayoutPanel1.ResumeLayout();
             Console.WriteLine("Refreshed lists.");
         }
 

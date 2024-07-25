@@ -23,6 +23,7 @@ namespace Instance_Manager
 
         void PopulateManager()
         {
+            this.tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel1.Controls.Clear();
             int row = 0;
             foreach (string Profile in Profiles)
@@ -95,6 +96,7 @@ namespace Instance_Manager
                 row++;
             }
             tableLayoutPanel1.Controls.Add(new Label(), 0, row);
+            this.tableLayoutPanel1.ResumeLayout();
         }
         private void ProfileManager_Load(object sender, EventArgs e)
         {

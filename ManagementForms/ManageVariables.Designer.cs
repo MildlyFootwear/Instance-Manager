@@ -52,6 +52,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(660, 222);
             Controls.Add(tableLayoutPanel1);
+            DoubleBuffered = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ManageVariables";
