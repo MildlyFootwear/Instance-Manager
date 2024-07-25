@@ -39,7 +39,7 @@ namespace Instance_Manager
 
         private void ManageVariables_Load(object sender, EventArgs e)
         {
-            this.Text = "Instance Manager - " + Settings.Default.ActiveProfile+" - Manage Variables";
+            this.Text = ToolName + " - " + Settings.Default.ActiveProfile+" - Manage Variables";
             RefreshVars();
         }
 

@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Instance_Manager.CommonMethods">
+    <Using Include="Instance_Manager.Methods.CommonMethods">
       <Static>True</Static>
     </Using>
     <Using Include="Instance_Manager.CommonVars">

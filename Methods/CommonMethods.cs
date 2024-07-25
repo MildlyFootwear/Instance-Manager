@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Windows.Forms.VisualStyles;
 
-namespace Instance_Manager
+namespace Instance_Manager.Methods
 {
     public class CommonMethods
     {
@@ -66,11 +66,12 @@ namespace Instance_Manager
                 {
                     SystemVariables.Add(varLabel);
                     SystemVariablesValues.Add(d.Name.Substring(0, 2));
-                } else
-                {
-                    MessageBox.Show("Variable "+varLabel+" is not free to assign for drive "+d.Name);
                 }
-                
+                else
+                {
+                    MessageBox.Show("Variable " + varLabel + " is not free to assign for drive " + d.Name);
+                }
+
             }
         }
 
@@ -81,7 +82,7 @@ namespace Instance_Manager
             int index = 0;
             foreach (string s in SystemVariablesValues)
             {
-                Console.WriteLine("Checking "+path+" for " + s + " to replace with" + SystemVariables[index]);
+                Console.WriteLine("Checking " + path + " for " + s + " to replace with" + SystemVariables[index]);
                 path = path.Replace(s, SystemVariables[index]);
                 index++;
             }
@@ -92,7 +93,7 @@ namespace Instance_Manager
 
         public static string ReplaceVariables(string path)
         {
-            Console.WriteLine("\nReplacing variables for "+path);
+            Console.WriteLine("\nReplacing variables for " + path);
 
             int index = 0;
 
@@ -102,7 +103,7 @@ namespace Instance_Manager
                 path = path.Replace(s, SystemVariablesValues[index]);
                 index++;
             }
-                
+
             Console.WriteLine();
             return path;
         }
@@ -123,7 +124,7 @@ namespace Instance_Manager
                 Directory.CreateDirectory(Settings.Default.ProfilesDirectory + "\\Default");
                 Settings.Default.ActiveProfile = "Default";
                 Settings.Default.Save();
-                MessageBox.Show("No profiles found. Created default profile.","Instance Manager");
+                MessageBox.Show("No profiles found. Created default profile.", ToolName);
                 Console.WriteLine("Created default profile.");
             }
 
@@ -138,7 +139,7 @@ namespace Instance_Manager
             {
                 CurrentProfileList += prof + ", ";
             }
-            Console.WriteLine(CurrentProfileList.Substring(0, CurrentProfileList.Length-2)+".\n");
+            Console.WriteLine(CurrentProfileList.Substring(0, CurrentProfileList.Length - 2) + ".\n");
 
         }
 
@@ -160,7 +161,7 @@ namespace Instance_Manager
 
             Settings.Default.ActiveProfile = prof;
             Settings.Default.Save();
-            Console.WriteLine("Updated ActiveProfile to " + Settings.Default.ActiveProfile + ". Passed profile was " + prof+"\n");
+            Console.WriteLine("Updated ActiveProfile to " + Settings.Default.ActiveProfile + ". Passed profile was " + prof + "\n");
             LoadProfileLinks();
             LoadProfileExes();
 
@@ -170,7 +171,7 @@ namespace Instance_Manager
         {
             Console.WriteLine();
             string ProfileLinks = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Links.txt";
-            Console.WriteLine("\nLoading links for "+ Settings.Default.ActiveProfile+"\n");
+            Console.WriteLine("\nLoading links for " + Settings.Default.ActiveProfile + "\n");
             DirectoryLinks.Clear();
             if (File.Exists(ProfileLinks))
             {
@@ -179,9 +180,9 @@ namespace Instance_Manager
                 {
                     DirectoryLinks.Add(line);
                     string[] links = line.Split(";");
-                    Console.WriteLine(line.Replace(";"," to "));
+                    Console.WriteLine(line.Replace(";", " to "));
                     if (!Directory.Exists(ReplaceVariables(links[0])))
-                        MessageBox.Show("Directory\n" + ReplaceVariables(links[0])+"\nfor link\n"+line+"\nDoes not exist.");
+                        MessageBox.Show("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
 
                     if (!Directory.Exists(ReplaceVariables(links[1])))
                         MessageBox.Show("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
@@ -189,18 +190,18 @@ namespace Instance_Manager
             }
         }
 
-        public static void SaveLinks()
+        public static void SaveProfileLinks()
         {
             Console.WriteLine();
             string ProfileLinks = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Links.txt";
-            string SavedLinks = "Saving links for "+Settings.Default.ActiveProfile+"\n";
+            string SavedLinks = "Saving links for " + Settings.Default.ActiveProfile + "\n";
             foreach (string str in DirectoryLinks)
             {
-                SavedLinks += (str + "\n");
+                SavedLinks += str + "\n";
             }
             File.WriteAllLines(ProfileLinks, DirectoryLinks);
 
-            Console.WriteLine(SavedLinks +"\n");
+            Console.WriteLine(SavedLinks + "\n");
         }
 
         public static void LoadProfileExes()
@@ -215,19 +216,19 @@ namespace Instance_Manager
                     ProfileExes.Add(exe);
                 }
             }
-            string CurrentExeList = Settings.Default.ActiveProfile+"'s EXEs: ";
+            string CurrentExeList = Settings.Default.ActiveProfile + "'s EXEs: ";
             foreach (string exe in ProfileExes)
             {
                 CurrentExeList += exe + ", ";
             }
-            Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length-2)+".\n");
+            Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length - 2) + ".\n");
 
         }
 
         public static void SaveProfileExes()
         {
             Console.WriteLine("\nSaving profile exes\n");
-            
+
             File.WriteAllLines(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt", ProfileExes);
         }
 
@@ -241,23 +242,18 @@ namespace Instance_Manager
         public static void LaunchExe()
         {
 
-            Console.WriteLine("\nAttempting to launch "+SelectedExe);
+            Console.WriteLine("\nAttempting to launch " + SelectedExe);
 
 
             if (Process.GetProcessesByName("VFSLauncher").Length == 0)
             {
                 bool argspresent = false;
                 bool colonpresent = false;
-                if (SelectedExe.IndexOf(";") != -1) 
+                if (SelectedExe.IndexOf(";") != -1)
                 {
                     colonpresent = true;
                 }
                 string[] exe = ReplaceVariables(SelectedExe).Split(";");
-                if (exe[0].ToLower().IndexOf("steam") != -1 && !QuickLaunch)
-                {
-                    MessageBox.Show("Selected executable "+exe[0] + "likely needs to be launched through Steam");
-                    return;
-                }
                 if (colonpresent)
                 {
                     if (exe[1] != "")
@@ -275,10 +271,10 @@ namespace Instance_Manager
                     {
                         string ReplacedLink = ReplaceVariables(link);
                         string[] linktolink = ReplacedLink.Split(";");
-                        
+
                         if (Directory.Exists(linktolink[0]) == false)
                         {
-                            MessageBox.Show(linktolink[0]+"\ninvolved in link"+link+"\ndoes not exist.\n\nLaunch cancelled.","Aborting Launch");
+                            MessageBox.Show(linktolink[0] + "\ninvolved in link" + link + "\ndoes not exist.\n\nLaunch cancelled.", "Aborting Launch");
                             return;
                         }
                         if (Directory.Exists(linktolink[1]) == false)
@@ -287,29 +283,31 @@ namespace Instance_Manager
                             return;
                         }
 
-                        if (link == DirectoryLinks[DirectoryLinks.Count-1])
+                        if (link == DirectoryLinks[DirectoryLinks.Count - 1])
                         {
                             instruct.Write(ReplacedLink);
-                        } else
+                        }
+                        else
                         {
                             instruct.Write(ReplacedLink + ";");
                         }
                     }
                     instruct.Close();
                 }
-                
+
                 if (argspresent)
                 {
                     Thread.Sleep(1000);
-                    Console.WriteLine("Launching "+exe);
+                    Console.WriteLine("Launching " + exe);
                     File.WriteAllText(envEXELOC + "\\usvfs\\launchargs.txt", exe[1]);
                     Thread.Sleep(1000);
                     Process VFS = new Process();
-                    VFS.StartInfo.FileName = envEXELOC+"\\usvfs\\VFSLauncher.exe";
-                    VFS.StartInfo.Arguments = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[0] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff") + " \""+envEXELOC + "\\usvfs\\launchargs.txt"+"\"";
+                    VFS.StartInfo.FileName = envEXELOC + "\\usvfs\\VFSLauncher.exe";
+                    VFS.StartInfo.Arguments = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[0] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff") + " \"" + envEXELOC + "\\usvfs\\launchargs.txt" + "\"";
                     Console.WriteLine("VFSLauncher path " + VFS.StartInfo.FileName + " Command args " + VFS.StartInfo.Arguments);
                     VFS.Start();
-                } else
+                }
+                else
                 {
                     Thread.Sleep(1000);
                     Process VFS = new Process();
@@ -318,7 +316,8 @@ namespace Instance_Manager
                     Console.WriteLine("VFSLauncher path " + VFS.StartInfo.FileName + " Command args " + VFS.StartInfo.Arguments);
                     VFS.Start();
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Another program is already using our virtual file system.");
             }

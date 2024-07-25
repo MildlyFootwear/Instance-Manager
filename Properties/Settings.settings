@@ -20,5 +20,8 @@
     <Setting Name="SavedExe" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ToolName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Instance Manager</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

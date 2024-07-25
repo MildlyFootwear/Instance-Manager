@@ -10,6 +10,8 @@ namespace Instance_Manager
     public class CommonVars
     {
 
+        public static string ToolName = "Instance Manager";
+
         public static List<string> Profiles = ["Empty"];
         public static List<string> DirectoryLinks = [];
         public static List<string> ProfileExes = [];

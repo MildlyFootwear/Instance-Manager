@@ -1,10 +1,11 @@
 using Instance_Manager.Properties;
-using static Instance_Manager.CommonMethods;
+using static Instance_Manager.Methods.CommonMethods;
 using static Instance_Manager.CommonVars;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections;
 using System.Collections.Immutable;
+using Instance_Manager.UtilityForms;
 
 namespace Instance_Manager
 {
@@ -24,6 +25,9 @@ namespace Instance_Manager
             if (Debug)
                 AllocConsole();
 
+            if (args.ToImmutableList().IndexOf("-quicklaunch") != -1)
+                QuickLaunch = true;
+
             SetDriveVariables();
             Console.WriteLine("Loading environment variables...");
 
@@ -41,8 +45,9 @@ namespace Instance_Manager
             
             if (!File.Exists(usvfsdll))
             {
-                MessageBox.Show("Can't find "+usvfsdll+"\nGo to the VFSLauncher github or this tool's page to download and install.","Instance Manager - Fatal Error");
-
+                if (MessageBox.Show("Can't find "+usvfsdll+"\nPress OK to open up a link to the github repository where you can download the required files.", ToolName + " - Fatal Error") == DialogResult.OK)
+                    System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
+                
                 return;
             }
 
@@ -50,7 +55,7 @@ namespace Instance_Manager
 
             if (!File.Exists(VFSLauncher))
             {
-                MessageBox.Show("Can't find "+VFSLauncher + "\nGo to the VFSLauncher github or this tool's page to download and install.", "Instance Manager - Fatal Error");
+                if (MessageBox.Show("Can't find "+VFSLauncher + "\nPress OK to open up a link to the github repository where you can download the required files.", ToolName + " - Fatal Error") == DialogResult.OK)
                 return;
             }
 
@@ -63,20 +68,73 @@ namespace Instance_Manager
 
             if (Settings.Default.ActiveProfile == "NotInitialized")
             {
-                Settings.Default.ActiveProfile = "Profile1";
+                Settings.Default.ActiveProfile = "Default1";
                 Settings.Default.Save();
                 Console.WriteLine("Initialized active profile.");
             }
 
             LoadProfiles();
 
-            if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile))
-                Settings.Default.ActiveProfile = Profiles[0];
 
-            LoadProfileExes();
+            if (QuickLaunch)
+            {
 
-            Form ProfileM = new ProfileManager();
-            Application.Run(new MainUI());
+                Console.WriteLine("\nQuick launching\n");
+
+                string passedexe = null;
+                string passedprofile = null;
+
+                foreach (string arg in args)
+                {
+                    if (Path.GetExtension(arg) == "exe")
+                    {
+                        if (File.Exists(arg))
+                        {
+                            passedexe = arg;
+                            Console.WriteLine("Found exe "+arg+" in args.");
+                            SelectedExe = arg;
+                        }
+                        
+                    } else if (Directory.Exists(Settings.Default.ProfilesDirectory+"\\"+arg))
+                    {
+                        passedprofile=arg;
+                    }
+                }
+
+                if (passedprofile == null)
+                {
+                    Console.WriteLine("\nShowing quick profile");
+                    Form QuickProf = new QuickProfile();
+                    QuickProf.ShowDialog();
+                }
+
+                LoadProfileLinks();
+
+                if (passedexe == null)
+                {
+                    LoadProfileExes();
+                    if (ProfileExes.Count > 0)
+                    {
+                        Form QuickExe = new QuickExe();
+                        QuickExe.ShowDialog();
+                    } else { MessageBox.Show("No executables to show for " + Settings.Default.ActiveProfile); }
+                }
+
+                LaunchExe();
+
+            } else
+            {
+                if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile))
+                    Settings.Default.ActiveProfile = Profiles[0];
+
+                LoadProfileExes();
+
+                Form ProfileM = new ProfileManager();
+                Application.Run(new MainUI());
+            }
+
+            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(10000); }
+
         }
     }
 }

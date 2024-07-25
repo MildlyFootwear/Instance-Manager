@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Instance_Manager.Properties;
 using static Instance_Manager.CommonVars;
-using static Instance_Manager.CommonMethods;
+using static Instance_Manager.Methods.CommonMethods;
 
 namespace Instance_Manager
 {

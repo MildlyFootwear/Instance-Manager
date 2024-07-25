@@ -94,5 +94,17 @@ namespace Instance_Manager.Properties {
                 this["SavedExe"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Instance Manager")]
+        public string ToolName {
+            get {
+                return ((string)(this["ToolName"]));
+            }
+            set {
+                this["ToolName"] = value;
+            }
+        }
     }
 }

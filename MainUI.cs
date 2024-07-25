@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Instance_Manager.CommonVars;
-using static Instance_Manager.CommonMethods;
+using static Instance_Manager.Methods.CommonMethods;
 using static Microsoft.VisualBasic.Interaction;
 using Microsoft.Win32;
 
@@ -46,7 +46,7 @@ namespace Instance_Manager
                 Settings.Default.ActiveProfile = Profiles[0];
                 Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
             }
-            this.Text = "Instance Manager - " + Settings.Default.ActiveProfile;
+            this.Text = ToolName +" - " + Settings.Default.ActiveProfile;
             LoadProfileLinks();
             int row = 1;
             tableLayoutPanel1.Controls.Clear();
@@ -83,7 +83,7 @@ namespace Instance_Manager
                     if (TextInputString == "Remove")
                     {
                         DirectoryLinks.Remove(link);
-                        SaveLinks();
+                        SaveProfileLinks();
                         RefreshList();
                     }
                     else if (TextInputString != splitlink[0] && TextInputString != "Cancel" && TextInputString != "")
@@ -91,7 +91,7 @@ namespace Instance_Manager
                         if (Directory.Exists(ReplaceVariables(TextInputString)))
                         {
                             DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
-                            SaveLinks();
+                            SaveProfileLinks();
                             RefreshList();
                         }
                         else
@@ -99,7 +99,7 @@ namespace Instance_Manager
                             if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Continue save?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
                                 DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
-                                SaveLinks();
+                                SaveProfileLinks();
                                 RefreshList();
                             }
 
@@ -120,7 +120,7 @@ namespace Instance_Manager
                     if (TextInputString == "Remove")
                     {
                         DirectoryLinks.Remove(link);
-                        SaveLinks();
+                        SaveProfileLinks();
                         RefreshList();
                     }
                     else if (TextInputString != splitlink[1] && TextInputString != "Cancel" && TextInputString != "")
@@ -128,7 +128,7 @@ namespace Instance_Manager
                         if (Directory.Exists(ReplaceVariables(TextInputString)))
                         {
                             DirectoryLinks[DirectoryLinks.IndexOf(link)] = splitlink[0] + ";" + TextInputString;
-                            SaveLinks();
+                            SaveProfileLinks();
                             RefreshList();
                         }
                         else
@@ -137,7 +137,7 @@ namespace Instance_Manager
                             if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Continue save?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
                                 DirectoryLinks[DirectoryLinks.IndexOf(link)] = splitlink[0] + ";" + TextInputString;
-                                SaveLinks();
+                                SaveProfileLinks();
                                 RefreshList();
                             }
                             else { Console.WriteLine("Canceling link edit for " + link); }
@@ -158,7 +158,7 @@ namespace Instance_Manager
                 Console.WriteLine("Added " + Source.Text + " to column 0, row " + row + ". Added " + Destination.Text + " to column 1, row " + row);
                 row++;
             }
-
+            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
             Console.WriteLine("Refreshed lists.");
         }
 
@@ -253,7 +253,7 @@ namespace Instance_Manager
                 {
                     Console.WriteLine(DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
                     DirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + ";" + DestinationBrowserDialog.SelectedPath));
-                    SaveLinks();
+                    SaveProfileLinks();
                     RefreshList();
                 }
             }
@@ -281,14 +281,14 @@ namespace Instance_Manager
         private void toolManageVariables_Click(object sender, EventArgs e)
         {
             Form VarM = new ManageVariables();
-            VarM.Text = "Instance Manager - " + Settings.Default.ActiveProfile + " - Manage Variables";
+            VarM.Text = ToolName +" - " + Settings.Default.ActiveProfile + " - Manage Variables";
             VarM.ShowDialog();
         }
 
         private void toolManageExes_Click(object sender, EventArgs e)
         {
             Form ExeM = new ManageExes();
-            ExeM.Text = "Instance Manager - " + Settings.Default.ActiveProfile + " - Manage Executables";
+            ExeM.Text = ToolName + " - " + Settings.Default.ActiveProfile + " - Manage Executables";
             ExeM.ShowDialog();
             RefreshExes();
         }
