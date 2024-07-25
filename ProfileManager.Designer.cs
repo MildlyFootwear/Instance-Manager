@@ -36,7 +36,6 @@
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.AutoScroll = true;
-            tableLayoutPanel1.AutoSize = true;
             tableLayoutPanel1.BackColor = SystemColors.Control;
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 4;
@@ -68,7 +67,6 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
             ClientSize = new Size(411, 216);
             Controls.Add(AddProfile);
             Controls.Add(tableLayoutPanel1);

@@ -92,13 +92,13 @@ namespace Instance_Manager
 
         public static string ReplaceVariables(string path)
         {
-            Console.WriteLine("\nReplacing variables");
+            Console.WriteLine("\nReplacing variables for "+path);
 
             int index = 0;
 
             foreach (string s in SystemVariables)
             {
-                Console.WriteLine("Checking " + path + " for " + s + " to replace with" + SystemVariablesValues[index]);
+                Console.WriteLine("Checking for " + s + " to replace with " + SystemVariablesValues[index]);
                 path = path.Replace(s, SystemVariablesValues[index]);
                 index++;
             }

@@ -34,6 +34,7 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Add(varval, 1, row);
                 row++;
             }
+            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
         }
 
         private void ManageVariables_Load(object sender, EventArgs e)

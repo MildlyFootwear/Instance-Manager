@@ -94,6 +94,7 @@ namespace Instance_Manager
 
                 row++;
             }
+            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
         }
         private void ProfileManager_Load(object sender, EventArgs e)
         {

@@ -92,6 +92,7 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Add(remove, 3, row);
                 row++;
             }
+            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
 
         }
 
