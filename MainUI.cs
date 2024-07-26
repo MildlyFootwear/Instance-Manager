@@ -283,7 +283,7 @@ namespace Instance_Manager
         private void toolManageVariables_Click(object sender, EventArgs e)
         {
             Form VarM = new ManageVariables();
-            VarM.Text = ToolName +" - " + Settings.Default.ActiveProfile + " - Manage Variables";
+            VarM.Text = ToolName +" - Manage Variables";
             VarM.ShowDialog();
         }
 
