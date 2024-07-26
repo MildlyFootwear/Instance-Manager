@@ -111,9 +111,15 @@ namespace Instance_Manager
             TextIn.ShowDialog();
             if (TextInputString != "")
             {
-                Directory.CreateDirectory(Settings.Default.ProfilesDirectory+"\\"+TextInputString);
-                LoadProfiles();
-                PopulateManager();
+                if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + TextInputString))
+                {
+                    Directory.CreateDirectory(Settings.Default.ProfilesDirectory + "\\" + TextInputString);
+                    LoadProfiles();
+                    PopulateManager();
+                }
+                else { MessageBox.Show("Profile "+TextInputString+" already exists."); }
+                
+                
             }
         }
     }
