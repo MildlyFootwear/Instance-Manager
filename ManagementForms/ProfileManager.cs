@@ -22,7 +22,8 @@ namespace Instance_Manager
             InitializeComponent();
         }
 
-        int CreateButtons = 20;
+        int CreateButtons = 10;
+        List<Label> Labels = new List<Label>();
         List<Button> deleteButtonList = new List<Button>();
         List<Button> renameButtonList = new List<Button>();
         List<Button> duplicateButtonList = new List<Button>();
@@ -103,101 +104,46 @@ namespace Instance_Manager
                 duplicateProfile.Click += DuplicateProfile;
                 duplicateButtonList.Add(duplicateProfile);
 
+                Label profileName = new();
+                profileName.AutoSize = true;
+                profileName.TextAlign = ContentAlignment.MiddleLeft;
+                profileName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+                Labels.Add(profileName);
             }
 
+            tableLayoutPanel1.Controls.Add(new Label(), 0, deleteButtonList.Count);
 
         }
 
         void PopulateManager()
         {
-            this.tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel1.Controls.Clear();
             int row = 0;
-            foreach (string Profile in Profiles)
+            while(row < CreateButtons && row < Profiles.Count)
             {
+                string Profile = Profiles[row];
 
-                if (row == 30)
-                    break;
-
-                Label profileName = new();
-                profileName.Text = Profile;
-                profileName.AutoSize = true;
-                profileName.TextAlign = ContentAlignment.MiddleLeft;
-                profileName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-
-                /*
-                Button renameProfile = new();
-                Button duplicateProfile = new();
-                Button deleteProfile = new();
-                renameProfile.Text = "Rename";
-                duplicateProfile.Text = "Duplicate";
-                deleteProfile.Text = "Delete";
-                renameProfile.AutoSize = true;
-                duplicateProfile.AutoSize = true;
-                deleteProfile.AutoSize = true;
-                deleteProfile.BackColor = Color.DarkRed;
-                deleteProfile.ForeColor = Color.White;
-
-                void DeleteProfile(object sender, EventArgs e)
-                {
-
-                    if (MessageBox.Show("Are you sure you want to delete profile " + Profile + "?\nAll subfolders and files will be deleted.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    {
-                        Directory.Delete(Settings.Default.ProfilesDirectory + "\\" + Profile, true);
-                        LoadProfiles();
-                        PopulateManager();
-                        Console.WriteLine("Deleting profile " + Profile);
-                    }
-
-                }
-
-                void RenameProfile(object sender, EventArgs e)
-                {
-                    Form TextIn = new TextInput();
-                    TextIn.Text = "Rename Profile "+Profile;
-                    TextIn.ShowDialog();
-                    if (TextInputString != "")
-                    {
-                        Directory.Move(Settings.Default.ProfilesDirectory + "\\" + Profile, Settings.Default.ProfilesDirectory + "\\" + TextInputString);
-                        Console.WriteLine("Renamed "+Profile+" to "+ TextInputString);
-                        LoadProfiles();
-                        PopulateManager();
-                    }
-                }
-
-                void DuplicateProfile(object sender, EventArgs e)
-                {
-                    Form TextIn = new TextInput();
-                    TextIn.Text = "Duplicate Profile Name";
-                    TextIn.ShowDialog();
-                    if (TextInputString != "")
-                    {
-                        CopyDirectory(Settings.Default.ProfilesDirectory + "\\" + Profile, Settings.Default.ProfilesDirectory + "\\" + TextInputString, true);
-                        LoadProfiles();
-                        PopulateManager();
-                    }
-                }
-
-                deleteProfile.Click += DeleteProfile;
-                renameProfile.Click += RenameProfile;
-                duplicateProfile.Click += DuplicateProfile;
-                
-                tableLayoutPanel1.Controls.Add(renameProfile, 1, row);
-                tableLayoutPanel1.Controls.Add(duplicateProfile, 2, row);
-                tableLayoutPanel1.Controls.Add(deleteProfile, 3, row);
-
-                */
-
-                tableLayoutPanel1.Controls.Add(profileName, 0, row);
+                Labels[row].Text = Profile;
+                tableLayoutPanel1.Controls.Add(Labels[row], 0, row);
                 tableLayoutPanel1.Controls.Add(renameButtonList[row], 1, row);
                 tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 2, row);
                 tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
 
                 row++;
+
             }
-            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
-            this.tableLayoutPanel1.ResumeLayout();
+            if (row < CreateButtons)
+            {
+                tableLayoutPanel1.Controls.Add(new Label(), 0, row);
+            }
+
+            tableLayoutPanel1.ResumeLayout();
+
+            Refresh();
+
         }
+
         private void ProfileManager_Load(object sender, EventArgs e)
         {
             InitButtons();
@@ -226,8 +172,6 @@ namespace Instance_Manager
                     PopulateManager();
                 }
                 else { MessageBox.Show("Profile "+TextInputString+" already exists."); }
-                
-                
             }
         }
     }
