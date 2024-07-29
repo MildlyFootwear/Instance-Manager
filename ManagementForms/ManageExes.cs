@@ -30,7 +30,6 @@ namespace Instance_Manager
         {
             int row = 0;
             tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel1.Controls.Clear();
             foreach (string exe in ProfileExes)
             {
                 if (row == exelabels.Count) {
@@ -71,7 +70,10 @@ namespace Instance_Manager
                         {
                             if (TextInputString != splitexe[1])
                             {
-                                ProfileExes[rowfun] = splitexe[0] + ";" + TextInputString;
+                                if (TextInputString != "")
+                                    ProfileExes[rowfun] = splitexe[0] + ";" + TextInputString;
+                                else
+                                    ProfileExes[rowfun] = splitexe[0];
                                 SaveProfileExes();
                                 RefreshExes();
                             }
@@ -88,7 +90,7 @@ namespace Instance_Manager
                     void RemoveExe(object sender, EventArgs e)
                     {
                         string exe = ProfileExes[rowfun];
-                        if (MessageBox.Show("Remove exeutable " + exe + " from profile " + Settings.Default.ActiveProfile, "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show("Remove exeutable " + exe.Replace(";"," ") + " from profile " + Settings.Default.ActiveProfile+"?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             ProfileExes.RemoveAt(rowfun);
                             SaveProfileExes();
@@ -107,14 +109,27 @@ namespace Instance_Manager
 
                 }
                 exelabels[row].Text = ProfileExes[row].Split(';')[0];
-                tableLayoutPanel1.Controls.Add(exelabels[row], 0, row);
-                tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 1, row);
-                tableLayoutPanel1.Controls.Add(argsButtonList[row], 2, row);
-                tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
+
+                if (tableLayoutPanel1.GetControlFromPosition(0, row) != exelabels[row])
+                {
+                    tableLayoutPanel1.Controls.Add(exelabels[row], 0, row);
+                    tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 1, row);
+                    tableLayoutPanel1.Controls.Add(argsButtonList[row], 2, row);
+                    tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
+                }
                 row++;
                 
             }
-            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
+            int temp = row;
+            while (temp < tableLayoutPanel1.RowCount && temp < exelabels.Count)
+            {
+                tableLayoutPanel1.Controls.Remove(exelabels[row]);
+                tableLayoutPanel1.Controls.Remove(deleteButtonList[row]);
+                tableLayoutPanel1.Controls.Remove(duplicateButtonList[row]);
+                tableLayoutPanel1.Controls.Remove(argsButtonList[row]);
+                temp++;
+            }
+            tableLayoutPanel1.RowCount = row + 1;
             tableLayoutPanel1.ResumeLayout();
 
         }
