@@ -54,7 +54,7 @@ namespace Instance_Manager
             Label column0Label = new Label();
             Label column1Label = new Label();
             column0Label.Text = "File Save/Load Location";
-            column1Label.Text = "Redirect From";
+            column1Label.Text = "Overlay On";
             column0Label.AutoSize = true;
             column1Label.AutoSize = true;
             column0Label.TextAlign = ContentAlignment.TopCenter;
