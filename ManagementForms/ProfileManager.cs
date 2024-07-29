@@ -121,7 +121,7 @@
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount)
+            while (temp < tableLayoutPanel1.RowCount && temp < Labels.Count)
             {
                 tableLayoutPanel1.Controls.Remove(Labels[row]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[row]);
