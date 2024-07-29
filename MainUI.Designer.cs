@@ -137,7 +137,7 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripManageProfiles, toolManageVariables, toolManageExes, toolHelp });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolManageVariables, toolStripManageProfiles, toolManageExes, toolHelp });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(944, 25);

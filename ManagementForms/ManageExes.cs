@@ -17,81 +17,102 @@ namespace Instance_Manager
             InitializeComponent();
         }
 
-        List<Label> exelabels = new List<Label>();
         bool tableresized = false;
         bool windowresized = false;
+
+        int CreateButtons = 10;
+        List<Label> exelabels = new List<Label>();
+        List<Button> deleteButtonList = new List<Button>();
+        List<Button> argsButtonList = new List<Button>();
+        List<Button> duplicateButtonList = new List<Button>();
 
         void RefreshExes()
         {
             int row = 0;
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel1.Controls.Clear();
-            exelabels.Clear();
             foreach (string exe in ProfileExes)
             {
+                if (row == exelabels.Count) {
 
-                Label ExeLabel = new();
-                string[] splitexe = exe.Split(";");
-                ExeLabel.Text = splitexe[0];
-                ExeLabel.AutoSize = true;
-                ExeLabel.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
-                ExeLabel.TextAlign = ContentAlignment.MiddleLeft;
-                Button dupe = new();
-                Button commandargs = new();
-                Button remove = new();
-                dupe.Text = "Duplicate";
-                commandargs.Text = "Launch Arguments";
-                remove.Text = "Remove";
-                dupe.AutoSize = true;
-                commandargs.AutoSize = true;
-                remove.AutoSize = true;
-                int thisrow = row;
-                void DuplicateExe(object sender, EventArgs e)
-                {
-                    AmendExe(exe);
-                    RefreshExes();
-                }
-                void LaunchArgs(object sender, EventArgs e)
-                {
-                    Form TextIn = new TextInput();
-                    TextIn.Text = "Arguments for "+Path.GetFileName(splitexe[0]);
-                    if (exe.IndexOf(";") > -1)
-                        PassedString = splitexe[1];
-                    TextIn.ShowDialog();
-                    if (exe.IndexOf(";") > -1)
+                    Console.WriteLine("Creating label and buttons, count at "+exelabels.Count);
+                    int rowfun = row;
+                    Label ExeLabel = new();
+                    Button dupe = new();
+                    Button commandargs = new();
+                    Button remove = new();
+                    dupe.Text = "Duplicate";
+                    commandargs.Text = "Launch Arguments";
+                    remove.Text = "Remove";
+                    dupe.AutoSize = true;
+                    commandargs.AutoSize = true;
+                    remove.AutoSize = true;
+                    ExeLabel.AutoSize = true;
+                    ExeLabel.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
+                    ExeLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+                    void DuplicateExe(object sender, EventArgs e)
                     {
-                        if (TextInputString != splitexe[1])
+                        AmendExe(ProfileExes[rowfun]);
+                        RefreshExes();
+                    }
+
+                    void LaunchArgs(object sender, EventArgs e)
+                    {
+                        string exe = ProfileExes[rowfun];
+                        string[] splitexe = exe.Split(';');
+
+                        Form TextIn = new TextInput();
+                        TextIn.Text = "Arguments for " + Path.GetFileName(splitexe[0]);
+                        if (exe.IndexOf(";") > -1)
+                            PassedString = splitexe[1];
+                        TextIn.ShowDialog();
+                        if (exe.IndexOf(";") > -1)
                         {
-                            ProfileExes[thisrow] = splitexe[0] + ";" + TextInputString;
+                            if (TextInputString != splitexe[1])
+                            {
+                                ProfileExes[rowfun] = splitexe[0] + ";" + TextInputString;
+                                SaveProfileExes();
+                                RefreshExes();
+                            }
+                        }
+                        else if (TextInputString != "")
+                        {
+                            ProfileExes[rowfun] = splitexe[0] + ";" + TextInputString;
                             SaveProfileExes();
                             RefreshExes();
                         }
-                    } else if (TextInputString != ""){
-                        ProfileExes[thisrow] = splitexe[0] + ";" + TextInputString;
-                        SaveProfileExes();
-                        RefreshExes();
+
                     }
-                    
-                }
-                void RemoveExe(object sender, EventArgs e)
-                {
-                    if (MessageBox.Show("Remove exeutable "+exe+" from profile "+Settings.Default.ActiveProfile, "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+                    void RemoveExe(object sender, EventArgs e)
                     {
-                        ProfileExes.Remove(exe);
-                        SaveProfileExes() ;
-                        RefreshExes() ;
+                        string exe = ProfileExes[rowfun];
+                        if (MessageBox.Show("Remove exeutable " + exe + " from profile " + Settings.Default.ActiveProfile, "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            ProfileExes.RemoveAt(rowfun);
+                            SaveProfileExes();
+                            RefreshExes();
+                        }
                     }
+
+                    remove.Click += RemoveExe;
+                    commandargs.Click += LaunchArgs;
+                    dupe.Click += DuplicateExe;
+
+                    exelabels.Add(ExeLabel);
+                    deleteButtonList.Add(remove);
+                    argsButtonList.Add(commandargs);
+                    duplicateButtonList.Add(dupe);
+
                 }
-
-                dupe.Click += DuplicateExe;
-                commandargs.Click += LaunchArgs;
-                remove.Click += RemoveExe;
-
-                tableLayoutPanel1.Controls.Add(ExeLabel, 0, row);
-                tableLayoutPanel1.Controls.Add(dupe, 1, row);
-                tableLayoutPanel1.Controls.Add(commandargs, 2, row);
-                tableLayoutPanel1.Controls.Add(remove, 3, row);
+                exelabels[row].Text = ProfileExes[row].Split(';')[0];
+                tableLayoutPanel1.Controls.Add(exelabels[row], 0, row);
+                tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 1, row);
+                tableLayoutPanel1.Controls.Add(argsButtonList[row], 2, row);
+                tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
                 row++;
+                
             }
             tableLayoutPanel1.Controls.Add(new Label(), 0, row);
             tableLayoutPanel1.ResumeLayout();
