@@ -32,9 +32,10 @@ namespace Instance_Manager
             tableLayoutPanel1.SuspendLayout();
             foreach (string exe in ProfileExes)
             {
-                if (row == exelabels.Count) {
+                if (row == exelabels.Count)
+                {
 
-                    Console.WriteLine("Creating label and buttons, count at "+exelabels.Count);
+                    Console.WriteLine("Creating label and buttons, count at " + exelabels.Count);
                     int rowfun = row;
                     Label ExeLabel = new();
                     Button dupe = new();
@@ -49,6 +50,9 @@ namespace Instance_Manager
                     ExeLabel.AutoSize = true;
                     ExeLabel.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
                     ExeLabel.TextAlign = ContentAlignment.MiddleLeft;
+                    dupe.BackColor = addExe.BackColor;
+                    commandargs.BackColor = addExe.BackColor;
+                    remove.BackColor = addExe.BackColor;
 
                     void DuplicateExe(object sender, EventArgs e)
                     {
@@ -90,7 +94,7 @@ namespace Instance_Manager
                     void RemoveExe(object sender, EventArgs e)
                     {
                         string exe = ProfileExes[rowfun];
-                        if (MessageBox.Show("Remove exeutable " + exe.Replace(";"," ") + " from profile " + Settings.Default.ActiveProfile+"?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show("Remove exeutable " + exe.Replace(";", " ") + " from profile " + Settings.Default.ActiveProfile + "?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             ProfileExes.RemoveAt(rowfun);
                             SaveProfileExes();
@@ -118,7 +122,7 @@ namespace Instance_Manager
                     tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
                 }
                 row++;
-                
+
             }
             int temp = row;
             while (temp < tableLayoutPanel1.RowCount && temp < exelabels.Count)
@@ -187,6 +191,11 @@ namespace Instance_Manager
             //    Console.WriteLine(tableLayoutPanel1.Width + " " + this.Width);
             //}
 
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

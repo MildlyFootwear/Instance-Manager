@@ -40,8 +40,8 @@
             ExeBrowserDialog = new OpenFileDialog();
             LinkButton = new Button();
             toolStrip1 = new ToolStrip();
-            toolStripManageProfiles = new ToolStripButton();
             toolManageVariables = new ToolStripButton();
+            toolStripManageProfiles = new ToolStripButton();
             toolManageExes = new ToolStripButton();
             toolHelp = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -53,7 +53,7 @@
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.AutoScroll = true;
-            tableLayoutPanel1.BackColor = SystemColors.Control;
+            tableLayoutPanel1.BackColor = SystemColors.ButtonHighlight;
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -144,6 +144,16 @@
             toolStrip1.TabIndex = 6;
             toolStrip1.Text = "toolStrip1";
             // 
+            // toolManageVariables
+            // 
+            toolManageVariables.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolManageVariables.Image = (Image)resources.GetObject("toolManageVariables.Image");
+            toolManageVariables.ImageTransparentColor = Color.Magenta;
+            toolManageVariables.Name = "toolManageVariables";
+            toolManageVariables.Size = new Size(103, 22);
+            toolManageVariables.Text = "Manage Variables";
+            toolManageVariables.Click += toolManageVariables_Click;
+            // 
             // toolStripManageProfiles
             // 
             toolStripManageProfiles.DisplayStyle = ToolStripItemDisplayStyle.Text;
@@ -154,16 +164,6 @@
             toolStripManageProfiles.Text = "Manage Profiles";
             toolStripManageProfiles.ToolTipText = "Create, rename, duplicate, or delete profiles.";
             toolStripManageProfiles.Click += toolStripManageProfiles_Click;
-            // 
-            // toolManageVariables
-            // 
-            toolManageVariables.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolManageVariables.Image = (Image)resources.GetObject("toolManageVariables.Image");
-            toolManageVariables.ImageTransparentColor = Color.Magenta;
-            toolManageVariables.Name = "toolManageVariables";
-            toolManageVariables.Size = new Size(103, 22);
-            toolManageVariables.Text = "Manage Variables";
-            toolManageVariables.Click += toolManageVariables_Click;
             // 
             // toolManageExes
             // 
