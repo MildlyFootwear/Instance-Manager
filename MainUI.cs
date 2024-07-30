@@ -20,6 +20,7 @@ namespace Instance_Manager
     {
 
         bool JustRefreshedExes = false;
+        bool NeedRefresh = false;
         List<Label> sourceLabels = new List<Label>();
         List<Label> destLabels = new List<Label>();
         public MainUI()
@@ -52,53 +53,57 @@ namespace Instance_Manager
             this.Text = ToolName +" - " + Settings.Default.ActiveProfile;
             LoadProfileLinks();
             int row = 1;
-            tableLayoutPanel1.Controls.Clear();
-            Label column0Label = new Label();
-            Label column1Label = new Label();
-            column0Label.Text = "File Save/Load Location";
-            column1Label.Text = "Overlay On";
-            column0Label.AutoSize = true;
-            column1Label.AutoSize = true;
-            column0Label.TextAlign = ContentAlignment.TopCenter;
-            column1Label.TextAlign = ContentAlignment.TopCenter;
-            column0Label.Anchor = AnchorStyles.Top;
-            column1Label.Anchor = AnchorStyles.Top;
-            tableLayoutPanel1.Controls.Add(column0Label);
-            tableLayoutPanel1.Controls.Add(column1Label);
             foreach (string link in DirectoryLinks)
             {
-                string[] splitlink = link.Split(";");
-                Label Source = new();
-                Label Destination = new();
-                Source.Text = splitlink[0];
-                Destination.Text = splitlink[1];
-                Source.Name = (Source.Text) + row.ToString();
-                Destination.Name = (Destination.Text) + row.ToString();
-                Source.AutoSize = true;
-                Destination.AutoSize = true;
-                int index = row - 1;
-                void SourceClick(object sender, EventArgs e)
+                string[] splitlink = link.Split(';');
+                if (row-1 == sourceLabels.Count)
                 {
-                    Console.WriteLine();
-                    Instance_Manager.Methods.LinkModifierMethods.EditLink(index, false);
-                    RefreshList();
-                }
-                void DestinationClick(object sender, EventArgs e)
-                {
-                    Console.WriteLine();
-                    Instance_Manager.Methods.LinkModifierMethods.EditLink(index, true);
-                    RefreshList();
+                    Label Source = new();
+                    Label Destination = new();
+                    Source.AutoSize = true;
+                    Destination.AutoSize = true;
+                    int index = row - 1;
+                    void SourceClick(object sender, EventArgs e)
+                    {
+                        Console.WriteLine();
+                        Instance_Manager.Methods.LinkModifierMethods.EditLink(index, false);
+                        RefreshList();
+                    }
+                    void DestinationClick(object sender, EventArgs e)
+                    {
+                        Console.WriteLine();
+                        Instance_Manager.Methods.LinkModifierMethods.EditLink(index, true);
+                        RefreshList();
+                    }
+
+                    Source.Click += SourceClick;
+                    Destination.Click += DestinationClick;
+                    sourceLabels.Add(Source);
+                    destLabels.Add(Destination);
+                    Console.WriteLine("Created labels " + Source.ToString() + " and " + Destination.ToString() + " for row " + row);
                 }
 
-                Source.Click += SourceClick;
-                Destination.Click += DestinationClick;
+                sourceLabels[row - 1].Text = splitlink[0];
+                destLabels[row - 1].Text = splitlink[1];
 
-                tableLayoutPanel1.Controls.Add(Source, 0, row);
-                tableLayoutPanel1.Controls.Add(Destination, 1, row);
-                Console.WriteLine("Added " + Source.Text + " to column 0, row " + row + ". Added " + Destination.Text + " to column 1, row " + row);
+                if (tableLayoutPanel1.GetControlFromPosition(0, row) != sourceLabels[row - 1])
+                {
+                    tableLayoutPanel1.Controls.Add(sourceLabels[row - 1], 0, row);
+                    tableLayoutPanel1.Controls.Add(destLabels[row - 1], 1, row);
+                    Console.WriteLine("Added labels "+ sourceLabels[row - 1].ToString()+" and "+ destLabels[row - 1]+" to table layout at row "+row);
+                }
                 row++;
             }
-            tableLayoutPanel1.Controls.Add(new Label(), 0, row);
+
+            int temp = row - 1;
+            while (temp < tableLayoutPanel1.RowCount-2 && temp < sourceLabels.Count)
+            {
+                tableLayoutPanel1.Controls.Remove(sourceLabels[temp]);
+                tableLayoutPanel1.Controls.Remove(destLabels[temp]);
+                Console.WriteLine("Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");
+                temp++;
+            }
+            tableLayoutPanel1.RowCount = row + 1;
             tableLayoutPanel1.ResumeLayout();
             Console.WriteLine("Refreshed lists.");
         }
@@ -141,6 +146,20 @@ namespace Instance_Manager
             if (Settings.Default.SavedSize != new Size(1, 1))
                 this.Size = Settings.Default.SavedSize; Console.WriteLine("Set size to " + this.Size);
             SelectedExe = Settings.Default.SavedExe;
+
+            Label column0Label = new Label();
+            Label column1Label = new Label();
+            column0Label.Text = "File Save/Load Location";
+            column1Label.Text = "Overlay On";
+            column0Label.AutoSize = true;
+            column1Label.AutoSize = true;
+            column0Label.TextAlign = ContentAlignment.TopCenter;
+            column1Label.TextAlign = ContentAlignment.TopCenter;
+            column0Label.Anchor = AnchorStyles.Top;
+            column1Label.Anchor = AnchorStyles.Top;
+            tableLayoutPanel1.Controls.Add(column0Label);
+            tableLayoutPanel1.Controls.Add(column1Label);
+
             RefreshList();
             RefreshExes();
         }

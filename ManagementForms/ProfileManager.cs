@@ -129,11 +129,11 @@
             int temp = row;
             while (temp < tableLayoutPanel1.RowCount && temp < Labels.Count)
             {
-                Console.WriteLine("Cleaning up " + Labels[row]);
-                tableLayoutPanel1.Controls.Remove(Labels[row]);
-                tableLayoutPanel1.Controls.Remove(deleteButtonList[row]);
-                tableLayoutPanel1.Controls.Remove(duplicateButtonList[row]);
-                tableLayoutPanel1.Controls.Remove(renameButtonList[row]);
+                Console.WriteLine("Cleaning up " + Labels[temp]);
+                tableLayoutPanel1.Controls.Remove(Labels[temp]);
+                tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
+                tableLayoutPanel1.Controls.Remove(duplicateButtonList[temp]);
+                tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 temp++;
             }
             if (profmansize == new Size())

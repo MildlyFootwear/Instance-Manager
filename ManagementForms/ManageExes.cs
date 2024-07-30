@@ -128,10 +128,10 @@ namespace Instance_Manager
             int temp = row;
             while (temp < tableLayoutPanel1.RowCount && temp < exelabels.Count)
             {
-                tableLayoutPanel1.Controls.Remove(exelabels[row]);
-                tableLayoutPanel1.Controls.Remove(deleteButtonList[row]);
-                tableLayoutPanel1.Controls.Remove(duplicateButtonList[row]);
-                tableLayoutPanel1.Controls.Remove(argsButtonList[row]);
+                tableLayoutPanel1.Controls.Remove(exelabels[temp]);
+                tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
+                tableLayoutPanel1.Controls.Remove(duplicateButtonList[temp]);
+                tableLayoutPanel1.Controls.Remove(argsButtonList[temp]);
                 temp++;
             }
             tableLayoutPanel1.RowCount = row + 1;
