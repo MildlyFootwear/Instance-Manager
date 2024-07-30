@@ -30,6 +30,13 @@ namespace Instance_Manager
             if (argsL.IndexOf("-quicklaunch") != -1)
                 QuickLaunch = true;
 
+            static void ExceptionHandler(object sender, EventArgs ex)
+            {
+                MessageBox.Show(ex.ToString(), ToolName+" - Exception");
+            }
+
+            AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
+
             SetDriveVariables();
             Console.WriteLine("Loading environment variables...");
 
@@ -141,8 +148,6 @@ namespace Instance_Manager
                     Settings.Default.ActiveProfile = Profiles[0];
 
                 LoadProfileExes();
-
-                Form ProfileM = new ProfileManager();
                 Application.Run(new MainUI());
             }
 

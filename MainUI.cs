@@ -46,6 +46,7 @@ namespace Instance_Manager
             {
                 Settings.Default.ActiveProfile = Profiles[0];
                 Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
+                ProfilesBox.SelectedIndex = 0;
             }
             this.Text = ToolName +" - " + Settings.Default.ActiveProfile;
             LoadProfileLinks();
@@ -54,7 +55,7 @@ namespace Instance_Manager
             Label column0Label = new Label();
             Label column1Label = new Label();
             column0Label.Text = "File Save/Load Location";
-            column1Label.Text = "Redirect From";
+            column1Label.Text = "Overlay On";
             column0Label.AutoSize = true;
             column1Label.AutoSize = true;
             column0Label.TextAlign = ContentAlignment.TopCenter;
@@ -97,13 +98,13 @@ namespace Instance_Manager
                         }
                         else
                         {
-                            if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Continue save?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Create directory?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
+                                Directory.CreateDirectory(ReplaceVariables(TextInputString));
                                 DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
                                 SaveProfileLinks();
                                 RefreshList();
                             }
-
                         }
                     }
                     else
@@ -272,7 +273,7 @@ namespace Instance_Manager
             Console.WriteLine("\nShowing profile manager.\n");
             Form ProfileM = new ProfileManager();
             ProfileM.ShowDialog();
-            if (active != Settings.Default.ActiveProfile)
+            if (NeedRefresh == true)
             {
                 RefreshList();
                 RefreshExes();

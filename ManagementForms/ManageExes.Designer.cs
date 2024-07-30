@@ -38,6 +38,7 @@
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.AutoScroll = true;
             tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.BackColor = SystemColors.ButtonHighlight;
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -52,6 +53,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.Size = new Size(960, 205);
             tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
             // ExeBrowserDialog
             // 
@@ -65,7 +67,7 @@
             addExe.Size = new Size(75, 25);
             addExe.TabIndex = 1;
             addExe.Text = "Add";
-            addExe.UseVisualStyleBackColor = true;
+            addExe.UseVisualStyleBackColor = false;
             addExe.Click += addExe_Click;
             // 
             // ManageExes

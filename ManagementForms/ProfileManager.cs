@@ -36,10 +36,13 @@
                     Button renameProfile = new();
                     renameProfile.Text = "Rename";
                     renameProfile.AutoSize = true;
+                    renameProfile.BackColor = AddProfile.BackColor;
 
                     Button duplicateProfile = new();
                     duplicateProfile.Text = "Duplicate";
                     duplicateProfile.AutoSize = true;
+                    duplicateProfile.BackColor = AddProfile.BackColor;
+
 
                     void DeleteProfile(object sender, EventArgs e)
                     {
@@ -50,6 +53,7 @@
                             LoadProfiles();
                             PopulateManager();
                             Console.WriteLine("Deleting profile " + Profile);
+                            NeedRefresh = true;
                         }
 
                     }
@@ -66,6 +70,8 @@
                             Console.WriteLine("Renamed " + Profile + " to " + TextInputString);
                             LoadProfiles();
                             PopulateManager();
+                            NeedRefresh = true;
+
                         }
                     }
 

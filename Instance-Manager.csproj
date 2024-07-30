@@ -10,7 +10,12 @@
 	<ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
 	<UseWPF>True</UseWPF>
 	<BaseOutputPath></BaseOutputPath>
+	<ApplicationIcon>Instance_manager_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Instance_manager_icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
