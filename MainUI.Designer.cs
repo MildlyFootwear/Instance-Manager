@@ -106,7 +106,7 @@
             ExeBox.DropDownStyle = ComboBoxStyle.DropDownList;
             ExeBox.FormattingEnabled = true;
             ExeBox.Items.AddRange(new object[] { "You should never see this." });
-            ExeBox.Location = new Point(732, 45);
+            ExeBox.Location = new Point(731, 45);
             ExeBox.MaxDropDownItems = 30;
             ExeBox.Name = "ExeBox";
             ExeBox.Size = new Size(200, 23);
@@ -117,7 +117,7 @@
             // 
             ExeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ExeLabel.AutoSize = true;
-            ExeLabel.Location = new Point(863, 27);
+            ExeLabel.Location = new Point(859, 27);
             ExeLabel.Name = "ExeLabel";
             ExeLabel.Size = new Size(69, 15);
             ExeLabel.TabIndex = 4;
