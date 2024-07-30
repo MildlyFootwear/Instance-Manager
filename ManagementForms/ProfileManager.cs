@@ -123,6 +123,7 @@
             int temp = row;
             while (temp < tableLayoutPanel1.RowCount && temp < Labels.Count)
             {
+                Console.WriteLine("Cleaning up " + Labels[row]);
                 tableLayoutPanel1.Controls.Remove(Labels[row]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[row]);
                 tableLayoutPanel1.Controls.Remove(duplicateButtonList[row]);

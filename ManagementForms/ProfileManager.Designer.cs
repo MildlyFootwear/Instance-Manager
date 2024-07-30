@@ -47,7 +47,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(387, 161);
+            tableLayoutPanel1.Size = new Size(387, 239);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // AddProfile
@@ -66,7 +66,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(411, 216);
+            ClientSize = new Size(411, 294);
             Controls.Add(AddProfile);
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
