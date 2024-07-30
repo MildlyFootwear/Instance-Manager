@@ -53,6 +53,7 @@
                             LoadProfiles();
                             PopulateManager();
                             Console.WriteLine("Deleting profile " + Profile);
+                            NeedRefresh = true;
                         }
 
                     }
@@ -69,6 +70,8 @@
                             Console.WriteLine("Renamed " + Profile + " to " + TextInputString);
                             LoadProfiles();
                             PopulateManager();
+                            NeedRefresh = true;
+
                         }
                     }
 

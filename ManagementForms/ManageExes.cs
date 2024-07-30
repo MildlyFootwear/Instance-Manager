@@ -94,7 +94,7 @@ namespace Instance_Manager
                     void RemoveExe(object sender, EventArgs e)
                     {
                         string exe = ProfileExes[rowfun];
-                        if (MessageBox.Show("Remove exeutable " + exe.Replace(";", " ") + " from profile " + Settings.Default.ActiveProfile + "?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show("Remove exeutable \n\"" + exe.Replace(";", " ") + "\" from profile " + Settings.Default.ActiveProfile + "?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             ProfileExes.RemoveAt(rowfun);
                             SaveProfileExes();
@@ -112,6 +112,7 @@ namespace Instance_Manager
                     duplicateButtonList.Add(dupe);
 
                 }
+
                 exelabels[row].Text = ProfileExes[row].Split(';')[0];
 
                 if (tableLayoutPanel1.GetControlFromPosition(0, row) != exelabels[row])
