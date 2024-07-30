@@ -20,7 +20,8 @@ namespace Instance_Manager
     {
 
         bool JustRefreshedExes = false;
-
+        List<Label> sourceLabels = new List<Label>();
+        List<Label> destLabels = new List<Label>();
         public MainUI()
         {
             InitializeComponent();
@@ -75,81 +76,18 @@ namespace Instance_Manager
                 Destination.Name = (Destination.Text) + row.ToString();
                 Source.AutoSize = true;
                 Destination.AutoSize = true;
-
+                int index = row - 1;
                 void SourceClick(object sender, EventArgs e)
                 {
                     Console.WriteLine();
-                    Form TextIn = new DirectoryTextEditor();
-                    TextIn.Text = splitlink[0];
-                    TextIn.ShowDialog();
-                    if (TextInputString == "Remove")
-                    {
-                        DirectoryLinks.Remove(link);
-                        SaveProfileLinks();
-                        RefreshList();
-                    }
-                    else if (TextInputString != splitlink[0] && TextInputString != "Cancel" && TextInputString != "")
-                    {
-                        if (Directory.Exists(ReplaceVariables(TextInputString)))
-                        {
-                            DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
-                            SaveProfileLinks();
-                            RefreshList();
-                        }
-                        else
-                        {
-                            if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Create directory?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                Directory.CreateDirectory(ReplaceVariables(TextInputString));
-                                DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
-                                SaveProfileLinks();
-                                RefreshList();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Canceling link edit for " + link);
-                    }
+                    Instance_Manager.Methods.LinkModifierMethods.EditLink(index, false);
                     RefreshList();
                 }
                 void DestinationClick(object sender, EventArgs e)
                 {
                     Console.WriteLine();
-                    Form TextIn = new DirectoryTextEditor();
-                    TextIn.Text = splitlink[1];
-                    TextIn.ShowDialog();
-                    if (TextInputString == "Remove")
-                    {
-                        DirectoryLinks.Remove(link);
-                        SaveProfileLinks();
-                        RefreshList();
-                    }
-                    else if (TextInputString != splitlink[1] && TextInputString != "Cancel" && TextInputString != "")
-                    {
-                        if (Directory.Exists(ReplaceVariables(TextInputString)))
-                        {
-                            DirectoryLinks[DirectoryLinks.IndexOf(link)] = splitlink[0] + ";" + TextInputString;
-                            SaveProfileLinks();
-                            RefreshList();
-                        }
-                        else
-                        {
-
-                            if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Continue save?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                DirectoryLinks[DirectoryLinks.IndexOf(link)] = splitlink[0] + ";" + TextInputString;
-                                SaveProfileLinks();
-                                RefreshList();
-                            }
-                            else { Console.WriteLine("Canceling link edit for " + link); }
-
-                        }
-
-                    }
-                    else { Console.WriteLine("Canceling link edit for " + link); }
-
-
+                    Instance_Manager.Methods.LinkModifierMethods.EditLink(index, true);
+                    RefreshList();
                 }
 
                 Source.Click += SourceClick;
