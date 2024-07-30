@@ -126,8 +126,9 @@ namespace Instance_Manager
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount && temp < exelabels.Count)
+            while (temp < tableLayoutPanel1.RowCount-1 && temp < exelabels.Count)
             {
+                Console.WriteLine("Cleaning up " + exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(duplicateButtonList[temp]);

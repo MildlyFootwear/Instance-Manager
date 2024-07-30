@@ -127,7 +127,7 @@
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount && temp < Labels.Count)
+            while (temp < tableLayoutPanel1.RowCount-1 && temp < Labels.Count)
             {
                 Console.WriteLine("Cleaning up " + Labels[temp]);
                 tableLayoutPanel1.Controls.Remove(Labels[temp]);
@@ -136,11 +136,11 @@
                 tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 temp++;
             }
-            if (profmansize == new Size())
-            {
-                profmansize = tableLayoutPanel1.Size;
-            } else
-                tableLayoutPanel1.Size = profmansize;
+            //if (profmansize == new Size())
+            //{
+            //    profmansize = tableLayoutPanel1.Size;
+            //} else
+            //    tableLayoutPanel1.Size = profmansize;
             tableLayoutPanel1.RowCount = row + 1;
         }
 
