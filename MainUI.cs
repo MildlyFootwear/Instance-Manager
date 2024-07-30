@@ -105,7 +105,6 @@ namespace Instance_Manager
                                 SaveProfileLinks();
                                 RefreshList();
                             }
-
                         }
                     }
                     else

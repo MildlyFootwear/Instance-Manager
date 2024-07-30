@@ -132,7 +132,6 @@
             LinkButton.Size = new Size(98, 25);
             LinkButton.TabIndex = 5;
             LinkButton.Text = "Link Directories";
-            LinkButton.UseVisualStyleBackColor = true;
             LinkButton.Click += LinkButton_Click;
             // 
             // toolStrip1
