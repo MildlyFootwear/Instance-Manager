@@ -93,10 +93,11 @@
             SourceBrowserDialog.Description = "Select Folder To Save and Load Files From";
             SourceBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
             SourceBrowserDialog.UseDescriptionForTitle = true;
+            SourceBrowserDialog.HelpRequest += SourceBrowserDialog_HelpRequest;
             // 
             // DestinationBrowserDialog
             // 
-            DestinationBrowserDialog.Description = "Select Folder to Virtually Merge To";
+            DestinationBrowserDialog.Description = "Select Folder to Virtually Overlay On";
             DestinationBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
             DestinationBrowserDialog.UseDescriptionForTitle = true;
             // 
@@ -215,6 +216,7 @@
             Controls.Add(ProfilesLabel);
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(600, 210);
             Name = "MainUI";
             StartPosition = FormStartPosition.CenterScreen;

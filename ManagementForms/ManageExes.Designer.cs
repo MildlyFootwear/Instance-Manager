@@ -79,6 +79,7 @@
             Controls.Add(addExe);
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ManageExes";

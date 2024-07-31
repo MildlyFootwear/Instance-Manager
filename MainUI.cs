@@ -50,13 +50,13 @@ namespace Instance_Manager
                 Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
                 ProfilesBox.SelectedIndex = 0;
             }
-            this.Text = ToolName +" - " + Settings.Default.ActiveProfile;
+            this.Text = ToolName + " - " + Settings.Default.ActiveProfile;
             LoadProfileLinks();
             int row = 1;
             foreach (string link in DirectoryLinks)
             {
                 string[] splitlink = link.Split(';');
-                if (row-1 == sourceLabels.Count)
+                if (row - 1 == sourceLabels.Count)
                 {
                     Label Source = new();
                     Label Destination = new();
@@ -90,13 +90,13 @@ namespace Instance_Manager
                 {
                     tableLayoutPanel1.Controls.Add(sourceLabels[row - 1], 0, row);
                     tableLayoutPanel1.Controls.Add(destLabels[row - 1], 1, row);
-                    Console.WriteLine("Added labels "+ sourceLabels[row - 1].ToString()+" and "+ destLabels[row - 1]+" to table layout at row "+row);
+                    Console.WriteLine("Added labels " + sourceLabels[row - 1].ToString() + " and " + destLabels[row - 1] + " to table layout at row " + row);
                 }
                 row++;
             }
 
             int temp = row - 1;
-            while (temp < tableLayoutPanel1.RowCount-2 && temp < sourceLabels.Count)
+            while (temp < tableLayoutPanel1.RowCount - 2 && temp < sourceLabels.Count)
             {
                 tableLayoutPanel1.Controls.Remove(sourceLabels[temp]);
                 tableLayoutPanel1.Controls.Remove(destLabels[temp]);
@@ -126,13 +126,15 @@ namespace Instance_Manager
                 {
                     ExeBox.SelectedIndex = ProfileExes.IndexOf(SelectedExe);
                     Console.WriteLine(SelectedExe + " found in prof exes, setting exebox index to " + ExeBox.SelectedIndex);
-                } else
+                }
+                else
                 {
                     ExeBox.SelectedIndex = 0;
                     SelectedExe = ProfileExes[0];
                     Console.WriteLine(SelectedExe + " not found in prof exes.");
                 }
-            } else
+            }
+            else
             {
                 SelectedExe = "";
             }
@@ -241,7 +243,7 @@ namespace Instance_Manager
         private void toolManageVariables_Click(object sender, EventArgs e)
         {
             Form VarM = new ManageVariables();
-            VarM.Text = ToolName +" - Manage Variables";
+            VarM.Text = ToolName + " - Manage Variables";
             VarM.ShowDialog();
         }
 
@@ -266,7 +268,12 @@ namespace Instance_Manager
 
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
-            LaunchExe(); 
+            LaunchExe();
+        }
+
+        private void SourceBrowserDialog_HelpRequest(object sender, EventArgs e)
+        {
+
         }
     }
 }

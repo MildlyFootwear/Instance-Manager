@@ -148,6 +148,16 @@ namespace Instance_Manager
         private void ManageExes_Load(object sender, EventArgs e)
         {
             RefreshExes();
+
+            void Close(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+            Button cancel = new();
+            cancel.Click += Close;
+            this.CancelButton = cancel;
+
         }
 
         private void addExe_Click(object sender, EventArgs e)

@@ -34,6 +34,15 @@ namespace Instance_Manager
             linkLabel2.Width = linkLabel1.Width;
             label1.Width = linkLabel1.Width;
             label2.Width = linkLabel1.Width;
+
+            void Close(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+            Button cancel = new();
+            cancel.Click += Close;
+            this.CancelButton = cancel;
         }
 
         private void linkLabel1_Resize(object sender, EventArgs e)

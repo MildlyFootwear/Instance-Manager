@@ -61,6 +61,7 @@
             ClientSize = new Size(293, 79);
             Controls.Add(OKButton);
             Controls.Add(textBox1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "TextInput";

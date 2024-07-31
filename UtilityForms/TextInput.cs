@@ -22,6 +22,15 @@ namespace Instance_Manager
             TextInputString = "";
             textBox1.Text = PassedString;
             PassedString = "";
+
+            void Close(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+            Button cancel = new();
+            cancel.Click += Close;
+            this.CancelButton = cancel;
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -148,6 +148,14 @@
         {
             PopulateManager();
             Text = ToolName+ " - Manage Profiles";
+            void Close(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+            Button cancel = new();
+            cancel.Click += Close;
+            this.CancelButton = cancel;
         }
 
         private void AddProfile_Click(object sender, EventArgs e)

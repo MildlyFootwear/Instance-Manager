@@ -36,6 +36,15 @@ namespace Instance_Manager
             textBox1.Text = this.Text;
             this.Text = "Edit Path for Directory Link " + this.Text;
             TextInputString = "";
+
+            void Close(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+            Button cancel = new();
+            cancel.Click += Close;
+            this.CancelButton = cancel;
         }
 
         private void DirectoryTextEditor_FormClosing(object sender, FormClosingEventArgs e)
