@@ -195,7 +195,7 @@ namespace Instance_Manager
                     }
                     if (ver == Settings.Default.IngoreVersion)
                     { Console.WriteLine(ver + " is ignored"); }
-                    if (ver == Settings.Default.Version)
+                    else if (ver == Settings.Default.Version)
                     {
                         Console.WriteLine(Settings.Default.Version + " is up to date with repository version " + ver);
 

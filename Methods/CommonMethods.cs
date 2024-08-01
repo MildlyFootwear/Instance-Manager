@@ -81,20 +81,20 @@ namespace Instance_Manager.Methods
         {
             string ver;
             WebClient client = new();
+            Console.WriteLine("Checking github for latest version.");
             try
             {
                 Stream stream = client.OpenRead("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
                 StreamReader reader = new StreamReader(stream);
                 ver = reader.ReadToEnd();
-                Console.WriteLine(ver);
                 reader.Close();
                 stream.Close();
-                Console.WriteLine("Found " + ver + " for github version");
+                Console.WriteLine("Found " + ver);
                 return ver;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message + " while checking for git version.");
+                Console.WriteLine("Exception: "+ex.Message);
                 return null;
             }
 
