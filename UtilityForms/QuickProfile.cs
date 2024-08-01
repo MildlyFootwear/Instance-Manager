@@ -26,8 +26,7 @@ namespace Instance_Manager.UtilityForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Settings.Default.ActiveProfile = this.comboBox1.SelectedItem as string;
-            Settings.Default.Save();
+            SetProfile( this.comboBox1.SelectedItem as string);
             this.FormClosing -= QuickProfile_FormClosing;
             this.Close();
         }
