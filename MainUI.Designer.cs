@@ -150,8 +150,8 @@
             toolManageVariables.Image = (Image)resources.GetObject("toolManageVariables.Image");
             toolManageVariables.ImageTransparentColor = Color.Magenta;
             toolManageVariables.Name = "toolManageVariables";
-            toolManageVariables.Size = new Size(103, 22);
-            toolManageVariables.Text = "Manage Variables";
+            toolManageVariables.Size = new Size(130, 22);
+            toolManageVariables.Text = "Manage Path Variables";
             toolManageVariables.Click += toolManageVariables_Click;
             // 
             // toolStripManageProfiles

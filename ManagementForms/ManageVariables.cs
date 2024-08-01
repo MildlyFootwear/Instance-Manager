@@ -39,7 +39,7 @@ namespace Instance_Manager
 
         private void ManageVariables_Load(object sender, EventArgs e)
         {
-            this.Text = ToolName + " - Manage Variables";
+            this.Text = ToolName + " - Manage Path Variables";
             RefreshVars();
 
             void Close(object sender, EventArgs e)
