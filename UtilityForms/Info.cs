@@ -34,6 +34,9 @@ namespace Instance_Manager
             linkLabel2.Width = linkLabel1.Width;
             label1.Width = linkLabel1.Width;
             label2.Width = linkLabel1.Width;
+            label3.Width = linkLabel1.Width;
+            label4.Width = linkLabel1.Width;
+            label4.Text = Settings.Default.Version;
 
             void Close(object sender, EventArgs e)
             {

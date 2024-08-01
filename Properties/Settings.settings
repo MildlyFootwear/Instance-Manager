@@ -23,5 +23,8 @@
     <Setting Name="ToolName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Instance Manager</Value>
     </Setting>
+    <Setting Name="Version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">v0.2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

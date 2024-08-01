@@ -32,6 +32,8 @@
             linkLabel1 = new LinkLabel();
             label2 = new Label();
             linkLabel2 = new LinkLabel();
+            label3 = new Label();
+            label4 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -69,7 +71,7 @@
             // linkLabel2
             // 
             linkLabel2.Location = new Point(12, 62);
-            linkLabel2.Margin = new Padding(3, 3, 12, 12);
+            linkLabel2.Margin = new Padding(3, 3, 12, 3);
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(310, 15);
             linkLabel2.TabIndex = 3;
@@ -78,6 +80,25 @@
             linkLabel2.TextAlign = ContentAlignment.TopCenter;
             linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
+            // label3
+            // 
+            label3.Location = new Point(12, 80);
+            label3.Name = "label3";
+            label3.Size = new Size(310, 15);
+            label3.TabIndex = 4;
+            label3.Text = "Version";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            label4.Location = new Point(12, 97);
+            label4.Margin = new Padding(3, 0, 3, 12);
+            label4.Name = "label4";
+            label4.Size = new Size(310, 15);
+            label4.TabIndex = 5;
+            label4.Text = "label4";
+            label4.TextAlign = ContentAlignment.TopCenter;
+            // 
             // Info
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -85,7 +106,9 @@
             AutoScrollMargin = new Size(9, 9);
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ClientSize = new Size(341, 117);
+            ClientSize = new Size(341, 143);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(linkLabel2);
             Controls.Add(label2);
             Controls.Add(linkLabel1);
@@ -108,5 +131,7 @@
         private LinkLabel linkLabel1;
         private Label label2;
         private LinkLabel linkLabel2;
+        private Label label3;
+        private Label label4;
     }
 }
