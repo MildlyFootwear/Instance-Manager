@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Immutable;
 using Instance_Manager.UtilityForms;
+using System.Net;
 
 namespace Instance_Manager
 {
@@ -144,6 +145,68 @@ namespace Instance_Manager
 
             } else
             {
+
+                WebClient client = new();
+                string ver = "";
+                Console.WriteLine("Checking for update");
+                bool CheckedForUpdate = true;
+                try
+                {
+                    Stream stream = client.OpenRead("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
+                    StreamReader reader = new StreamReader(stream);
+                    ver = reader.ReadToEnd();
+                    Console.WriteLine(ver);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine (ex.Message);
+                    CheckedForUpdate = false;
+                }
+
+                if (CheckedForUpdate)
+                {
+
+                    if (ver != Settings.Default.Version && ver != Settings.Default.IngoreVersion)
+                    {
+                        var taskDialog = TaskDialog.ShowDialog(new TaskDialogPage
+                        {
+                            Caption = ToolName,
+                            Text = "Update is available. Go to download page?",
+                            Buttons =
+                            {
+                                new TaskDialogButton
+                                {
+                                    Text = "Yes",
+                                    Tag = 1
+                                },
+                                new TaskDialogButton
+                                {
+                                    Text = "No",
+                                    Tag = 2
+                                },
+                                new TaskDialogButton
+                                {
+                                    Text = "Ignore this version",
+                                    Tag = 3
+                                }
+
+                            }
+                        });
+                        if (taskDialog.Tag is int result)
+                        {
+                            if (result == 1)
+                            {
+                                System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
+                                return;
+                            } else if (result == 3)
+                            {
+                                Settings.Default.IngoreVersion = ver;
+                            }
+                        }
+                    }
+
+                }
+
                 if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile))
                     Settings.Default.ActiveProfile = Profiles[0];
 

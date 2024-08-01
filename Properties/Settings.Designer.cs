@@ -109,13 +109,25 @@ namespace Instance_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("v0.2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("v0.21")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
             }
             set {
                 this["Version"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IngoreVersion {
+            get {
+                return ((string)(this["IngoreVersion"]));
+            }
+            set {
+                this["IngoreVersion"] = value;
             }
         }
     }
