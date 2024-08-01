@@ -194,7 +194,9 @@ namespace Instance_Manager.Methods
         public static void LoadProfileLinks()
         {
             Console.WriteLine();
-            string ProfileLinks = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Links.txt";
+            profPATH = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile;
+            SystemVariablesValues[SystemVariables.IndexOf("%ACTIVEPROFILE%")] = profPATH;
+            string ProfileLinks = profPATH + "\\Links.txt";
             Console.WriteLine("\nLoading links for " + Settings.Default.ActiveProfile + "\n");
             DirectoryLinks.Clear();
             if (File.Exists(ProfileLinks))
@@ -212,6 +214,7 @@ namespace Instance_Manager.Methods
                         MessageBox.Show("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
                 }
             }
+
         }
 
         public static void SaveProfileLinks()

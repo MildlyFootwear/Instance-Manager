@@ -33,26 +33,31 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.Location = new Point(12, 12);
+            tableLayoutPanel1.Margin = new Padding(3, 3, 12, 12);
+            tableLayoutPanel1.MinimumSize = new Size(400, 30);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(636, 198);
+            tableLayoutPanel1.Size = new Size(400, 30);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // ManageVariables
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(660, 222);
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(611, 58);
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ManageVariables";
@@ -62,6 +67,7 @@
             Text = "ManageVariables";
             Load += ManageVariables_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
