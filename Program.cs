@@ -156,6 +156,8 @@ namespace Instance_Manager
                     StreamReader reader = new StreamReader(stream);
                     ver = reader.ReadToEnd();
                     Console.WriteLine(ver);
+                    reader.Close();
+                    stream.Close();
                 }
                 catch (Exception ex)
                 {
@@ -201,9 +203,15 @@ namespace Instance_Manager
                             } else if (result == 3)
                             {
                                 Settings.Default.IngoreVersion = ver;
+                                Settings.Default.Save();
+                                Console.WriteLine("Ignoring version "+ver);
                             }
                         }
                     }
+                    if (ver == Settings.Default.IngoreVersion) 
+                        { Console.WriteLine(ver + " is ignored"); }
+                    if (ver == Settings.Default.Version)
+                        Console.WriteLine(Settings.Default.Version+" is up to date with repository version "+ver);
 
                 }
 
