@@ -9,7 +9,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
 	<UseWPF>True</UseWPF>
-	<BaseOutputPath></BaseOutputPath>
+
+	  <BaseOutputPath></BaseOutputPath>
 	<ApplicationIcon>Instance_manager_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -55,4 +56,9 @@
     <Using Include="System.IO" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.exe&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.dll&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.runtimeconfig.json&quot; &quot;$(ProjectDir)latest&quot;" />
+  </Target>
+
 </Project>
+
