@@ -9,6 +9,8 @@ using static Instance_Manager.CommonVars;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Windows.Forms.VisualStyles;
+using System.Runtime.ConstrainedExecution;
+using System.Net;
 
 namespace Instance_Manager.Methods
 {
@@ -75,6 +77,28 @@ namespace Instance_Manager.Methods
             }
         }
 
+        public static string CheckGitVersion()
+        {
+            string ver;
+            WebClient client = new();
+            try
+            {
+                Stream stream = client.OpenRead("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
+                StreamReader reader = new StreamReader(stream);
+                ver = reader.ReadToEnd();
+                Console.WriteLine(ver);
+                reader.Close();
+                stream.Close();
+                Console.WriteLine("Found " + ver + " for github version");
+                return ver;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message + " while checking for git version.");
+                return null;
+            }
+
+        }
         public static string InsertVariables(string path)
         {
             Console.WriteLine("\nInserting variables");

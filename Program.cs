@@ -109,6 +109,7 @@ namespace Instance_Manager
                     } else if (Directory.Exists(Settings.Default.ProfilesDirectory+"\\"+arg))
                     {
                         passedprofile=arg;
+                        Console.WriteLine("Using profile "+arg);
                     }
                 }
 
@@ -147,25 +148,8 @@ namespace Instance_Manager
             {
 
                 WebClient client = new();
-                string ver = "";
-                Console.WriteLine("Checking for update");
-                bool CheckedForUpdate = true;
-                try
-                {
-                    Stream stream = client.OpenRead("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
-                    StreamReader reader = new StreamReader(stream);
-                    ver = reader.ReadToEnd();
-                    Console.WriteLine(ver);
-                    reader.Close();
-                    stream.Close();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine (ex.Message);
-                    CheckedForUpdate = false;
-                }
-
-                if (CheckedForUpdate)
+                string ver = CheckGitVersion();
+                if (ver != null)
                 {
 
                     if (ver != Settings.Default.Version && ver != Settings.Default.IngoreVersion)
@@ -200,23 +184,28 @@ namespace Instance_Manager
                             {
                                 System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
                                 return;
-                            } else if (result == 3)
+                            }
+                            else if (result == 3)
                             {
                                 Settings.Default.IngoreVersion = ver;
                                 Settings.Default.Save();
-                                Console.WriteLine("Ignoring version "+ver);
+                                Console.WriteLine("Ignoring version " + ver);
                             }
                         }
                     }
-                    if (ver == Settings.Default.IngoreVersion) 
-                        { Console.WriteLine(ver + " is ignored"); }
+                    if (ver == Settings.Default.IngoreVersion)
+                    { Console.WriteLine(ver + " is ignored"); }
                     if (ver == Settings.Default.Version)
-                        Console.WriteLine(Settings.Default.Version+" is up to date with repository version "+ver);
+                    {
+                        Console.WriteLine(Settings.Default.Version + " is up to date with repository version " + ver);
 
+                    }
                 }
 
                 if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile))
+                {
                     Settings.Default.ActiveProfile = Profiles[0];
+                }
 
                 LoadProfileExes();
                 Application.Run(new MainUI());
