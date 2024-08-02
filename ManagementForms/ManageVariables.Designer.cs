@@ -66,6 +66,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "ManageVariables";
             Load += ManageVariables_Load;
+            Resize += ManageVariables_Resize;
             ResumeLayout(false);
             PerformLayout();
         }

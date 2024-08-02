@@ -50,7 +50,11 @@ namespace Instance_Manager
             Button cancel = new();
             cancel.Click += Close;
             this.CancelButton = cancel;
+            CenterToParent();
         }
 
+        private void ManageVariables_Resize(object sender, EventArgs e)
+        {
+        }
     }
 }

@@ -34,7 +34,6 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.AutoSize = true;
             tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             tableLayoutPanel1.BackColor = SystemColors.ButtonHighlight;
@@ -44,13 +43,15 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Location = new Point(12, 43);
-            tableLayoutPanel1.MinimumSize = new Size(390, 128);
+            tableLayoutPanel1.Margin = new Padding(3, 3, 12, 12);
+            tableLayoutPanel1.MinimumSize = new Size(390, 20);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(390, 128);
+            tableLayoutPanel1.Size = new Size(390, 20);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // AddProfile
@@ -82,6 +83,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Instance Manager - Profiles";
             Load += ProfileManager_Load;
+            Resize += ProfileManager_Resize;
             ResumeLayout(false);
             PerformLayout();
         }

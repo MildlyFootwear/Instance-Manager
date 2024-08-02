@@ -126,7 +126,7 @@ namespace Instance_Manager
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount-1 && temp < exelabels.Count)
+            while (temp < tableLayoutPanel1.RowCount && temp < exelabels.Count)
             {
                 Console.WriteLine("Cleaning up " + exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(exelabels[temp]);
@@ -135,7 +135,7 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Remove(argsButtonList[temp]);
                 temp++;
             }
-            tableLayoutPanel1.RowCount = row + 1;
+            tableLayoutPanel1.RowCount = row;
             tableLayoutPanel1.ResumeLayout();
 
         }
@@ -148,7 +148,7 @@ namespace Instance_Manager
         private void ManageExes_Load(object sender, EventArgs e)
         {
             RefreshExes();
-
+            tableLayoutPanel1.RowCount = 0;
             void Close(object sender, EventArgs e)
             {
                 this.Close();
@@ -157,7 +157,7 @@ namespace Instance_Manager
             Button cancel = new();
             cancel.Click += Close;
             this.CancelButton = cancel;
-
+            CenterToParent();
         }
 
         private void addExe_Click(object sender, EventArgs e)
@@ -168,6 +168,7 @@ namespace Instance_Manager
             {
                 AmendExe(InsertVariables(ExeBrowserDialog.FileName));
                 RefreshExes();
+                this.CenterToParent();
             }
         }
 
@@ -209,6 +210,10 @@ namespace Instance_Manager
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void ManageExes_Resize_1(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -84,13 +84,13 @@
                         TextIn.ShowDialog();
                         if (TextInputString != "")
                         {
-                            if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\"+TextInputString))
+                            if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + TextInputString))
                             {
                                 CopyDirectory(Settings.Default.ProfilesDirectory + "\\" + Profile, Settings.Default.ProfilesDirectory + "\\" + TextInputString, true);
                                 LoadProfiles();
                                 PopulateManager();
                             }
-                            
+
                         }
                     }
 
@@ -119,7 +119,7 @@
                     tableLayoutPanel1.Controls.Add(renameButtonList[row], 1, row);
                     tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 2, row);
                     tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
-                    Console.WriteLine("Adding buttons for profile "+Profile+" on row"+row);
+                    Console.WriteLine("Adding buttons for profile " + Profile + " on row" + row);
                 }
 
 
@@ -127,7 +127,7 @@
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount-1 && temp < Labels.Count)
+            while (temp < tableLayoutPanel1.RowCount && temp < Labels.Count)
             {
                 Console.WriteLine("Cleaning up " + Labels[temp]);
                 tableLayoutPanel1.Controls.Remove(Labels[temp]);
@@ -136,18 +136,13 @@
                 tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 temp++;
             }
-            //if (profmansize == new Size())
-            //{
-            //    profmansize = tableLayoutPanel1.Size;
-            //} else
-            //    tableLayoutPanel1.Size = profmansize;
-            tableLayoutPanel1.RowCount = row + 1;
+            tableLayoutPanel1.RowCount = row;
         }
 
         private void ProfileManager_Load(object sender, EventArgs e)
         {
             PopulateManager();
-            Text = ToolName+ " - Manage Profiles";
+            Text = ToolName + " - Manage Profiles";
             void Close(object sender, EventArgs e)
             {
                 this.Close();
@@ -156,6 +151,7 @@
             Button cancel = new();
             cancel.Click += Close;
             this.CancelButton = cancel;
+            CenterToParent();
         }
 
         private void AddProfile_Click(object sender, EventArgs e)
@@ -178,8 +174,12 @@
                     LoadProfiles();
                     PopulateManager();
                 }
-                else { MessageBox.Show("Profile "+TextInputString+" already exists."); }
+                else { MessageBox.Show("Profile " + TextInputString + " already exists."); }
             }
+        }
+
+        private void ProfileManager_Resize(object sender, EventArgs e)
+        {
         }
     }
 }

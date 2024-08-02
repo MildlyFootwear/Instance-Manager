@@ -35,9 +35,8 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.AutoScroll = true;
             tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             tableLayoutPanel1.BackColor = SystemColors.ButtonHighlight;
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel1.ColumnCount = 4;
@@ -46,14 +45,14 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.Location = new Point(12, 40);
+            tableLayoutPanel1.Margin = new Padding(3, 3, 12, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RightToLeft = RightToLeft.No;
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(960, 205);
+            tableLayoutPanel1.Size = new Size(5, 3);
             tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
             // ExeBrowserDialog
             // 
@@ -75,6 +74,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScrollMargin = new Size(3, 3);
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(984, 257);
             Controls.Add(addExe);
             Controls.Add(tableLayoutPanel1);
@@ -88,6 +89,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "ManageExes";
             Load += ManageExes_Load;
+            Resize += ManageExes_Resize_1;
             ResumeLayout(false);
             PerformLayout();
         }
