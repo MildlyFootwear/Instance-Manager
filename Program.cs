@@ -39,7 +39,6 @@ namespace Instance_Manager
             AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
 
             SetDriveVariables();
-            Console.WriteLine("Loading environment variables...");
 
             int index = 0;
 
@@ -85,7 +84,6 @@ namespace Instance_Manager
 
             LoadProfiles();
 
-
             if (QuickLaunch)
             {
 
@@ -129,7 +127,7 @@ namespace Instance_Manager
                     {
                         Form QuickExe = new QuickExe();
                         QuickExe.ShowDialog();
-                    } else { MessageBox.Show("No executables to show for " + Settings.Default.ActiveProfile); }
+                    } else { MessageBox.Show("No executables found for " + Settings.Default.ActiveProfile);return; }
                 } else
                 {
                     index = argsL.IndexOf(SelectedExe) + 1;
@@ -211,7 +209,7 @@ namespace Instance_Manager
                 Application.Run(new MainUI());
             }
 
-            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(10000); }
+            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(5000); }
 
         }
     }
