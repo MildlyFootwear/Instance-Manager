@@ -207,11 +207,16 @@ namespace Instance_Manager.Methods
                     DirectoryLinks.Add(line);
                     string[] links = line.Split(";");
                     Console.WriteLine(line.Replace(";", " to "));
-                    if (!Directory.Exists(ReplaceVariables(links[0])))
-                        MessageBox.Show("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
-
-                    if (!Directory.Exists(ReplaceVariables(links[1])))
-                        MessageBox.Show("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
+                    if (!Directory.Exists(ReplaceVariables(links[0])) && Settings.Default.SuppressMissingDirectory == false)
+                    {
+                        MessageBox.Show("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
+                    } else if (!Directory.Exists(ReplaceVariables(links[0])))
+                        Console.WriteLine("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
+                    if (!Directory.Exists(ReplaceVariables(links[1])) && Settings.Default.SuppressMissingDirectory == false)
+                    {
+                        MessageBox.Show("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
+                    } else if (!Directory.Exists(ReplaceVariables(links[1])))
+                        Console.WriteLine("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
                 }
             }
 

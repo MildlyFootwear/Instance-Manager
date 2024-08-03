@@ -130,5 +130,17 @@ namespace Instance_Manager.Properties {
                 this["IngoreVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SuppressMissingDirectory {
+            get {
+                return ((bool)(this["SuppressMissingDirectory"]));
+            }
+            set {
+                this["SuppressMissingDirectory"] = value;
+            }
+        }
     }
 }
