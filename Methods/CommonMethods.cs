@@ -54,6 +54,7 @@ namespace Instance_Manager.Methods
 
         public static void SetDriveVariables()
         {
+            Console.WriteLine("\nExecuting Method: SetDriveVariables");
             int index = 0;
             DriveInfo[] Drives = DriveInfo.GetDrives();
             foreach (DriveInfo d in Drives)
@@ -79,6 +80,7 @@ namespace Instance_Manager.Methods
 
         public static string CheckGitVersion()
         {
+            Console.WriteLine("\nExecuting Method: CheckGitVersion");
             string ver;
             WebClient client = new();
             Console.WriteLine("Checking github for latest version.");
@@ -101,8 +103,7 @@ namespace Instance_Manager.Methods
         }
         public static string InsertVariables(string path)
         {
-            Console.WriteLine("\nInserting variables");
-
+            Console.WriteLine("\nExecuting Method: InsertVariables");
             int index = 0;
             foreach (string s in SystemVariablesValues)
             {
@@ -117,7 +118,8 @@ namespace Instance_Manager.Methods
 
         public static string ReplaceVariables(string path)
         {
-            Console.WriteLine("\nReplacing variables for " + path);
+            Console.WriteLine("\nExecuting Method: ReplaceVariables");
+            Console.WriteLine("Replacing variables for " + path);
 
             int index = 0;
 
@@ -135,7 +137,7 @@ namespace Instance_Manager.Methods
         public static void LoadProfiles()
         {
 
-            Console.WriteLine("\nLoading profiles");
+            Console.WriteLine("\nExecuting Method: LoadProfiles");
 
             Profiles.Clear();
             if (!Directory.Exists(Settings.Default.ProfilesDirectory))
@@ -163,14 +165,13 @@ namespace Instance_Manager.Methods
             {
                 CurrentProfileList += prof + ", ";
             }
-            Console.WriteLine(CurrentProfileList.Substring(0, CurrentProfileList.Length - 2) + ".\n");
+            Console.WriteLine(CurrentProfileList.Substring(0, CurrentProfileList.Length - 2));
 
         }
 
         public static void SetProfile(string prof)
         {
-            Console.WriteLine();
-
+            Console.WriteLine("\nExecuting Method: SetProfile");
             if (prof != "")
             {
 
@@ -193,11 +194,12 @@ namespace Instance_Manager.Methods
 
         public static void LoadProfileLinks()
         {
+            Console.WriteLine("\nExecuting Method: LoadProfileLinks");
             Console.WriteLine();
             profPATH = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile;
             SystemVariablesValues[SystemVariables.IndexOf("%ACTIVEPROFILE%")] = profPATH;
             string ProfileLinks = profPATH + "\\Links.txt";
-            Console.WriteLine("\nLoading links for " + Settings.Default.ActiveProfile + "\n");
+            Console.WriteLine("Loading links for " + Settings.Default.ActiveProfile);
             DirectoryLinks.Clear();
             if (File.Exists(ProfileLinks))
             {
@@ -224,7 +226,7 @@ namespace Instance_Manager.Methods
 
         public static void SaveProfileLinks()
         {
-            Console.WriteLine();
+            Console.WriteLine("\nExecuting Method: SaveProfileLinks");
             string ProfileLinks = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Links.txt";
             string SavedLinks = "Saving links for " + Settings.Default.ActiveProfile + "\n";
             foreach (string str in DirectoryLinks)
@@ -233,12 +235,12 @@ namespace Instance_Manager.Methods
             }
             File.WriteAllLines(ProfileLinks, DirectoryLinks);
 
-            Console.WriteLine(SavedLinks + "\n");
+            Console.WriteLine(SavedLinks);
         }
 
         public static void LoadProfileExes()
         {
-            Console.WriteLine();
+            Console.WriteLine("\nExecuting Method: LoadProfileExes");
             string ProfileExeDoc = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt";
             ProfileExes.Clear();
             if (File.Exists(ProfileExeDoc))
@@ -253,30 +255,29 @@ namespace Instance_Manager.Methods
             {
                 CurrentExeList += exe + ", ";
             }
-            Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length - 2) + ".\n");
+            Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length - 2));
 
         }
 
         public static void SaveProfileExes()
         {
-            Console.WriteLine("\nSaving profile exes\n");
+            Console.WriteLine("\nExecuting Method: SaveProfileExes");
 
             File.WriteAllLines(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt", ProfileExes);
         }
 
         public static void AmendExe(string amend)
         {
+            Console.WriteLine("\nExecuting Method: AmendExe");
             ProfileExes.Add(amend);
             SaveProfileExes();
-            Console.WriteLine("\nAmmended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt\n");
+            Console.WriteLine("Ammended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt");
         }
 
         public static void LaunchExe()
         {
-
-            Console.WriteLine("\nAttempting to launch " + SelectedExe);
-
-
+            Console.WriteLine("\nExecuting Method: LaunchExe");
+            Console.WriteLine("Attempting to launch " + SelectedExe);
             if (Process.GetProcessesByName("VFSLauncher").Length == 0)
             {
                 bool argspresent = false;

@@ -30,6 +30,7 @@ namespace Instance_Manager
 
         private void RefreshProfiles()
         {
+            Console.WriteLine("\nExecuting Method: RefreshProfiles in MainUI");
             ProfilesBox.Items.Clear();
             foreach (string str in Profiles)
             {
@@ -43,7 +44,7 @@ namespace Instance_Manager
         {
             tableLayoutPanel1.SuspendLayout();
             RefreshProfiles();
-            Console.WriteLine("\nRefreshing lists\n");
+            Console.WriteLine("\nExecuting Method: RefreshList in MainUI");
             if (Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile) == false)
             {
                 Settings.Default.ActiveProfile = Profiles[0];
@@ -110,7 +111,7 @@ namespace Instance_Manager
 
         void RefreshExes()
         {
-            Console.WriteLine("\nRefreshing profile exes.");
+            Console.WriteLine("\nExecuting Method: RefreshExes in MainUI.");
             JustRefreshedExes = true;
             LoadProfileExes();
             ExeBox.Items.Clear();
@@ -142,7 +143,7 @@ namespace Instance_Manager
 
         private void MainUI_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("\nLoading MainUI");
+            Console.WriteLine("\nExecuting Method: MainUI_Load");
             if (Settings.Default.SavedPosition != new Point(1, 1))
                 this.Location = Settings.Default.SavedPosition; Console.WriteLine("Set position to " + this.Location);
             if (Settings.Default.SavedSize != new Size(1, 1))
@@ -176,7 +177,7 @@ namespace Instance_Manager
 
         private void ProfilesBox_SelectedValueChanged(object sender, EventArgs e)
         {
-
+            Console.WriteLine("\nExecuting Method: ProfilesBox_SelectedValueChanged");
             string selected = ProfilesBox.SelectedItem.ToString();
             SetProfile(selected);
             RefreshList();
@@ -186,6 +187,7 @@ namespace Instance_Manager
 
         private void ExeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Console.WriteLine("\nExecuting Method: ExeBoxSelectedIndexChanged");
             if (JustRefreshedExes)
             {
                 JustRefreshedExes = false;
@@ -195,7 +197,7 @@ namespace Instance_Manager
             {
 
                 SelectedExe = ProfileExes[ExeBox.SelectedIndex];
-                Console.WriteLine("\nSelected EXE " + SelectedExe);
+                Console.WriteLine("Selected EXE " + SelectedExe);
             }
         }
 
@@ -206,7 +208,7 @@ namespace Instance_Manager
 
         private void LinkButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("\nStarting link designation.");
+            Console.WriteLine("\nExecuting Method: LinkButton_Click");
             SourceBrowserDialog.InitialDirectory = envEXELOC;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
