@@ -51,7 +51,7 @@ namespace Instance_Manager
                 Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
                 ProfilesBox.SelectedIndex = 0;
             }
-            this.Text = ToolName + " - " + Settings.Default.ActiveProfile;
+            this.Text = ToolName + " "+Settings.Default.Version+" - " + Settings.Default.ActiveProfile;
             LoadProfileLinks();
             int row = 1;
             foreach (string link in DirectoryLinks)
