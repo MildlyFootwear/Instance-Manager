@@ -104,8 +104,8 @@ namespace Instance_Manager
                 Console.WriteLine("Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");
                 temp++;
             }
-            tableLayoutPanel1.RowCount = row + 1;
             tableLayoutPanel1.ResumeLayout();
+            tableLayoutPanel1.RowCount = row + 1;
             Console.WriteLine("Refreshed lists.");
         }
 

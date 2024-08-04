@@ -135,8 +135,10 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Remove(argsButtonList[temp]);
                 temp++;
             }
+            Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
+
+            tableLayoutPanel1.ResumeLayout(); 
             tableLayoutPanel1.RowCount = row;
-            tableLayoutPanel1.ResumeLayout();
 
         }
 
