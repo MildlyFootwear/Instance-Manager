@@ -34,6 +34,11 @@ namespace Instance_Manager
         private void DirectoryTextEditor_Load(object sender, EventArgs e)
         {
             textBox1.Text = this.Text;
+            string dir = ReplaceVariables(this.Text);
+            if (Directory.Exists(dir))
+            {
+                folderBrowserDialog1.InitialDirectory = dir;
+            }
             this.Text = "Edit Path for Directory Link " + this.Text;
             TextInputString = "";
 
