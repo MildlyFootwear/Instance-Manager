@@ -1,4 +1,6 @@
-﻿namespace Instance_Manager
+﻿using Microsoft.VisualBasic.FileIO;
+
+namespace Instance_Manager
 {
     public partial class ProfileManager : Form
     {
@@ -49,7 +51,7 @@
                         string Profile = RetrieveProfile(rowfun);
                         if (MessageBox.Show("Are you sure you want to delete profile " + Profile + "?\nAll subfolders and files will be deleted.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            Directory.Delete(Settings.Default.ProfilesDirectory + "\\" + Profile, true);
+                            FileSystem.DeleteDirectory(Settings.Default.ProfilesDirectory + "\\" + Profile, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                             LoadProfiles();
                             PopulateManager();
                             Console.WriteLine("Deleting profile " + Profile);
