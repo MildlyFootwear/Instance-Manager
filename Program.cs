@@ -19,8 +19,6 @@ namespace Instance_Manager
             
             ApplicationConfiguration.Initialize();
 
-            Console.WriteLine("Starting Instance Manager.");
-
             ImmutableList<string> argsL = args.ToImmutableList();
 
             if (argsL.IndexOf("-debug") != -1)
@@ -28,6 +26,8 @@ namespace Instance_Manager
 
             if (Debug)
                 AllocConsole();
+
+            Console.WriteLine("Starting Instance Manager.");
 
             if (argsL.Count == 0)
             {
@@ -69,7 +69,7 @@ namespace Instance_Manager
             
             if (!File.Exists(usvfsdll))
             {
-                if (MessageBox.Show("Can't find "+usvfsdll+"\nPress OK to open up a link to the github repository where you can download the required files.", ToolName + " - Fatal Error") == DialogResult.OK)
+                if (MessageBox.Show("Can't find "+usvfsdll+"\nOpen the github repository so you can download the required files?", ToolName + " - Fatal Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
                 
                 return;
@@ -79,8 +79,8 @@ namespace Instance_Manager
 
             if (!File.Exists(VFSLauncher))
             {
-                if (MessageBox.Show("Can't find "+VFSLauncher + "\nPress OK to open up a link to the github repository where you can download the required files.", ToolName + " - Fatal Error") == DialogResult.OK)
-                return;
+                if (MessageBox.Show("Can't find "+VFSLauncher + "\nOpen the github repository so you can download the required files?", ToolName + " - Fatal Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    return;
             }
 
             if (!Settings.Default.CustomProfilesDirectory || Settings.Default.ProfilesDirectory == "NotInitialized")
