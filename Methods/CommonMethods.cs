@@ -55,7 +55,6 @@ namespace Instance_Manager.Methods
         public static void SetDriveVariables()
         {
             Console.WriteLine("\nExecuting Method: SetDriveVariables");
-            int index = 0;
             DriveInfo[] Drives = DriveInfo.GetDrives();
             foreach (DriveInfo d in Drives)
             {

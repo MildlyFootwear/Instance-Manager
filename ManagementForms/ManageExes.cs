@@ -17,10 +17,6 @@ namespace Instance_Manager
             InitializeComponent();
         }
 
-        bool tableresized = false;
-        bool windowresized = false;
-
-        int CreateButtons = 10;
         List<Label> exelabels = new List<Label>();
         List<Button> deleteButtonList = new List<Button>();
         List<Button> argsButtonList = new List<Button>();

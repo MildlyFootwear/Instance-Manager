@@ -16,9 +16,10 @@ namespace Instance_Manager
         [STAThread]
         static void Main(string[] args)
         {
-            // To customize application configuration such as set high DPI settings or default font,
             
             ApplicationConfiguration.Initialize();
+
+            Console.WriteLine("Starting Instance Manager.");
 
             ImmutableList<string> argsL = args.ToImmutableList();
 
@@ -27,6 +28,20 @@ namespace Instance_Manager
 
             if (Debug)
                 AllocConsole();
+
+            if (argsL.Count == 0)
+            {
+                Console.WriteLine("No args passed.");
+            }
+            else
+            {
+                Console.Write("Passed args: ");
+                foreach (string arg in argsL)
+                {
+                    Console.Write(arg + "  ");
+                }
+                Console.WriteLine();
+            }
 
             if (argsL.IndexOf("-quicklaunch") != -1)
                 QuickLaunch = true;
@@ -209,7 +224,7 @@ namespace Instance_Manager
                 Application.Run(new MainUI());
             }
 
-            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(5000); }
+            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(2000); }
 
         }
     }

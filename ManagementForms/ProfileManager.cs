@@ -13,7 +13,6 @@ namespace Instance_Manager
         List<Button> deleteButtonList = new List<Button>();
         List<Button> renameButtonList = new List<Button>();
         List<Button> duplicateButtonList = new List<Button>();
-        Size profmansize = new Size();
 
         string RetrieveProfile(int row)
         {
