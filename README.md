@@ -26,6 +26,6 @@ This will change Instance Manager's behavior to just give you a dropdown to sele
 
 ### Launch Arguments
 
-"-debug" will have IM launch with a console window to show various printouts as various functions are executed.  
-"-quicklaunch" will replace the regular UI with up to two dropdowns, one for selecting a profile and another for selecting an executable, before launching the selected executable.  
-When using quicklaunch, you can pass the name of a profile to skip the profile drop down. You can also pass the path of an executable to skip the executable dropdown.  
+* ```-debug``` will have IM launch with a console window to show various printouts as various functions are executed.  
+* ```-quicklaunch``` will replace the regular UI with up to two dropdowns, one for selecting a profile and another for selecting an executable, before launching the selected executable.  
+* When using quicklaunch, you can pass the name of a profile to skip the profile drop down. You can also pass the path of an executable to skip the executable dropdown.  
