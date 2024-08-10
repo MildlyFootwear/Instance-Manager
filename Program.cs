@@ -19,6 +19,13 @@ namespace Instance_Manager
             
             ApplicationConfiguration.Initialize();
 
+            static void ExceptionHandler(object sender, EventArgs ex)
+            {
+                MessageBox.Show(ex.ToString(), ToolName + " - Exception");
+            }
+
+            AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
+
             ImmutableList<string> argsL = args.ToImmutableList();
 
             if (argsL.IndexOf("-debug") != -1)
@@ -46,18 +53,12 @@ namespace Instance_Manager
             if (argsL.IndexOf("-quicklaunch") != -1)
                 QuickLaunch = true;
 
-            static void ExceptionHandler(object sender, EventArgs ex)
-            {
-                MessageBox.Show(ex.ToString(), ToolName+" - Exception");
-            }
-
-            AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
-
-            SetDriveVariables();
 
             int index = 0;
 
-            foreach(string s in SystemVariables)
+            SetDriveVariables();
+
+            foreach (string s in SystemVariables)
             {
                 Console.WriteLine(s+" is " + SystemVariablesValues[index]);
                 index++;
