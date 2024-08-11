@@ -26,7 +26,7 @@ namespace Instance_Manager.Methods
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
+                Console.WriteLine("CheckGitVersion Exception: " + ex.Message);
                 LatestVer = "Unknown";
             } 
 
@@ -37,6 +37,7 @@ namespace Instance_Manager.Methods
 
             void threadMethod()
             {
+
                 CheckGitVersion();
 
                 while (LatestVer == null)
@@ -88,8 +89,7 @@ namespace Instance_Manager.Methods
                             }
                         }
                     }
-                    if (LatestVer == Settings.Default.IngoreVersion)
-                    { Console.WriteLine(LatestVer + " is ignored"); }
+                    if (LatestVer == Settings.Default.IngoreVersion) { Console.WriteLine(LatestVer + " is ignored"); }
                     else if (LatestVer == Settings.Default.Version)
                     {
                         Console.WriteLine(Settings.Default.Version + " is up to date with repository version " + LatestVer);
@@ -100,6 +100,7 @@ namespace Instance_Manager.Methods
 
             Thread C4U = new Thread(new ThreadStart(threadMethod));
             C4U.Start();
+
         }
 
     }

@@ -83,11 +83,11 @@ namespace Instance_Manager.Methods
             int index = 0;
             foreach (string s in SystemVariablesValues)
             {
-                Console.WriteLine("Checking " + path + " for " + s + " to replace with" + SystemVariables[index]);
+                //Console.WriteLine("Checking " + path + " for " + s + " to replace with" + SystemVariables[index]);
                 path = path.Replace(s, SystemVariables[index]);
                 index++;
             }
-            Console.WriteLine();
+            Console.WriteLine("Returning " + path);
             return path;
 
         }
@@ -101,12 +101,12 @@ namespace Instance_Manager.Methods
 
             foreach (string s in SystemVariables)
             {
-                Console.WriteLine("Checking for " + s + " to replace with " + SystemVariablesValues[index]);
+                //Console.WriteLine("Checking for " + s + " to replace with " + SystemVariablesValues[index]);
                 path = path.Replace(s, SystemVariablesValues[index]);
                 index++;
             }
 
-            Console.WriteLine();
+            Console.WriteLine("Returning "+path);
             return path;
         }
 
