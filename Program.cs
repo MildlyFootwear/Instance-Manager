@@ -86,7 +86,7 @@ namespace Instance_Manager
 
             if (!Settings.Default.CustomProfilesDirectory || Settings.Default.ProfilesDirectory == "NotInitialized")
             {
-                Settings.Default.ProfilesDirectory = (envEXELOC) + "\\Profiles";
+                Settings.Default.ProfilesDirectory = envEXELOC + "\\Profiles";
                 Settings.Default.Save();
                 Console.WriteLine("Updated profiles directory to "+ Settings.Default.ProfilesDirectory);
             }
@@ -122,7 +122,7 @@ namespace Instance_Manager
                         
                     } else if (Directory.Exists(Settings.Default.ProfilesDirectory+"\\"+arg))
                     {
-                        passedprofile=arg;
+                        passedprofile = arg;
                         Console.WriteLine("Using profile "+arg);
                     }
                 }
