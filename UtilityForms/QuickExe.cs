@@ -43,8 +43,8 @@ namespace Instance_Manager.UtilityForms
             this.Text = ToolName + " - " + Settings.Default.ActiveProfile + " - Select Exe";
             foreach (string str in ProfileExes)
             {
-                string[] split = str.Split(";");
-                if (str.IndexOf(";") != -1)
+                string[] split = str.Split("|");
+                if (str.IndexOf("|") != -1)
                 {
                     comboBox1.Items.Add(Path.GetFileName(split[0]) + " " + split[1]);
                 }

@@ -180,11 +180,14 @@ namespace Instance_Manager.Methods
             if (File.Exists(ProfileLinks))
             {
                 var lines = File.ReadLines(ProfileLinks);
-                foreach (var line in lines)
+                foreach (var l in lines)
                 {
+                    string line = l;
+                    if (line.IndexOf("|") == -1)
+                        line = line.Replace(";", "|");
                     DirectoryLinks.Add(line);
-                    string[] links = line.Split(";");
-                    Console.WriteLine(line.Replace(";", " to "));
+                    string[] links = line.Split("|");
+                    Console.WriteLine(line.Replace("|", " to "));
                     if (!Directory.Exists(ReplaceVariables(links[0])) && Settings.Default.SuppressMissingDirectory == false)
                     {
                         MessageBox.Show("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
@@ -221,8 +224,11 @@ namespace Instance_Manager.Methods
             ProfileExes.Clear();
             if (File.Exists(ProfileExeDoc))
             {
-                foreach (string exe in File.ReadLines(ProfileExeDoc))
+                foreach (string s in File.ReadLines(ProfileExeDoc))
                 {
+                    string exe = s;
+                    if (exe.IndexOf("|") == -1 && exe.IndexOf(";") != -1)
+                        exe = exe.Replace(";", "|");
                     ProfileExes.Add(exe);
                 }
             }
@@ -258,11 +264,11 @@ namespace Instance_Manager.Methods
             {
                 bool argspresent = false;
                 bool colonpresent = false;
-                if (SelectedExe.IndexOf(";") != -1)
+                if (SelectedExe.IndexOf("|") != -1)
                 {
                     colonpresent = true;
                 }
-                string[] exe = ReplaceVariables(SelectedExe).Split(";");
+                string[] exe = ReplaceVariables(SelectedExe).Split("|");
                 if (colonpresent)
                 {
                     if (exe[1] != "")
@@ -284,7 +290,7 @@ namespace Instance_Manager.Methods
 
                     foreach (string link in DirectoryLinks)
                     {
-                        string ReplacedLink = ReplaceVariables(link);
+                        string ReplacedLink = ReplaceVariables(link.Replace("|",";"));
                         string[] linktolink = ReplacedLink.Split(";");
 
                         if (Directory.Exists(linktolink[0]) == false)

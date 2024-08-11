@@ -57,7 +57,7 @@ namespace Instance_Manager
             int row = 1;
             foreach (string link in DirectoryLinks)
             {
-                string[] splitlink = link.Split(';');
+                string[] splitlink = link.Split("|");
                 if (row - 1 == sourceLabels.Count)
                 {
                     Label Source = new();
@@ -90,7 +90,7 @@ namespace Instance_Manager
                 {
                     tableLayoutPanel1.Controls.Add(sourceLabels[row - 1], 0, row);
                     tableLayoutPanel1.Controls.Add(destLabels[row - 1], 1, row);
-                    Console.WriteLine("Added labels " + sourceLabels[row - 1].ToString() + " and " + destLabels[row - 1] + " to table layout at row " + row);
+                    //Console.WriteLine("Added labels " + sourceLabels[row - 1].ToString() + " and " + destLabels[row - 1] + " to table layout at row " + row);
                 }
                 row++;
             }
@@ -118,9 +118,11 @@ namespace Instance_Manager
             {
                 foreach (string str in ProfileExes)
                 {
-                    string[] split = str.Split(";");
+                    string[] split = str.Split("|");
                     ExeBox.Items.Add(Path.GetFileName(split[0]));
                 }
+
+                Thread.Sleep(50);
 
                 if (ProfileExes.IndexOf(SelectedExe) > -1)
                 {
@@ -142,7 +144,7 @@ namespace Instance_Manager
 
         private void MainUI_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: MainUI_Load");
+            Console.WriteLine("\nExecuting Method: MainUI_Load in MainUI");
             if (Settings.Default.SavedPosition != new Point(1, 1))
                 this.Location = Settings.Default.SavedPosition; Console.WriteLine("Set position to " + this.Location);
             if (Settings.Default.SavedSize != new Size(1, 1))
@@ -176,7 +178,7 @@ namespace Instance_Manager
 
         private void ProfilesBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: ProfilesBox_SelectedValueChanged");
+            Console.WriteLine("\nExecuting Method: ProfilesBox_SelectedValueChanged in MainUI");
             string selected = ProfilesBox.SelectedItem.ToString();
             SetProfile(selected);
             RefreshList();
@@ -186,7 +188,7 @@ namespace Instance_Manager
 
         private void ExeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: ExeBoxSelectedIndexChanged");
+            Console.WriteLine("\nExecuting Method: ExeBoxSelectedIndexChanged in MainUI");
             if (JustRefreshedExes)
             {
                 JustRefreshedExes = false;
@@ -207,7 +209,7 @@ namespace Instance_Manager
 
         private void LinkButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: LinkButton_Click");
+            Console.WriteLine("\nExecuting Method: LinkButton_Click in MainUI");
             SourceBrowserDialog.InitialDirectory = envEXELOC;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
@@ -215,7 +217,7 @@ namespace Instance_Manager
                 if (DestinationBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     Console.WriteLine(DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
-                    DirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + ";" + DestinationBrowserDialog.SelectedPath));
+                    DirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + "|" + DestinationBrowserDialog.SelectedPath));
                     SaveProfileLinks();
                     RefreshList();
                 }
@@ -270,6 +272,7 @@ namespace Instance_Manager
 
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("\nExecuting Method: buttonLaunch_Click in MainUI");
             LaunchExe();
         }
 

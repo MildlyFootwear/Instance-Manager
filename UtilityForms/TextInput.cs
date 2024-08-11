@@ -21,10 +21,12 @@ namespace Instance_Manager
         {
             TextInputString = "";
             textBox1.Text = PassedString;
+            string s = PassedString;
             PassedString = "";
 
             void Close(object sender, EventArgs e)
             {
+                TextInputString = s;
                 this.Close();
             }
 

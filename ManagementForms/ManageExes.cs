@@ -59,28 +59,32 @@ namespace Instance_Manager
                     void LaunchArgs(object sender, EventArgs e)
                     {
                         string exe = ProfileExes[rowfun];
-                        string[] splitexe = exe.Split(';');
+                        Console.WriteLine("\nExecuting Method: LaunchArgs in ManageExes");
+                        Console.WriteLine("Modifying args for "+exe);
+                        string[] splitexe = exe.Split("|");
 
                         Form TextIn = new TextInput();
                         TextIn.Text = "Arguments for " + Path.GetFileName(splitexe[0]);
-                        if (exe.IndexOf(";") > -1)
+                        if (exe.IndexOf("|") > -1)
                             PassedString = splitexe[1];
                         TextIn.ShowDialog();
-                        if (exe.IndexOf(";") > -1)
+                        if (exe.IndexOf("|") > -1)
                         {
                             if (TextInputString != splitexe[1])
                             {
                                 if (TextInputString != "")
-                                    ProfileExes[rowfun] = splitexe[0] + ";" + TextInputString;
+                                    ProfileExes[rowfun] = splitexe[0] + "|" + TextInputString;
                                 else
                                     ProfileExes[rowfun] = splitexe[0];
+                                Console.WriteLine("Modified to "+ ProfileExes[rowfun]);
                                 SaveProfileExes();
                                 RefreshExes();
                             }
                         }
                         else if (TextInputString != "")
                         {
-                            ProfileExes[rowfun] = splitexe[0] + ";" + TextInputString;
+                            ProfileExes[rowfun] = splitexe[0] + "|" + TextInputString;
+                            Console.WriteLine("Modified to " + ProfileExes[rowfun]);
                             SaveProfileExes();
                             RefreshExes();
                         }
@@ -90,7 +94,7 @@ namespace Instance_Manager
                     void RemoveExe(object sender, EventArgs e)
                     {
                         string exe = ProfileExes[rowfun];
-                        if (MessageBox.Show("Remove exeutable \n\"" + exe.Replace(";", " ") + "\" from profile " + Settings.Default.ActiveProfile + "?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        if (MessageBox.Show("Remove exeutable \n\"" + exe.Replace("|", " ") + "\" from profile " + Settings.Default.ActiveProfile + "?", "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             ProfileExes.RemoveAt(rowfun);
                             SaveProfileExes();
@@ -109,7 +113,7 @@ namespace Instance_Manager
 
                 }
 
-                exelabels[row].Text = ProfileExes[row].Split(';')[0];
+                exelabels[row].Text = ProfileExes[row].Split("|")[0];
 
                 if (tableLayoutPanel1.GetControlFromPosition(0, row) != exelabels[row])
                 {

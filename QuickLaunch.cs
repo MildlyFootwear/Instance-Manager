@@ -66,7 +66,7 @@ namespace Instance_Manager
                 else
                 {
                     index = argsL.IndexOf(SelectedExe) + 1;
-                    SelectedExe += ";";
+                    SelectedExe += "|";
                     while (index < argsL.Count)
                     {
                         SelectedExe += " " + argsL[index];
