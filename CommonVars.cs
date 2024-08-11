@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XInput.Wrapper;
 
 namespace Instance_Manager
 {
@@ -18,6 +19,7 @@ namespace Instance_Manager
 
         public static bool QuickLaunch = false;
         public static bool Debug = false;
+        public static X.Gamepad gamepad = null;
 
         public static string SelectedExe = "";
         public static string ProfilePath = "";

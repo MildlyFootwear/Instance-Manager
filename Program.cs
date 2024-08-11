@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Immutable;
 using Instance_Manager.UtilityForms;
 using System.Net;
+using XInput.Wrapper;
 
 namespace Instance_Manager
 {
@@ -53,6 +54,10 @@ namespace Instance_Manager
             if (argsL.IndexOf("-quicklaunch") != -1)
                 QuickLaunch = true;
 
+            if (X.IsAvailable)
+            {
+                gamepad = X.Gamepad_1;
+            }
 
             int index = 0;
 
@@ -134,24 +139,29 @@ namespace Instance_Manager
                     QuickProf.ShowDialog();
                 }
 
-                LoadProfileLinks();
-
-                if (passedexe == null)
+                if (QuickLaunch)
+                    LoadProfileLinks();
+                if (QuickLaunch)
                 {
-                    LoadProfileExes();
-                    if (ProfileExes.Count > 0)
+                    if (passedexe == null)
                     {
-                        Form QuickExe = new QuickExe();
-                        QuickExe.ShowDialog();
-                    } else { MessageBox.Show("No executables found for " + Settings.Default.ActiveProfile);return; }
-                } else
-                {
-                    index = argsL.IndexOf(SelectedExe) + 1;
-                    SelectedExe += ";";
-                    while (index < argsL.Count)
+                        LoadProfileExes();
+                        if (ProfileExes.Count > 0)
+                        {
+                            Form QuickExe = new QuickExe();
+                            QuickExe.ShowDialog();
+                        }
+                        else { MessageBox.Show("No executables found for " + Settings.Default.ActiveProfile); return; }
+                    }
+                    else
                     {
-                        SelectedExe += " "+argsL[index];
-                        index++;
+                        index = argsL.IndexOf(SelectedExe) + 1;
+                        SelectedExe += ";";
+                        while (index < argsL.Count)
+                        {
+                            SelectedExe += " " + argsL[index];
+                            index++;
+                        }
                     }
                 }
 
@@ -224,6 +234,9 @@ namespace Instance_Manager
                 LoadProfileExes();
                 Application.Run(new MainUI());
             }
+
+            if (gamepad != null)
+                X.StopPolling();
 
             if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(2000); }
 
