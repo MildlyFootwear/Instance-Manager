@@ -24,6 +24,7 @@ namespace Instance_Manager
         public static string TextInputString = "";
         public static string PassedString = "";
         public static bool NeedRefresh = false;
+        public static bool NeedLinkMenuRefresh = false;
 
 
         public static string envUSERPROFILE = Environment.GetEnvironmentVariable("USERPROFILE");

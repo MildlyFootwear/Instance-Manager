@@ -43,6 +43,7 @@ namespace Instance_Manager
         private void RefreshList()
         {
             tableLayoutPanel1.SuspendLayout();
+            NeedLinkMenuRefresh = false;
             RefreshProfiles();
             Console.WriteLine("\nExecuting Method: RefreshList in MainUI");
             if (Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile) == false)
@@ -66,15 +67,13 @@ namespace Instance_Manager
                     int index = row - 1;
                     void SourceClick(object sender, EventArgs e)
                     {
-                        Console.WriteLine();
                         Instance_Manager.Methods.LinkModifierMethods.EditLink(index, false);
-                        RefreshList();
+                        if (NeedLinkMenuRefresh) RefreshList();
                     }
                     void DestinationClick(object sender, EventArgs e)
                     {
-                        Console.WriteLine();
                         Instance_Manager.Methods.LinkModifierMethods.EditLink(index, true);
-                        RefreshList();
+                        if (NeedLinkMenuRefresh) RefreshList();
                     }
 
                     Source.Click += SourceClick;

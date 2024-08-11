@@ -12,6 +12,9 @@ namespace Instance_Manager.Methods
 
         public static void EditLink(int index, bool second)
         {
+            Console.WriteLine("\nExecuting Method: EditLink");
+            Console.Write("Index is "+index);
+            if (second) Console.WriteLine(". Editing destination."); else Console.WriteLine(". Editing source.");
             string link = DirectoryLinks[index];
             string[] splitlink = link.Split(";");
             string linksection;
@@ -26,6 +29,7 @@ namespace Instance_Manager.Methods
             {
                 DirectoryLinks.Remove(link);
                 SaveProfileLinks();
+                NeedLinkMenuRefresh = true;
             }
             else if (TextInputString != linksection && TextInputString != "Cancel" && TextInputString != "")
             {
@@ -37,6 +41,8 @@ namespace Instance_Manager.Methods
                         DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
 
                     SaveProfileLinks();
+                    NeedLinkMenuRefresh = true;
+
                 }
                 else
                 {
@@ -48,6 +54,8 @@ namespace Instance_Manager.Methods
                         else
                             DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + ";" + splitlink[1];
                         SaveProfileLinks();
+                        NeedLinkMenuRefresh = true;
+
                     }
                 }
             }
