@@ -24,11 +24,11 @@ namespace Instance_Manager.UtilityForms
             {
                 Application.Exit();
             }
-            if (gamepad.Dpad_Up_up && comboBox1.SelectedIndex > 0)
+            if ((gamepad.Dpad_Up_up || gamepad.Dpad_Left_up) && comboBox1.SelectedIndex > 0)
             {
                 comboBox1.SelectedIndex--;
             }
-            if (gamepad.Dpad_Down_up && comboBox1.SelectedIndex < ProfileExes.Count - 1)
+            if ((gamepad.Dpad_Down_up || gamepad.Dpad_Right_up) && comboBox1.SelectedIndex < Profiles.Count - 1)
             {
                 comboBox1.SelectedIndex++;
             }
@@ -59,6 +59,15 @@ namespace Instance_Manager.UtilityForms
                 gamepad.StateChanged += GamepadButton;
                 X.StartPolling(gamepad);
             }
+
+            void Close(object sender, EventArgs e)
+            {
+                this.Close();
+            }
+
+            Button cancel = new();
+            cancel.Click += Close;
+            this.CancelButton = cancel;
 
         }
 

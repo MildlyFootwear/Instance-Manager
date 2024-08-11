@@ -238,7 +238,7 @@ namespace Instance_Manager
             if (gamepad != null)
                 X.StopPolling();
 
-            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(2000); }
+            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(4000); }
 
         }
     }
