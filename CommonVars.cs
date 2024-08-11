@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using XInput.Wrapper;
@@ -12,6 +13,10 @@ namespace Instance_Manager
     {
 
         public static string ToolName = "Instance Manager";
+        public static string LatestVer = null;
+
+        public static readonly HttpClient client = new HttpClient();
+
 
         public static List<string> Profiles = ["Empty"];
         public static List<string> DirectoryLinks = [];

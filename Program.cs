@@ -1,5 +1,6 @@
 using Instance_Manager.Properties;
 using static Instance_Manager.Methods.CommonMethods;
+using static Instance_Manager.Methods.UpdateMethods;
 using static Instance_Manager.CommonVars;
 using System.Runtime.InteropServices;
 using System.IO;
@@ -108,123 +109,12 @@ namespace Instance_Manager
             if (QuickLaunch)
             {
 
-                Console.WriteLine("\nQuick launching\n");
-
-                string passedexe = null;
-                string passedprofile = null;
-
-                foreach (string arg in args)
-                {
-                    Console.WriteLine(arg);
-                    if (Path.GetExtension(arg) == ".exe")
-                    {
-                        if (File.Exists(arg))
-                        {
-                            passedexe = arg;
-                            Console.WriteLine("Found exe "+arg+" in args.");
-                            SelectedExe = arg;
-                        }
-                        
-                    } else if (Directory.Exists(Settings.Default.ProfilesDirectory+"\\"+arg))
-                    {
-                        passedprofile = arg;
-                        Console.WriteLine("Using profile "+arg);
-                    }
-                }
-
-                if (passedprofile == null)
-                {
-                    Console.WriteLine("\nShowing quick profile");
-                    Form QuickProf = new QuickProfile();
-                    QuickProf.ShowDialog();
-                }
-
-                if (QuickLaunch)
-                    LoadProfileLinks();
-                if (QuickLaunch)
-                {
-                    if (passedexe == null)
-                    {
-                        LoadProfileExes();
-                        if (ProfileExes.Count > 0)
-                        {
-                            Form QuickExe = new QuickExe();
-                            QuickExe.ShowDialog();
-                        }
-                        else { MessageBox.Show("No executables found for " + Settings.Default.ActiveProfile); return; }
-                    }
-                    else
-                    {
-                        index = argsL.IndexOf(SelectedExe) + 1;
-                        SelectedExe += ";";
-                        while (index < argsL.Count)
-                        {
-                            SelectedExe += " " + argsL[index];
-                            index++;
-                        }
-                    }
-                }
-
-                if (QuickLaunch)
-                LaunchExe();
+                QuickLaunchM.QuickLaunchMethod(argsL);
 
             } else
             {
-
-                WebClient client = new();
-                string ver = CheckGitVersion();
-                if (ver != null)
-                {
-
-                    if (ver != Settings.Default.Version && ver != Settings.Default.IngoreVersion)
-                    {
-                        var taskDialog = TaskDialog.ShowDialog(new TaskDialogPage
-                        {
-                            Caption = ToolName,
-                            Text = "Update is available. Go to download page?",
-                            Buttons =
-                            {
-                                new TaskDialogButton
-                                {
-                                    Text = "Yes",
-                                    Tag = 1
-                                },
-                                new TaskDialogButton
-                                {
-                                    Text = "No",
-                                    Tag = 2
-                                },
-                                new TaskDialogButton
-                                {
-                                    Text = "Ignore this version",
-                                    Tag = 3
-                                }
-
-                            }
-                        });
-                        if (taskDialog.Tag is int result)
-                        {
-                            if (result == 1)
-                            {
-                                System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
-                                return;
-                            }
-                            else if (result == 3)
-                            {
-                                Settings.Default.IngoreVersion = ver;
-                                Settings.Default.Save();
-                                Console.WriteLine("Ignoring version " + ver);
-                            }
-                        }
-                    }
-                    if (ver == Settings.Default.IngoreVersion)
-                    { Console.WriteLine(ver + " is ignored"); }
-                    else if (ver == Settings.Default.Version)
-                    {
-                        Console.WriteLine(Settings.Default.Version + " is up to date with repository version " + ver);
-
-                    }
-                }
+                
+                CheckForUpdate();
 
                 if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile))
                 {

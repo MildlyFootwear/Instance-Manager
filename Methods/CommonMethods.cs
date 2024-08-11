@@ -77,29 +77,6 @@ namespace Instance_Manager.Methods
             }
         }
 
-        public static string CheckGitVersion()
-        {
-            Console.WriteLine("\nExecuting Method: CheckGitVersion");
-            string ver;
-            WebClient client = new();
-            Console.WriteLine("Checking github for latest version.");
-            try
-            {
-                Stream stream = client.OpenRead("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
-                StreamReader reader = new StreamReader(stream);
-                ver = reader.ReadToEnd();
-                reader.Close();
-                stream.Close();
-                Console.WriteLine("Found " + ver);
-                return ver;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception: "+ex.Message);
-                return null;
-            }
-
-        }
         public static string InsertVariables(string path)
         {
             Console.WriteLine("\nExecuting Method: InsertVariables");
