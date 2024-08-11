@@ -21,9 +21,9 @@ namespace Instance_Manager
             
             ApplicationConfiguration.Initialize();
 
-            static void ExceptionHandler(object sender, EventArgs ex)
+            static void ExceptionHandler(object sender, UnhandledExceptionEventArgs ex)
             {
-                MessageBox.Show(ex.ToString(), ToolName + " - Exception");
+                MessageBox.Show((ex.ExceptionObject).ToString(), ToolName + " - Exception");
             }
 
             AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
