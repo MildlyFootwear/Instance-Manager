@@ -30,7 +30,7 @@ namespace Instance_Manager
 
             ImmutableList<string> argsL = args.ToImmutableList();
 
-            if (argsL.IndexOf("-debug") != -1)
+            if (argsL.IndexOf("-debug") == 0 || argsL.IndexOf("-debug") == 1)
                 Debug = true;
 
             if (Debug)
@@ -52,7 +52,7 @@ namespace Instance_Manager
                 Console.WriteLine();
             }
 
-            if (argsL.IndexOf("-quicklaunch") != -1)
+            if (argsL.IndexOf("-quicklaunch") == 0 || argsL.IndexOf("-quicklaunch") == 1)
                 QuickLaunch = true;
 
             if (X.IsAvailable)
