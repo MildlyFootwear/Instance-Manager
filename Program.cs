@@ -44,10 +44,10 @@ namespace Instance_Manager
             }
             else
             {
-                Console.Write("Passed args: ");
+                Console.WriteLine("Passed args: ");
                 foreach (string arg in argsL)
                 {
-                    Console.Write(arg + "  ");
+                    Console.WriteLine(arg);
                 }
                 Console.WriteLine();
             }
@@ -123,6 +123,7 @@ namespace Instance_Manager
 
                 LoadProfileExes();
                 Application.Run(new MainUI());
+
             }
 
             if (gamepad != null)
