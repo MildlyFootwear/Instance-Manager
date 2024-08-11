@@ -20,7 +20,6 @@ namespace Instance_Manager
     {
 
         bool JustRefreshedExes = false;
-        bool NeedRefresh = false;
         List<Label> sourceLabels = new List<Label>();
         List<Label> destLabels = new List<Label>();
         public MainUI()
@@ -49,6 +48,7 @@ namespace Instance_Manager
             if (Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile) == false)
             {
                 Settings.Default.ActiveProfile = Profiles[0];
+                Settings.Default.Save();
                 Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
                 ProfilesBox.SelectedIndex = 0;
             }
@@ -233,12 +233,13 @@ namespace Instance_Manager
             Console.WriteLine("\nShowing profile manager.\n");
             Form ProfileM = new ProfileManager();
             ProfileM.ShowDialog();
-            if (NeedRefresh == true)
+            if (NeedSelectedProfileRefresh == true)
             {
+                Console.WriteLine("\nSelected profile refreshing.");
                 RefreshList();
                 RefreshExes();
-            }
-            else { RefreshProfiles(); }
+                NeedSelectedProfileRefresh = false;
+            } else { Console.WriteLine("\nSelected profile not refreshing."); RefreshProfiles(); }
         }
 
         private void toolManageVariables_Click(object sender, EventArgs e)

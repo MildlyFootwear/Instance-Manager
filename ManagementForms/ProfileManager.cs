@@ -54,7 +54,7 @@ namespace Instance_Manager
                             LoadProfiles();
                             PopulateManager();
                             Console.WriteLine("Deleting profile " + Profile);
-                            NeedRefresh = true;
+                            NeedSelectedProfileRefresh = true;
                         }
 
                     }
@@ -71,7 +71,7 @@ namespace Instance_Manager
                             Console.WriteLine("Renamed " + Profile + " to " + TextInputString);
                             LoadProfiles();
                             PopulateManager();
-                            NeedRefresh = true;
+                            NeedSelectedProfileRefresh = true;
 
                         }
                     }
