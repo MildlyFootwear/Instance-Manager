@@ -84,9 +84,9 @@ namespace Instance_Manager
                         string[] exe = ProfileExes[rowfun].Split("|");
                         string msg;
                         if (exe[2].Length ==  0)
-                            msg = "Remove exeutable \"" + exe[0] + "\" from profile " + Settings.Default.ActiveProfile + "?";
+                            msg = "Remove executable \"" + exe[0] + "\" from profile " + Settings.Default.ActiveProfile + "?";
                         else
-                            msg = "Remove exeutable \"" + exe[0] +" " + exe[2] + "\" from profile " + Settings.Default.ActiveProfile + "?";
+                            msg = "Remove executable \"" + exe[0] +" " + exe[2] + "\" from profile " + Settings.Default.ActiveProfile + "?";
 
                         if (MessageBox.Show(msg, "Remove Executable", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
