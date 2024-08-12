@@ -53,7 +53,8 @@ namespace Instance_Manager
 
                     void DuplicateExe(object sender, EventArgs e)
                     {
-                        AmendExe(ProfileExes[rowfun]);
+                        ProfileExes.Add(ProfileExes[rowfun]);
+                        SaveProfileExes();
                         RefreshExes();
                     }
 
@@ -133,7 +134,10 @@ namespace Instance_Manager
             }
             Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
 
-            tableLayoutPanel1.ResumeLayout(); 
+            tableLayoutPanel1.ResumeLayout();
+
+            Thread.Sleep(50);
+
             tableLayoutPanel1.RowCount = row;
 
         }
