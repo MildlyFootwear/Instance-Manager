@@ -119,7 +119,7 @@ namespace Instance_Manager
                 foreach (string str in ProfileExes)
                 {
                     string[] split = str.Split("|");
-                    ExeBox.Items.Add(Path.GetFileName(split[0]));
+                    ExeBox.Items.Add(split[0]);
                 }
 
                 Thread.Sleep(50);

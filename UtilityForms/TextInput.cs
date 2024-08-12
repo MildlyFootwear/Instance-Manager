@@ -37,8 +37,28 @@ namespace Instance_Manager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TextInputString = textBox1.Text;
-            this.Close();
+            if (textBox1.Text.Replace(" ", "").Length > 0)
+            {
+                bool prohibChar = false;
+                foreach (string s in ProhibChars)
+                {
+                    if (textBox1.Text.IndexOf(s) != -1)
+                    {
+                        prohibChar = true;
+                        MessageBox.Show("Character " + s + " can't be input.", ToolName);
+                    }
+                }
+                if (!prohibChar)
+                {
+                    TextInputString = textBox1.Text;
+                    this.Close();
+                }
+            }
+            else {
+                TextInputString = textBox1.Text.Replace(" ", "");
+                this.Close();
+            }
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

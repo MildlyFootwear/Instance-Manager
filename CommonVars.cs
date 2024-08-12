@@ -14,6 +14,7 @@ namespace Instance_Manager
 
         public static string ToolName = "Instance Manager";
         public static string LatestVer = null;
+        public static List<string> ProhibChars = new List<string> { "|" };
 
         public static readonly HttpClient client = new HttpClient();
 

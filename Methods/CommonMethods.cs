@@ -229,6 +229,14 @@ namespace Instance_Manager.Methods
                     string exe = s;
                     if (exe.IndexOf("|") == -1 && exe.IndexOf(";") != -1)
                         exe = exe.Replace(";", "|");
+                    int cnt = exe.Length - exe.Replace("|","").Length;
+                    Console.WriteLine("Found "+cnt+" of | in "+exe);
+
+                    if (cnt == 0)
+                        exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|";
+                    else if (cnt == 1)
+                        exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + exe.Split("|")[1];
+
                     ProfileExes.Add(exe);
                 }
             }
@@ -248,10 +256,10 @@ namespace Instance_Manager.Methods
             File.WriteAllLines(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt", ProfileExes);
         }
 
-        public static void AmendExe(string amend)
+        public static void AmendExe(string exe)
         {
             Console.WriteLine("\nExecuting Method: AmendExe");
-            ProfileExes.Add(amend);
+            ProfileExes.Add(Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|");
             SaveProfileExes();
             Console.WriteLine("Ammended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt");
         }

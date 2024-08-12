@@ -21,6 +21,7 @@ namespace Instance_Manager
         List<Button> deleteButtonList = new List<Button>();
         List<Button> argsButtonList = new List<Button>();
         List<Button> duplicateButtonList = new List<Button>();
+        ToolTip toolTip = new ToolTip();
 
         void RefreshExes()
         {
@@ -64,26 +65,12 @@ namespace Instance_Manager
                         string[] splitexe = exe.Split("|");
 
                         Form TextIn = new TextInput();
-                        TextIn.Text = "Arguments for " + Path.GetFileName(splitexe[0]);
-                        if (exe.IndexOf("|") > -1)
-                            PassedString = splitexe[1];
+                        TextIn.Text = "Arguments for " + Path.GetFileName(splitexe[1]);
+                        PassedString = splitexe[2];
                         TextIn.ShowDialog();
-                        if (exe.IndexOf("|") > -1)
+                        if (TextInputString != splitexe[2])
                         {
-                            if (TextInputString != splitexe[1])
-                            {
-                                if (TextInputString != "")
-                                    ProfileExes[rowfun] = splitexe[0] + "|" + TextInputString;
-                                else
-                                    ProfileExes[rowfun] = splitexe[0];
-                                Console.WriteLine("Modified to "+ ProfileExes[rowfun]);
-                                SaveProfileExes();
-                                RefreshExes();
-                            }
-                        }
-                        else if (TextInputString != "")
-                        {
-                            ProfileExes[rowfun] = splitexe[0] + "|" + TextInputString;
+                            ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + TextInputString;
                             Console.WriteLine("Modified to " + ProfileExes[rowfun]);
                             SaveProfileExes();
                             RefreshExes();
@@ -102,9 +89,18 @@ namespace Instance_Manager
                         }
                     }
 
+                    void DisplayPath(object sender, EventArgs e)
+                    {
+                        int index = rowfun;
+                        string[] split = ProfileExes[rowfun].Split("|");
+                        string path = split[1] + " " + split[2];
+                        toolTip.SetToolTip(ExeLabel, path);
+                    }
+
                     remove.Click += RemoveExe;
                     commandargs.Click += LaunchArgs;
                     dupe.Click += DuplicateExe;
+                    ExeLabel.MouseEnter += DisplayPath;
 
                     exelabels.Add(ExeLabel);
                     deleteButtonList.Add(remove);
