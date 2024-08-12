@@ -271,20 +271,12 @@ namespace Instance_Manager.Methods
             if (Process.GetProcessesByName("VFSLauncher").Length == 0)
             {
                 bool argspresent = false;
-                bool colonpresent = false;
-                if (SelectedExe.IndexOf("|") != -1)
-                {
-                    colonpresent = true;
-                }
                 string[] exe = ReplaceVariables(SelectedExe).Split("|");
-                if (colonpresent)
-                {
-                    if (exe[1] != "")
+                    if (exe[2] != "")
                     {
                         argspresent = true;
                     }
-                }
-                if (!File.Exists(exe[0]))
+                if (!File.Exists(exe[1]))
                 {
                     MessageBox.Show("Could not locate executable.\n" + exe[0], ToolName);
                     return;
@@ -324,21 +316,21 @@ namespace Instance_Manager.Methods
                     instruct.Close();
                 }
 
-                string launchargs = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[0] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                string launchargs = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[1] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff");
 
                 Process VFS = new Process();
                 VFS.StartInfo.FileName = envEXELOC + "\\usvfs\\VFSLauncher.exe";
 
                 if (argspresent)
                 {
-                    Console.WriteLine("Launching " + exe[0] + " withs args " + exe[1]);
-                    File.WriteAllText(envEXELOC + "\\usvfs\\launchargs.txt", exe[1]);
+                    Console.WriteLine("Launching " + exe[1] + " withs args " + exe[2]);
+                    File.WriteAllText(envEXELOC + "\\usvfs\\launchargs.txt", exe[2]);
                     launchargs += " \"" + envEXELOC + "\\usvfs\\launchargs.txt" + "\"";
                 }
                 else
                 {
                     launchargs += " noargs";
-                    Console.WriteLine("Launching " + exe[0]);
+                    Console.WriteLine("Launching " + exe[1]);
                 }
 
                 if (CommonVars.Debug)
