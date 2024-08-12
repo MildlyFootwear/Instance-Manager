@@ -32,5 +32,5 @@ This will change Instance Manager's behavior to just give you a dropdown to sele
 
 ## Credits
 
-MO2 team and all contributors to usvfs.
-Rosiecow on Discord for the application icon.
+MO2 team and all contributors to usvfs.  
+Rosiecow on Discord for the application icon.  
