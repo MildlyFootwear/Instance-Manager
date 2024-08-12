@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.exe&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.dll&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.runtimeconfig.json&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\usvfs\VFSLauncher.exe&quot; &quot;$(ProjectDir)latest/usvfs&quot;" />
+    <Exec Command="copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.exe&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.dll&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\Instance-Manager.runtimeconfig.json&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)\usvfs\usvfsWrap.dll&quot; &quot;$(ProjectDir)latest/usvfs&quot;" />
   </Target>
 
 </Project>
