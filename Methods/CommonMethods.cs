@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Windows.Forms.VisualStyles;
 using System.Runtime.ConstrainedExecution;
 using System.Net;
+using System.Security.Cryptography.Xml;
 
 namespace Instance_Manager.Methods
 {
@@ -80,6 +81,7 @@ namespace Instance_Manager.Methods
         public static string InsertVariables(string path)
         {
             Console.WriteLine("\nExecuting Method: InsertVariables");
+            Console.Write("Inserting variables for " + path);
             int index = 0;
             foreach (string s in SystemVariablesValues)
             {
@@ -87,7 +89,7 @@ namespace Instance_Manager.Methods
                 path = path.Replace(s, SystemVariables[index]);
                 index++;
             }
-            Console.WriteLine("Returning " + path);
+            Console.Write(", returning " + path+"\n");
             return path;
 
         }
@@ -95,7 +97,7 @@ namespace Instance_Manager.Methods
         public static string ReplaceVariables(string path)
         {
             Console.WriteLine("\nExecuting Method: ReplaceVariables");
-            Console.WriteLine("Replacing variables for " + path);
+            Console.Write("Replacing variables for " + path);
 
             int index = 0;
 
@@ -106,7 +108,7 @@ namespace Instance_Manager.Methods
                 index++;
             }
 
-            Console.WriteLine("Returning "+path);
+            Console.Write(", returning "+path + "\n");
             return path;
         }
 
@@ -184,20 +186,29 @@ namespace Instance_Manager.Methods
                 {
                     string line = l;
                     if (line.IndexOf("|") == -1)
+                    {
                         line = line.Replace(";", "|");
+                        UpdatedFormat = true;
+                    }
                     DirectoryLinks.Add(line);
-                    string[] links = line.Split("|");
+                    string[] links = ReplaceVariables(line).Split("|");
                     Console.WriteLine(line.Replace("|", " to "));
-                    if (!Directory.Exists(ReplaceVariables(links[0])) && Settings.Default.SuppressMissingDirectory == false)
+                    if (!Directory.Exists((links[0])) && Settings.Default.SuppressMissingDirectory == false)
                     {
-                        MessageBox.Show("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
-                    } else if (!Directory.Exists(ReplaceVariables(links[0])))
-                        Console.WriteLine("Directory\n" + ReplaceVariables(links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
-                    if (!Directory.Exists(ReplaceVariables(links[1])) && Settings.Default.SuppressMissingDirectory == false)
+                        MessageBox.Show("Directory\n" + (links[0]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
+                    } else if (!Directory.Exists((links[0])))
+                        Console.WriteLine("Directory\n" + (links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
+                    if (!Directory.Exists((links[1])) && Settings.Default.SuppressMissingDirectory == false)
                     {
-                        MessageBox.Show("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
-                    } else if (!Directory.Exists(ReplaceVariables(links[1])))
-                        Console.WriteLine("Directory\n" + ReplaceVariables(links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
+                        MessageBox.Show("Directory\n" + (links[1]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
+                    } else if (!Directory.Exists((links[1])))
+                        Console.WriteLine("Directory\n" + (links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
+                }
+                if (UpdatedFormat)
+                {
+                    Console.WriteLine("Updated formatting, rewriting...");
+                    UpdatedFormat = false;
+                    SaveProfileLinks();
                 }
             }
 
@@ -236,7 +247,8 @@ namespace Instance_Manager.Methods
                         exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|";
                     else if (cnt == 1)
                         exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + exe.Split("|")[1];
-
+                    if (cnt == 0 || cnt == 1)
+                        UpdatedFormat = true;
                     ProfileExes.Add(exe);
                 }
             }
@@ -246,6 +258,12 @@ namespace Instance_Manager.Methods
                 CurrentExeList += exe + ", ";
             }
             Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length - 2));
+            if (UpdatedFormat)
+            {
+                Console.WriteLine("Updated formatting, rewriting...");
+                UpdatedFormat = false;
+                SaveProfileExes();
+            }
 
         }
 

@@ -18,6 +18,7 @@ namespace Instance_Manager
         }
 
         List<Label> exelabels = new List<Label>();
+        List<Button> renameButtonList = new List<Button>();
         List<Button> deleteButtonList = new List<Button>();
         List<Button> argsButtonList = new List<Button>();
         List<Button> duplicateButtonList = new List<Button>();
@@ -26,7 +27,6 @@ namespace Instance_Manager
         void RefreshExes()
         {
             int row = 0;
-            tableLayoutPanel1.SuspendLayout();
             foreach (string exe in ProfileExes)
             {
                 if (row == exelabels.Count)
@@ -35,18 +35,22 @@ namespace Instance_Manager
                     Console.WriteLine("Creating label and buttons, count at " + exelabels.Count);
                     int rowfun = row;
                     Label ExeLabel = new();
+                    Button rename = new();
                     Button dupe = new();
                     Button commandargs = new();
                     Button remove = new();
+                    rename.Text = "Rename";
                     dupe.Text = "Duplicate";
                     commandargs.Text = "Launch Arguments";
                     remove.Text = "Remove";
+                    rename.AutoSize = true;
                     dupe.AutoSize = true;
                     commandargs.AutoSize = true;
                     remove.AutoSize = true;
                     ExeLabel.AutoSize = true;
                     ExeLabel.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
                     ExeLabel.TextAlign = ContentAlignment.MiddleLeft;
+                    rename.BackColor = addExe.BackColor;
                     dupe.BackColor = addExe.BackColor;
                     commandargs.BackColor = addExe.BackColor;
                     remove.BackColor = addExe.BackColor;
@@ -104,12 +108,31 @@ namespace Instance_Manager
                         toolTip.SetToolTip(ExeLabel, path);
                     }
 
+                    void Rename(object sender, EventArgs e)
+                    {
+                        string[] split = ProfileExes[rowfun].Split("|");
+                        PassedString = split[0];
+                        Form TextIn = new TextInput();
+                        TextIn.Text = "Rename " + Path.GetFileName(split[0]);
+                        TextIn.ShowDialog();
+                        Console.WriteLine("Returned string " + TextInputString);
+                        if (TextInputString != "" &&  TextInputString != split[0])
+                        {
+                            Console.WriteLine("Setting exe index "+rowfun+" to "+ TextInputString + "|" + split[1] + "|" + split[2]);
+                            ProfileExes[rowfun] = TextInputString + "|"+split[1]+"|"+split[2];
+                            SaveProfileExes();
+                            RefreshExes();
+                        }
+
+                    }
+                    rename.Click += Rename;
                     remove.Click += RemoveExe;
                     commandargs.Click += LaunchArgs;
                     dupe.Click += DuplicateExe;
                     ExeLabel.MouseEnter += DisplayPath;
-
+                    
                     exelabels.Add(ExeLabel);
+                    renameButtonList.Add(rename);
                     deleteButtonList.Add(remove);
                     argsButtonList.Add(commandargs);
                     duplicateButtonList.Add(dupe);
@@ -121,9 +144,10 @@ namespace Instance_Manager
                 if (tableLayoutPanel1.GetControlFromPosition(0, row) != exelabels[row])
                 {
                     tableLayoutPanel1.Controls.Add(exelabels[row], 0, row);
-                    tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 1, row);
-                    tableLayoutPanel1.Controls.Add(argsButtonList[row], 2, row);
-                    tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
+                    tableLayoutPanel1.Controls.Add(renameButtonList[row], 1, row);
+                    tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 2, row);
+                    tableLayoutPanel1.Controls.Add(argsButtonList[row], 3, row);
+                    tableLayoutPanel1.Controls.Add(deleteButtonList[row], 4, row);
                 }
                 row++;
 
@@ -133,16 +157,13 @@ namespace Instance_Manager
             {
                 Console.WriteLine("Cleaning up " + exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(exelabels[temp]);
+                tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(duplicateButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(argsButtonList[temp]);
                 temp++;
             }
             Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
-
-            tableLayoutPanel1.ResumeLayout();
-
-            Thread.Sleep(50);
 
             tableLayoutPanel1.RowCount = row;
 

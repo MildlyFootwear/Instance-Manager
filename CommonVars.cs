@@ -18,13 +18,13 @@ namespace Instance_Manager
 
         public static readonly HttpClient client = new HttpClient();
 
-
         public static List<string> Profiles = ["Empty"];
         public static List<string> DirectoryLinks = [];
         public static List<string> ProfileExes = [];
 
         public static bool QuickLaunch = false;
         public static bool Debug = false;
+        public static bool UpdatedFormat = false;
         public static X.Gamepad gamepad = null;
 
         public static string SelectedExe = "";
