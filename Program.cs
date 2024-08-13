@@ -9,6 +9,7 @@ using System.Collections.Immutable;
 using Instance_Manager.UtilityForms;
 using System.Net;
 using XInput.Wrapper;
+using Instance_Manager.Methods;
 
 namespace Instance_Manager
 {
@@ -113,8 +114,10 @@ namespace Instance_Manager
 
             } else
             {
-                
-                CheckForUpdate();
+
+                UpdateMethods updateMethods = new UpdateMethods();
+
+                updateMethods.CheckForUpdate();
 
                 if (!Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile))
                 {

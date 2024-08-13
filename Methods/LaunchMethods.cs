@@ -47,6 +47,8 @@ namespace Instance_Manager.Methods
 
                 }
 
+                Thread.Sleep(1000);
+
                 try
                 {
                     // createFlags set to 0 as it is unneeded here.

@@ -11,7 +11,7 @@ namespace Instance_Manager.Methods
     public class UpdateMethods
     {
 
-        public static async void CheckGitVersion()
+        public async void CheckGitVersion()
         {
             Console.WriteLine("\nExecuting Method: CheckGitVersion");
             string ver;
@@ -32,7 +32,7 @@ namespace Instance_Manager.Methods
 
         }
 
-        public static void CheckForUpdate()
+        public void CheckForUpdate()
         {
 
             void threadMethod()
@@ -98,7 +98,7 @@ namespace Instance_Manager.Methods
                 }
             }
 
-            Thread C4U = new Thread(new ThreadStart(threadMethod));
+            Thread C4U = new Thread(threadMethod);
             C4U.Start();
 
         }
