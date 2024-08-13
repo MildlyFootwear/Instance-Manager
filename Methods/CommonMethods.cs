@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static Instance_Manager.CommonVars;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 using System.Windows.Forms.VisualStyles;
 using System.Runtime.ConstrainedExecution;
 using System.Net;
@@ -178,7 +177,7 @@ namespace Instance_Manager.Methods
             SystemVariablesValues[SystemVariables.IndexOf("%ACTIVEPROFILE%")] = profPATH;
             string ProfileLinks = profPATH + "\\Links.txt";
             Console.WriteLine("Loading links for " + Settings.Default.ActiveProfile);
-            DirectoryLinks.Clear();
+            ProfileDirectoryLinks.Clear();
             if (File.Exists(ProfileLinks))
             {
                 var lines = File.ReadLines(ProfileLinks);
@@ -190,7 +189,7 @@ namespace Instance_Manager.Methods
                         line = line.Replace(";", "|");
                         UpdatedFormat = true;
                     }
-                    DirectoryLinks.Add(line);
+                    ProfileDirectoryLinks.Add(line);
                     string[] links = ReplaceVariables(line).Split("|");
                     Console.WriteLine(line.Replace("|", " to "));
                     if (!Directory.Exists((links[0])) && Settings.Default.SuppressMissingDirectory == false)
@@ -219,13 +218,21 @@ namespace Instance_Manager.Methods
             Console.WriteLine("\nExecuting Method: SaveProfileLinks");
             string ProfileLinks = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Links.txt";
             string SavedLinks = "Saving links for " + Settings.Default.ActiveProfile + "\n";
-            foreach (string str in DirectoryLinks)
+            foreach (string str in ProfileDirectoryLinks)
             {
                 SavedLinks += str + "\n";
             }
-            File.WriteAllLines(ProfileLinks, DirectoryLinks);
+            File.WriteAllLines(ProfileLinks, ProfileDirectoryLinks);
 
             Console.WriteLine(SavedLinks);
+        }
+
+        public static string FormattedExeFromPath(string path)
+        {
+            string s = Path.GetFileNameWithoutExtension(path) + "|" + path + "|"+Path.GetDirectoryName(path)+"|";
+            if (Debug)
+                Console.WriteLine("\nFormattedExeFromPath:\n    "+path+"\n    "+s);
+            return s;
         }
 
         public static void LoadProfileExes()
@@ -244,11 +251,11 @@ namespace Instance_Manager.Methods
                     Console.WriteLine("Found "+cnt+" of | in "+exe);
 
                     if (cnt == 0)
-                        exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|";
+                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + Path.GetDirectoryName(exe) + "|"; UpdatedFormat = true; Console.WriteLine("\nUpdated to\n    " + exe); }
                     else if (cnt == 1)
-                        exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + exe.Split("|")[1];
-                    if (cnt == 0 || cnt == 1)
-                        UpdatedFormat = true;
+                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe.Split("|")[0]) + "|" + exe.Split("|")[0] + "|" + Path.GetDirectoryName(exe) + "|" + exe.Split("|")[1]; UpdatedFormat = true; Console.WriteLine("\nUpdated to\n    " + exe); }
+                    else if (cnt == 2)
+                        { Console.Write("Updating format for\n    " + exe); exe = exe.Split("|")[0] + "|" + exe.Split("|")[1] + "|" + Path.GetDirectoryName(exe.Split("|")[1]) + "|" + exe.Split("|")[2]; UpdatedFormat = true; Console.WriteLine("\nUpdated to\n    " + exe); }
                     ProfileExes.Add(exe);
                 }
             }
@@ -277,92 +284,11 @@ namespace Instance_Manager.Methods
         public static void AmendExe(string exe)
         {
             Console.WriteLine("\nExecuting Method: AmendExe");
-            ProfileExes.Add(Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|");
+            ProfileExes.Add(FormattedExeFromPath(exe));
             SaveProfileExes();
             Console.WriteLine("Ammended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt");
         }
 
-        public static void LaunchExe()
-        {
-            Console.WriteLine("\nExecuting Method: LaunchExe");
-            Console.WriteLine("Attempting to launch " + SelectedExe);
-            if (Process.GetProcessesByName("VFSLauncher").Length == 0)
-            {
-                bool argspresent = false;
-                string[] exe = ReplaceVariables(SelectedExe).Split("|");
-                    if (exe[2] != "")
-                    {
-                        argspresent = true;
-                    }
-                if (!File.Exists(exe[1]))
-                {
-                    MessageBox.Show("Could not locate executable.\n" + exe[0], ToolName);
-                    return;
-                }
-
-                if (File.Exists(envEXELOC + "\\usvfs\\VFSinstructions.txt"))
-                    File.Delete(envEXELOC + "\\usvfs\\VFSinstructions.txt");
-
-                using (StreamWriter instruct = new StreamWriter(envEXELOC + "\\usvfs\\VFSinstructions.txt"))
-                {
-
-                    foreach (string link in DirectoryLinks)
-                    {
-                        string ReplacedLink = ReplaceVariables(link.Replace("|",";"));
-                        string[] linktolink = ReplacedLink.Split(";");
-
-                        if (Directory.Exists(linktolink[0]) == false)
-                        {
-                            MessageBox.Show(linktolink[0] + "\ninvolved in link" + link + "\ndoes not exist.\n\nLaunch cancelled.", "Aborting Launch");
-                            return;
-                        }
-                        if (Directory.Exists(linktolink[1]) == false)
-                        {
-                            MessageBox.Show(linktolink[1] + "\ninvolved in link" + link + "\ndoes not exist.\n\nLaunch cancelled.", "Aborting Launch");
-                            return;
-                        }
-
-                        if (link == DirectoryLinks[DirectoryLinks.Count - 1])
-                        {
-                            instruct.Write(ReplacedLink);
-                        }
-                        else
-                        {
-                            instruct.Write(ReplacedLink + ";");
-                        }
-                    }
-                    instruct.Close();
-                }
-
-                string launchargs = "\"" + envEXELOC + "\\usvfs\\VFSinstructions.txt\" \"" + exe[1] + "\" " + DateTime.Now.ToString("yyyyMMddHHmmssffff");
-
-                Process VFS = new Process();
-                VFS.StartInfo.FileName = envEXELOC + "\\usvfs\\VFSLauncher.exe";
-
-                if (argspresent)
-                {
-                    Console.WriteLine("Launching " + exe[1] + " withs args " + exe[2]);
-                    File.WriteAllText(envEXELOC + "\\usvfs\\launchargs.txt", exe[2]);
-                    launchargs += " \"" + envEXELOC + "\\usvfs\\launchargs.txt" + "\"";
-                }
-                else
-                {
-                    launchargs += " noargs";
-                    Console.WriteLine("Launching " + exe[1]);
-                }
-
-                if (CommonVars.Debug)
-                    launchargs += " debug ";
-
-                VFS.StartInfo.Arguments = launchargs;
-                Console.WriteLine("VFSLauncher path " + VFS.StartInfo.FileName + " Command args " + VFS.StartInfo.Arguments);
-                VFS.Start();
-            }
-            else
-            {
-                MessageBox.Show("Another program is already using our virtual file system.");
-            }
-        }
 
     }
 }

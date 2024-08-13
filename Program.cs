@@ -82,7 +82,7 @@ namespace Instance_Manager
                 return;
             }
 
-            string VFSLauncher = envEXELOC + "\\usvfs\\VFSLauncher.exe";
+            string VFSLauncher = envEXELOC + "\\usvfs\\usvfsWrap.dll";
 
             if (!File.Exists(VFSLauncher))
             {
@@ -128,6 +128,13 @@ namespace Instance_Manager
 
             if (gamepad != null)
                 X.StopPolling();
+            if (VFSActive)
+                Console.WriteLine();
+            while (VFSActive && QuickLaunch == false)
+            {
+                Console.Write("\r"+DateTime.Now.ToString("HH:mm:ss")+" VFS still active with "+VFSHookedProcesses+" processes hooked into it.");
+                Thread.Sleep(1000);
+            }
 
             if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(4000); }
 

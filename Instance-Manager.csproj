@@ -52,6 +52,9 @@
     <Using Include="Instance_Manager.CommonVars">
       <Static>True</Static>
     </Using>
+    <Using Include="Instance_Manager.Methods.LaunchMethods">
+      <Static>True</Static>
+    </Using>
     <Using Include="Instance_Manager.Properties" />
     <Using Include="System.IO" />
   </ItemGroup>

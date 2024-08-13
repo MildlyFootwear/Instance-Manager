@@ -15,7 +15,7 @@ namespace Instance_Manager.Methods
             Console.WriteLine("\nExecuting Method: EditLink");
             Console.Write("Index is "+index);
             if (second) Console.WriteLine(". Editing destination."); else Console.WriteLine(". Editing source.");
-            string link = DirectoryLinks[index];
+            string link = ProfileDirectoryLinks[index];
             string[] splitlink = link.Split("|");
             string linksection;
             Form TextIn = new DirectoryTextEditor();
@@ -27,7 +27,7 @@ namespace Instance_Manager.Methods
             TextIn.ShowDialog();
             if (TextInputString == "Remove")
             {
-                DirectoryLinks.Remove(link);
+                ProfileDirectoryLinks.Remove(link);
                 SaveProfileLinks();
                 NeedLinkMenuRefresh = true;
             }
@@ -36,9 +36,9 @@ namespace Instance_Manager.Methods
                 if (Directory.Exists(ReplaceVariables(TextInputString)))
                 {
                     if (second)
-                        DirectoryLinks[DirectoryLinks.IndexOf(link)] = splitlink[0] + "|" + TextInputString;
+                        ProfileDirectoryLinks[ProfileDirectoryLinks.IndexOf(link)] = splitlink[0] + "|" + TextInputString;
                     else
-                        DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + "|" + splitlink[1];
+                        ProfileDirectoryLinks[ProfileDirectoryLinks.IndexOf(link)] = TextInputString + "|" + splitlink[1];
 
                     SaveProfileLinks();
                     NeedLinkMenuRefresh = true;
@@ -50,9 +50,9 @@ namespace Instance_Manager.Methods
                     {
                         Directory.CreateDirectory(ReplaceVariables(TextInputString));
                         if (second)
-                            DirectoryLinks[DirectoryLinks.IndexOf(link)] = splitlink[0] + "|" + TextInputString;
+                            ProfileDirectoryLinks[ProfileDirectoryLinks.IndexOf(link)] = splitlink[0] + "|" + TextInputString;
                         else
-                            DirectoryLinks[DirectoryLinks.IndexOf(link)] = TextInputString + "|" + splitlink[1];
+                            ProfileDirectoryLinks[ProfileDirectoryLinks.IndexOf(link)] = TextInputString + "|" + splitlink[1];
                         SaveProfileLinks();
                         NeedLinkMenuRefresh = true;
 

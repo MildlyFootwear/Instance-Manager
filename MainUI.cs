@@ -38,6 +38,11 @@ namespace Instance_Manager
             ProfilesBox.SelectedIndex = ProfilesBox.FindStringExact(Settings.Default.ActiveProfile);
         }
 
+        void UpdateTitle()
+        {
+            string s = ToolName + " " + Settings.Default.Version + " - " + Settings.Default.ActiveProfile;
+            Text = s;
+        }
 
         private void RefreshList()
         {
@@ -52,10 +57,10 @@ namespace Instance_Manager
                 Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
                 ProfilesBox.SelectedIndex = 0;
             }
-            this.Text = ToolName + " "+Settings.Default.Version+" - " + Settings.Default.ActiveProfile;
+            UpdateTitle();
             LoadProfileLinks();
             int row = 1;
-            foreach (string link in DirectoryLinks)
+            foreach (string link in ProfileDirectoryLinks)
             {
                 string[] splitlink = link.Split("|");
                 if (row - 1 == sourceLabels.Count)
@@ -170,6 +175,7 @@ namespace Instance_Manager
 
         private void MainUI_FormClosing(object sender, FormClosingEventArgs e)
         {
+            CommonVars.Closing = true;
             Settings.Default.SavedPosition = this.Location;
             Settings.Default.SavedSize = this.Size;
             Settings.Default.SavedExe = SelectedExe;
@@ -199,6 +205,8 @@ namespace Instance_Manager
 
                 SelectedExe = ProfileExes[ExeBox.SelectedIndex];
                 Console.WriteLine("Selected EXE " + SelectedExe);
+                Settings.Default.Save();
+
             }
         }
 
@@ -217,7 +225,7 @@ namespace Instance_Manager
                 if (DestinationBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     Console.WriteLine(DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
-                    DirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + "|" + DestinationBrowserDialog.SelectedPath));
+                    ProfileDirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + "|" + DestinationBrowserDialog.SelectedPath));
                     SaveProfileLinks();
                     RefreshList();
                 }

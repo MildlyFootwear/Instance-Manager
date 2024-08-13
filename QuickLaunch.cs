@@ -30,7 +30,6 @@ namespace Instance_Manager
                     {
                         passedexe = arg;
                         Console.WriteLine("Found exe " + arg + " in args.");
-                        SelectedExe = arg;
                     }
 
                 }
@@ -65,8 +64,8 @@ namespace Instance_Manager
                 }
                 else
                 {
-                    index = argsL.IndexOf(SelectedExe) + 1;
-                    SelectedExe += "|";
+                    index = argsL.IndexOf(passedexe) + 1;
+                    SelectedExe = FormattedExeFromPath(passedexe);
                     while (index < argsL.Count)
                     {
                         SelectedExe += " " + argsL[index];

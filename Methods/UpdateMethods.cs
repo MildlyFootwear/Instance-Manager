@@ -52,8 +52,8 @@ namespace Instance_Manager.Methods
                     {
                         var taskDialog = TaskDialog.ShowDialog(new TaskDialogPage
                         {
-                            Caption = ToolName,
-                            Text = "Update is available. Go to download page?",
+                            Caption = ToolName + " - "+Settings.Default.Version,
+                            Text = LatestVer+" is available. Go to download page?",
                             Buttons =
                             {
                                 new TaskDialogButton

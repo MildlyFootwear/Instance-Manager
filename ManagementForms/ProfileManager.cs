@@ -128,8 +128,10 @@ namespace Instance_Manager
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount && temp < Labels.Count)
+            while (temp < Labels.Count)
             {
+                if (tableLayoutPanel1.Contains(Labels[temp]) == false)
+                    break;
                 Console.WriteLine("Cleaning up " + Labels[temp]);
                 tableLayoutPanel1.Controls.Remove(Labels[temp]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
@@ -137,7 +139,10 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 temp++;
             }
+
             tableLayoutPanel1.RowCount = row;
+            Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + Labels.Count);
+
         }
 
         private void ProfileManager_Load(object sender, EventArgs e)

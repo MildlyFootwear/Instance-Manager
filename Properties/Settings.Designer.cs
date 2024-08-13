@@ -109,7 +109,7 @@ namespace Instance_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("v0.22")]
+        [global::System.Configuration.DefaultSettingValueAttribute("v0.3")]
         public string Version {
             get {
                 return ((string)(this["Version"]));

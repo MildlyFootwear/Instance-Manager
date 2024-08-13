@@ -14,17 +14,25 @@ namespace Instance_Manager
 
         public static string ToolName = "Instance Manager";
         public static string LatestVer = null;
-        public static List<string> ProhibChars = new List<string> { "|" };
+        public static List<string> ProhibChars = ["|"];
 
         public static readonly HttpClient client = new HttpClient();
 
         public static List<string> Profiles = ["Empty"];
-        public static List<string> DirectoryLinks = [];
+        public static List<string> ProfileDirectoryLinks = [];
         public static List<string> ProfileExes = [];
 
         public static bool QuickLaunch = false;
         public static bool Debug = false;
         public static bool UpdatedFormat = false;
+        public static bool Closing = false;
+        public static bool TickTock = false;
+
+        public static bool VFSActive = false;
+        public static bool VFSInitializing = false;
+        public static int VFSHookedProcesses = 0;
+        public static object HookCountLock = new();
+
         public static X.Gamepad gamepad = null;
 
         public static string SelectedExe = "";

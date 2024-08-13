@@ -71,11 +71,11 @@ namespace Instance_Manager
 
                         Form TextIn = new TextInput();
                         TextIn.Text = "Arguments for " + Path.GetFileName(splitexe[1]);
-                        PassedString = splitexe[2];
+                        PassedString = splitexe[3];
                         TextIn.ShowDialog();
-                        if (TextInputString != splitexe[2])
+                        if (TextInputString != splitexe[3])
                         {
-                            ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + TextInputString;
+                            ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + splitexe[2]+"|"+ TextInputString;
                             Console.WriteLine("Modified to " + ProfileExes[rowfun]);
                             SaveProfileExes();
                             RefreshExes();
@@ -153,8 +153,10 @@ namespace Instance_Manager
 
             }
             int temp = row;
-            while (temp < tableLayoutPanel1.RowCount && temp < exelabels.Count)
+            while (temp < exelabels.Count)
             {
+                if (tableLayoutPanel1.Contains(exelabels[temp]) == false)
+                    break;
                 Console.WriteLine("Cleaning up " + exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
@@ -163,9 +165,10 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Remove(argsButtonList[temp]);
                 temp++;
             }
-            Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
 
             tableLayoutPanel1.RowCount = row;
+            Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
+
 
         }
 
