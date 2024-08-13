@@ -16,9 +16,9 @@ namespace Instance_Manager.Methods
             Console.WriteLine("\nExecuting Method: CheckGitVersion");
             string ver;
             Console.WriteLine("Checking github for latest version.");
-            HttpClient client = new HttpClient();
             try
             {
+                HttpClient client = new HttpClient();
                 using HttpResponseMessage response = await client.GetAsync("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
                 response.EnsureSuccessStatusCode();
                 ver = await response.Content.ReadAsStringAsync();
