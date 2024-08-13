@@ -32,7 +32,7 @@ namespace Instance_Manager
                 if (row == exelabels.Count)
                 {
 
-                    Console.WriteLine("Creating label and buttons, count at " + exelabels.Count);
+                    WriteLineIfDebug("Creating label and buttons, count at " + exelabels.Count);
                     int rowfun = row;
                     Label ExeLabel = new();
                     Button rename = new();
@@ -65,8 +65,8 @@ namespace Instance_Manager
                     void LaunchArgs(object sender, EventArgs e)
                     {
                         string exe = ProfileExes[rowfun];
-                        Console.WriteLine("\nExecuting Method: LaunchArgs in ManageExes");
-                        Console.WriteLine("Modifying args for "+exe);
+                        WriteLineIfDebug("\nExecuting Method: LaunchArgs in ManageExes");
+                        WriteLineIfDebug("Modifying args for "+exe);
                         string[] splitexe = exe.Split("|");
 
                         Form TextIn = new TextInput();
@@ -76,7 +76,7 @@ namespace Instance_Manager
                         if (TextInputString != splitexe[3])
                         {
                             ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + splitexe[2]+"|"+ TextInputString;
-                            Console.WriteLine("Modified to " + ProfileExes[rowfun]);
+                            WriteLineIfDebug("Modified to " + ProfileExes[rowfun]);
                             SaveProfileExes();
                             RefreshExes();
                         }
@@ -115,10 +115,10 @@ namespace Instance_Manager
                         Form TextIn = new TextInput();
                         TextIn.Text = "Rename " + Path.GetFileName(split[0]);
                         TextIn.ShowDialog();
-                        Console.WriteLine("Returned string " + TextInputString);
+                        WriteLineIfDebug("Returned string " + TextInputString);
                         if (TextInputString != "" &&  TextInputString != split[0])
                         {
-                            Console.WriteLine("Setting exe index "+rowfun+" to "+ TextInputString + "|" + split[1] + "|" + split[2]);
+                            WriteLineIfDebug("Setting exe index "+rowfun+" to "+ TextInputString + "|" + split[1] + "|" + split[2]);
                             ProfileExes[rowfun] = TextInputString + "|"+split[1]+"|"+split[2];
                             SaveProfileExes();
                             RefreshExes();
@@ -157,7 +157,7 @@ namespace Instance_Manager
             {
                 if (tableLayoutPanel1.Contains(exelabels[temp]) == false)
                     break;
-                Console.WriteLine("Cleaning up " + exelabels[temp]);
+                WriteLineIfDebug("Cleaning up " + exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
@@ -167,7 +167,7 @@ namespace Instance_Manager
             }
 
             tableLayoutPanel1.RowCount = row;
-            Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
+            WriteLineIfDebug("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
 
 
         }
@@ -194,7 +194,7 @@ namespace Instance_Manager
 
         private void addExe_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Opening add EXE prompt.");
+            WriteLineIfDebug("Opening add EXE prompt.");
             ExeBrowserDialog.Filter = "Executables|*.exe";
             if (ExeBrowserDialog.ShowDialog() == DialogResult.OK)
             {
@@ -210,7 +210,7 @@ namespace Instance_Manager
 
         private void tableLayoutPanel1_Resize(object sender, EventArgs e)
         {
-            //Console.WriteLine("Resizing window for table.");
+            //WriteLineIfDebug("Resizing window for table.");
             //if (tableresized)
             //{
             //    tableresized = false;
@@ -219,7 +219,7 @@ namespace Instance_Manager
             //{
             //    tableresized = true;
             //    this.Width = tableLayoutPanel1.Width + (6 * this.DeviceDpi / 100);
-            //    Console.WriteLine(tableLayoutPanel1.Width + " " + this.Width);
+            //    WriteLineIfDebug(tableLayoutPanel1.Width + " " + this.Width);
             //} 
         }
 
@@ -233,7 +233,7 @@ namespace Instance_Manager
             //{
             //    windowresized = true;
             //    this.Width = tableLayoutPanel1.Width + (Convert.ToInt32(Convert.ToDouble(4) * Convert.ToDouble(this.DeviceDpi / 10)));
-            //    Console.WriteLine(tableLayoutPanel1.Width + " " + this.Width);
+            //    WriteLineIfDebug(tableLayoutPanel1.Width + " " + this.Width);
             //}
 
 

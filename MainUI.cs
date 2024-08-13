@@ -30,7 +30,7 @@ namespace Instance_Manager
 
         private void RefreshProfiles()
         {
-            Console.WriteLine("\nExecuting Method: RefreshProfiles in MainUI");
+            WriteLineIfDebug("\nExecuting Method: RefreshProfiles in MainUI");
             ProfilesBox.Items.Clear();
             foreach (string str in Profiles)
             {
@@ -50,12 +50,12 @@ namespace Instance_Manager
             tableLayoutPanel1.SuspendLayout();
             NeedLinkMenuRefresh = false;
             RefreshProfiles();
-            Console.WriteLine("\nExecuting Method: RefreshList in MainUI");
+            WriteLineIfDebug("\nExecuting Method: RefreshList in MainUI");
             if (Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile) == false)
             {
                 Settings.Default.ActiveProfile = Profiles[0];
                 Settings.Default.Save();
-                Console.WriteLine("Set profile not found, setting to " + Profiles[0]);
+                WriteLineIfDebug("Set profile not found, setting to " + Profiles[0]);
                 ProfilesBox.SelectedIndex = 0;
             }
             UpdateTitle();
@@ -86,7 +86,7 @@ namespace Instance_Manager
                     Destination.Click += DestinationClick;
                     sourceLabels.Add(Source);
                     destLabels.Add(Destination);
-                    Console.WriteLine("Created labels " + Source.ToString() + " and " + Destination.ToString() + " for row " + row);
+                    WriteLineIfDebug("Created labels " + Source.ToString() + " and " + Destination.ToString() + " for row " + row);
                 }
 
                 sourceLabels[row - 1].Text = splitlink[0];
@@ -96,7 +96,7 @@ namespace Instance_Manager
                 {
                     tableLayoutPanel1.Controls.Add(sourceLabels[row - 1], 0, row);
                     tableLayoutPanel1.Controls.Add(destLabels[row - 1], 1, row);
-                    //Console.WriteLine("Added labels " + sourceLabels[row - 1].ToString() + " and " + destLabels[row - 1] + " to table layout at row " + row);
+                    //WriteLineIfDebug("Added labels " + sourceLabels[row - 1].ToString() + " and " + destLabels[row - 1] + " to table layout at row " + row);
                 }
                 row++;
             }
@@ -106,17 +106,17 @@ namespace Instance_Manager
             {
                 tableLayoutPanel1.Controls.Remove(sourceLabels[temp]);
                 tableLayoutPanel1.Controls.Remove(destLabels[temp]);
-                Console.WriteLine("Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");
+                WriteLineIfDebug("Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");
                 temp++;
             }
             tableLayoutPanel1.ResumeLayout();
             tableLayoutPanel1.RowCount = row + 1;
-            Console.WriteLine("Refreshed lists.");
+            WriteLineIfDebug("Refreshed lists.");
         }
 
         void RefreshExes()
         {
-            Console.WriteLine("\nExecuting Method: RefreshExes in MainUI.");
+            WriteLineIfDebug("\nExecuting Method: RefreshExes in MainUI.");
             JustRefreshedExes = true;
             LoadProfileExes();
             ExeBox.Items.Clear();
@@ -133,13 +133,13 @@ namespace Instance_Manager
                 if (ProfileExes.IndexOf(SelectedExe) > -1)
                 {
                     ExeBox.SelectedIndex = ProfileExes.IndexOf(SelectedExe);
-                    Console.WriteLine(SelectedExe + " found in prof exes, setting exebox index to " + ExeBox.SelectedIndex);
+                    WriteLineIfDebug(SelectedExe + " found in prof exes, setting exebox index to " + ExeBox.SelectedIndex);
                 }
                 else
                 {
                     ExeBox.SelectedIndex = 0;
                     SelectedExe = ProfileExes[0];
-                    Console.WriteLine(SelectedExe + " not found in prof exes.");
+                    WriteLineIfDebug(SelectedExe + " not found in prof exes.");
                 }
             }
             else
@@ -150,11 +150,11 @@ namespace Instance_Manager
 
         private void MainUI_Load(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: MainUI_Load in MainUI");
+            WriteLineIfDebug("\nExecuting Method: MainUI_Load in MainUI");
             if (Settings.Default.SavedPosition != new Point(1, 1))
-                this.Location = Settings.Default.SavedPosition; Console.WriteLine("Set position to " + this.Location);
+                this.Location = Settings.Default.SavedPosition; WriteLineIfDebug("Set position to " + this.Location);
             if (Settings.Default.SavedSize != new Size(1, 1))
-                this.Size = Settings.Default.SavedSize; Console.WriteLine("Set size to " + this.Size);
+                this.Size = Settings.Default.SavedSize; WriteLineIfDebug("Set size to " + this.Size);
             SelectedExe = Settings.Default.SavedExe;
 
             Label column0Label = new Label();
@@ -185,7 +185,7 @@ namespace Instance_Manager
 
         private void ProfilesBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: ProfilesBox_SelectedValueChanged in MainUI");
+            WriteLineIfDebug("\nExecuting Method: ProfilesBox_SelectedValueChanged in MainUI");
             string selected = ProfilesBox.SelectedItem.ToString();
             SetProfile(selected);
             RefreshList();
@@ -195,7 +195,7 @@ namespace Instance_Manager
 
         private void ExeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: ExeBoxSelectedIndexChanged in MainUI");
+            WriteLineIfDebug("\nExecuting Method: ExeBoxSelectedIndexChanged in MainUI");
             if (JustRefreshedExes)
             {
                 JustRefreshedExes = false;
@@ -205,7 +205,7 @@ namespace Instance_Manager
             {
 
                 SelectedExe = ProfileExes[ExeBox.SelectedIndex];
-                Console.WriteLine("Selected EXE " + SelectedExe);
+                WriteLineIfDebug("Selected EXE " + SelectedExe);
                 Settings.Default.Save();
 
             }
@@ -218,14 +218,14 @@ namespace Instance_Manager
 
         private void LinkButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: LinkButton_Click in MainUI");
+            WriteLineIfDebug("\nExecuting Method: LinkButton_Click in MainUI");
             SourceBrowserDialog.InitialDirectory = envEXELOC;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                Console.WriteLine(SourceBrowserDialog.SelectedPath + " chosen as source for link.");
+                WriteLineIfDebug(SourceBrowserDialog.SelectedPath + " chosen as source for link.");
                 if (DestinationBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Console.WriteLine(DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
+                    WriteLineIfDebug(DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
                     ProfileDirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + "|" + DestinationBrowserDialog.SelectedPath));
                     SaveProfileLinks();
                     RefreshList();
@@ -241,16 +241,16 @@ namespace Instance_Manager
         private void toolStripManageProfiles_Click(object sender, EventArgs e)
         {
             string active = Settings.Default.ActiveProfile;
-            Console.WriteLine("\nShowing profile manager.\n");
+            WriteLineIfDebug("\nShowing profile manager.\n");
             Form ProfileM = new ProfileManager();
             ProfileM.ShowDialog();
             if (NeedSelectedProfileRefresh == true)
             {
-                Console.WriteLine("\nSelected profile refreshing.");
+                WriteLineIfDebug("\nSelected profile refreshing.");
                 RefreshList();
                 RefreshExes();
                 NeedSelectedProfileRefresh = false;
-            } else { Console.WriteLine("\nSelected profile not refreshing."); RefreshProfiles(); }
+            } else { WriteLineIfDebug("\nSelected profile not refreshing."); RefreshProfiles(); }
         }
 
         private void toolManageVariables_Click(object sender, EventArgs e)
@@ -281,7 +281,7 @@ namespace Instance_Manager
 
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("\nExecuting Method: buttonLaunch_Click in MainUI");
+            WriteLineIfDebug("\nExecuting Method: buttonLaunch_Click in MainUI");
             LaunchMethods lM = new();
             lM.LaunchExe();
         }

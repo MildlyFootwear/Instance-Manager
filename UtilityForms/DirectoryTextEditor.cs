@@ -24,7 +24,7 @@ namespace Instance_Manager
             {
                 if (TextInputString[TextInputString.Length - 1] == '\\' || TextInputString[TextInputString.Length - 1] == '/')
                 {
-                    TextInputString = TextInputString.Substring(0, TextInputString.Length - 1); Console.WriteLine(TextInputString + " has been truncated.");
+                    TextInputString = TextInputString.Substring(0, TextInputString.Length - 1); WriteLineIfDebug(TextInputString + " has been truncated.");
                 }
                 this.FormClosing -= DirectoryTextEditor_FormClosing;
             }

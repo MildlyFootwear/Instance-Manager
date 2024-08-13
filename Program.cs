@@ -37,20 +37,20 @@ namespace Instance_Manager
             if (ToolDebug)
                 AllocConsole();
 
-            Console.WriteLine("Starting Instance Manager.");
+            WriteLineIfDebug("Starting Instance Manager.");
 
             if (argsL.Count == 0)
             {
-                Console.WriteLine("No args passed.");
+                WriteLineIfDebug("No args passed.");
             }
             else
             {
-                Console.WriteLine("Passed args: ");
+                WriteLineIfDebug("Passed args: ");
                 foreach (string arg in argsL)
                 {
-                    Console.WriteLine(arg);
+                    WriteLineIfDebug(arg);
                 }
-                Console.WriteLine();
+                WriteLineIfDebug();
             }
 
             if (argsL.IndexOf("-quicklaunch") == 0 || argsL.IndexOf("-quicklaunch") == 1)
@@ -67,11 +67,11 @@ namespace Instance_Manager
 
             foreach (string s in SystemVariables)
             {
-                Console.WriteLine(s+" is " + SystemVariablesValues[index]);
+                WriteLineIfDebug(s+" is " + SystemVariablesValues[index]);
                 index++;
             }
 
-            Console.WriteLine("");
+            WriteLineIfDebug("");
 
             string usvfsdll = envEXELOC + "\\usvfs\\usvfs_x64.dll";
             
@@ -95,14 +95,14 @@ namespace Instance_Manager
             {
                 Settings.Default.ProfilesDirectory = envEXELOC + "\\Profiles";
                 Settings.Default.Save();
-                Console.WriteLine("Updated profiles directory to "+ Settings.Default.ProfilesDirectory);
+                WriteLineIfDebug("Updated profiles directory to "+ Settings.Default.ProfilesDirectory);
             }
 
             if (Settings.Default.ActiveProfile == "NotInitialized")
             {
                 Settings.Default.ActiveProfile = "Default1";
                 Settings.Default.Save();
-                Console.WriteLine("Initialized active profile.");
+                WriteLineIfDebug("Initialized active profile.");
             }
 
             LoadProfiles();
@@ -132,14 +132,14 @@ namespace Instance_Manager
             if (gamepad != null)
                 X.StopPolling();
             if (VFSActive)
-                Console.WriteLine();
+                WriteLineIfDebug();
             while (VFSActive && QuickLaunch == false)
             {
                 Console.Write("\r"+DateTime.Now.ToString("HH:mm:ss")+" VFS still active with "+VFSHookedProcesses+" processes hooked into it.");
                 Thread.Sleep(1000);
             }
 
-            if (ToolDebug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(4000); }
+            if (ToolDebug) { WriteLineIfDebug("\nProgram end reached"); Thread.Sleep(4000); }
 
         }
     }

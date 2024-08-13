@@ -69,7 +69,7 @@ namespace usvfsWrap
         /// <summary>
         /// Creates a dump of the VFS to the text file specified by path. If the specified file is not found, it will create a default file in the working directory.
         /// </summary>
-        [DllImport("usvfs\\usvfsWrap.dll")] public static extern bool usvfsWrapCreateVFSDump(string path);
+        [DllImport("usvfs\\usvfsWrap.dll")] public static extern bool usvfsWrapCreateVFSDump(string path = "");
 
         /// <summary>
         /// Returns an int representing the number of processes hooked into the VFS.

@@ -55,7 +55,7 @@ namespace Instance_Manager.UtilityForms
 
             if (gamepad != null)
             {
-                Console.WriteLine("Gamepad valid, setting up events.");
+                WriteLineIfDebug("Gamepad valid, setting up events.");
                 gamepad.StateChanged += GamepadButton;
                 X.StartPolling(gamepad);
             }
@@ -76,7 +76,7 @@ namespace Instance_Manager.UtilityForms
             SelectedExe = ProfileExes[comboBox1.SelectedIndex];
             if (gamepad != null)
             {
-                Console.WriteLine("Gamepad valid, removing events.");
+                WriteLineIfDebug("Gamepad valid, removing events.");
                 gamepad.StateChanged -= GamepadButton;
                 X.StopPolling();
             }
@@ -88,7 +88,7 @@ namespace Instance_Manager.UtilityForms
         {
             if (gamepad != null)
             {
-                Console.WriteLine("Gamepad valid, removing events.");
+                WriteLineIfDebug("Gamepad valid, removing events.");
                 gamepad.StateChanged -= GamepadButton;
                 X.StopPolling();
             }

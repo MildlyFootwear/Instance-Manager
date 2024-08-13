@@ -52,9 +52,15 @@ namespace Instance_Manager.Methods
             }
         }
 
+        public static void WriteLineIfDebug(string s = "")
+        {
+            if (ToolDebug)
+                Console.WriteLine(s);
+        }
+
         public static void SetDriveVariables()
         {
-            Console.WriteLine("\nExecuting Method: SetDriveVariables");
+            WriteLineIfDebug("\nExecuting Method: SetDriveVariables");
             DriveInfo[] Drives = DriveInfo.GetDrives();
             foreach (DriveInfo d in Drives)
             {
@@ -79,12 +85,12 @@ namespace Instance_Manager.Methods
 
         public static string InsertVariables(string path)
         {
-            Console.WriteLine("\nExecuting Method: InsertVariables");
+            WriteLineIfDebug("\nExecuting Method: InsertVariables");
             Console.Write("Inserting variables for " + path);
             int index = 0;
             foreach (string s in SystemVariablesValues)
             {
-                //Console.WriteLine("Checking " + path + " for " + s + " to replace with" + SystemVariables[index]);
+                //WriteLineIfDebug("Checking " + path + " for " + s + " to replace with" + SystemVariables[index]);
                 path = path.Replace(s, SystemVariables[index]);
                 index++;
             }
@@ -95,14 +101,14 @@ namespace Instance_Manager.Methods
 
         public static string ReplaceVariables(string path)
         {
-            Console.WriteLine("\nExecuting Method: ReplaceVariables");
+            WriteLineIfDebug("\nExecuting Method: ReplaceVariables");
             Console.Write("Replacing variables for " + path);
 
             int index = 0;
 
             foreach (string s in SystemVariables)
             {
-                //Console.WriteLine("Checking for " + s + " to replace with " + SystemVariablesValues[index]);
+                //WriteLineIfDebug("Checking for " + s + " to replace with " + SystemVariablesValues[index]);
                 path = path.Replace(s, SystemVariablesValues[index]);
                 index++;
             }
@@ -114,13 +120,13 @@ namespace Instance_Manager.Methods
         public static void LoadProfiles()
         {
 
-            Console.WriteLine("\nExecuting Method: LoadProfiles");
+            WriteLineIfDebug("\nExecuting Method: LoadProfiles");
 
             Profiles.Clear();
             if (!Directory.Exists(Settings.Default.ProfilesDirectory))
             {
                 Directory.CreateDirectory(Settings.Default.ProfilesDirectory);
-                Console.WriteLine("Created profiles directory.");
+                WriteLineIfDebug("Created profiles directory.");
             }
             if (!Directory.EnumerateDirectories(Settings.Default.ProfilesDirectory).Any())
             {
@@ -128,13 +134,13 @@ namespace Instance_Manager.Methods
                 Settings.Default.ActiveProfile = "Default";
                 Settings.Default.Save();
                 MessageBox.Show("No profiles found. Created default profile.", ToolName);
-                Console.WriteLine("Created default profile.");
+                WriteLineIfDebug("Created default profile.");
             }
 
             foreach (string prof in Directory.EnumerateDirectories(Settings.Default.ProfilesDirectory))
             {
                 Profiles.Add(prof.Replace(Settings.Default.ProfilesDirectory + "\\", ""));
-                Console.WriteLine("Added " + prof.Replace(Settings.Default.ProfilesDirectory + "\\", "") + " to profile list.");
+                WriteLineIfDebug("Added " + prof.Replace(Settings.Default.ProfilesDirectory + "\\", "") + " to profile list.");
             }
 
             string CurrentProfileList = "Profile options: ";
@@ -142,13 +148,13 @@ namespace Instance_Manager.Methods
             {
                 CurrentProfileList += prof + ", ";
             }
-            Console.WriteLine(CurrentProfileList.Substring(0, CurrentProfileList.Length - 2));
+            WriteLineIfDebug(CurrentProfileList.Substring(0, CurrentProfileList.Length - 2));
 
         }
 
         public static void SetProfile(string prof)
         {
-            Console.WriteLine("\nExecuting Method: SetProfile");
+            WriteLineIfDebug("\nExecuting Method: SetProfile");
             if (prof != "")
             {
 
@@ -163,7 +169,7 @@ namespace Instance_Manager.Methods
 
             Settings.Default.ActiveProfile = prof;
             Settings.Default.Save();
-            Console.WriteLine("Updated ActiveProfile to " + Settings.Default.ActiveProfile + ". Passed profile was " + prof + "\n");
+            WriteLineIfDebug("Updated ActiveProfile to " + Settings.Default.ActiveProfile + ". Passed profile was " + prof + "\n");
             LoadProfileLinks();
             LoadProfileExes();
 
@@ -171,12 +177,12 @@ namespace Instance_Manager.Methods
 
         public static void LoadProfileLinks()
         {
-            Console.WriteLine("\nExecuting Method: LoadProfileLinks");
-            Console.WriteLine();
+            WriteLineIfDebug("\nExecuting Method: LoadProfileLinks");
+            WriteLineIfDebug();
             profPATH = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile;
             SystemVariablesValues[SystemVariables.IndexOf("%ACTIVEPROFILE%")] = profPATH;
             string ProfileLinks = profPATH + "\\Links.txt";
-            Console.WriteLine("Loading links for " + Settings.Default.ActiveProfile);
+            WriteLineIfDebug("Loading links for " + Settings.Default.ActiveProfile);
             ProfileDirectoryLinks.Clear();
             if (File.Exists(ProfileLinks))
             {
@@ -191,21 +197,21 @@ namespace Instance_Manager.Methods
                     }
                     ProfileDirectoryLinks.Add(line);
                     string[] links = ReplaceVariables(line).Split("|");
-                    Console.WriteLine(line.Replace("|", " to "));
+                    WriteLineIfDebug(line.Replace("|", " to "));
                     if (!Directory.Exists((links[0])) && Settings.Default.SuppressMissingDirectory == false)
                     {
                         MessageBox.Show("Directory\n" + (links[0]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
                     } else if (!Directory.Exists((links[0])))
-                        Console.WriteLine("Directory\n" + (links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
+                        WriteLineIfDebug("Directory\n" + (links[0]) + "\nfor link\n" + line + "\nDoes not exist.");
                     if (!Directory.Exists((links[1])) && Settings.Default.SuppressMissingDirectory == false)
                     {
                         MessageBox.Show("Directory\n" + (links[1]) + "\nfor link\n" + line + "\nDoes not exist.", ToolName);
                     } else if (!Directory.Exists((links[1])))
-                        Console.WriteLine("Directory\n" + (links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
+                        WriteLineIfDebug("Directory\n" + (links[1]) + "\nfor link\n" + line + "\nDoes not exist.");
                 }
                 if (UpdatedFormat)
                 {
-                    Console.WriteLine("Updated formatting, rewriting...");
+                    WriteLineIfDebug("Updated formatting, rewriting...");
                     UpdatedFormat = false;
                     SaveProfileLinks();
                 }
@@ -215,7 +221,7 @@ namespace Instance_Manager.Methods
 
         public static void SaveProfileLinks()
         {
-            Console.WriteLine("\nExecuting Method: SaveProfileLinks");
+            WriteLineIfDebug("\nExecuting Method: SaveProfileLinks");
             string ProfileLinks = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Links.txt";
             string SavedLinks = "Saving links for " + Settings.Default.ActiveProfile + "\n";
             foreach (string str in ProfileDirectoryLinks)
@@ -224,20 +230,20 @@ namespace Instance_Manager.Methods
             }
             File.WriteAllLines(ProfileLinks, ProfileDirectoryLinks);
 
-            Console.WriteLine(SavedLinks);
+            WriteLineIfDebug(SavedLinks);
         }
 
         public static string FormattedExeFromPath(string path)
         {
             string s = Path.GetFileNameWithoutExtension(path) + "|" + path + "|"+Path.GetDirectoryName(path)+"|";
             if (ToolDebug)
-                Console.WriteLine("\nFormattedExeFromPath:\n    "+path+"\n    "+s);
+                WriteLineIfDebug("\nFormattedExeFromPath:\n    "+path+"\n    "+s);
             return s;
         }
 
         public static void LoadProfileExes()
         {
-            Console.WriteLine("\nExecuting Method: LoadProfileExes");
+            WriteLineIfDebug("\nExecuting Method: LoadProfileExes");
             string ProfileExeDoc = Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt";
             ProfileExes.Clear();
             if (File.Exists(ProfileExeDoc))
@@ -248,14 +254,14 @@ namespace Instance_Manager.Methods
                     if (exe.IndexOf("|") == -1 && exe.IndexOf(";") != -1)
                         exe = exe.Replace(";", "|");
                     int cnt = exe.Length - exe.Replace("|","").Length;
-                    Console.WriteLine("Found "+cnt+" of | in "+exe);
+                    WriteLineIfDebug("Found "+cnt+" of | in "+exe);
 
                     if (cnt == 0)
-                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + Path.GetDirectoryName(exe) + "|"; UpdatedFormat = true; Console.WriteLine("\nUpdated to\n    " + exe); }
+                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + Path.GetDirectoryName(exe) + "|"; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
                     else if (cnt == 1)
-                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe.Split("|")[0]) + "|" + exe.Split("|")[0] + "|" + Path.GetDirectoryName(exe) + "|" + exe.Split("|")[1]; UpdatedFormat = true; Console.WriteLine("\nUpdated to\n    " + exe); }
+                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe.Split("|")[0]) + "|" + exe.Split("|")[0] + "|" + Path.GetDirectoryName(exe) + "|" + exe.Split("|")[1]; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
                     else if (cnt == 2)
-                        { Console.Write("Updating format for\n    " + exe); exe = exe.Split("|")[0] + "|" + exe.Split("|")[1] + "|" + Path.GetDirectoryName(exe.Split("|")[1]) + "|" + exe.Split("|")[2]; UpdatedFormat = true; Console.WriteLine("\nUpdated to\n    " + exe); }
+                        { Console.Write("Updating format for\n    " + exe); exe = exe.Split("|")[0] + "|" + exe.Split("|")[1] + "|" + Path.GetDirectoryName(exe.Split("|")[1]) + "|" + exe.Split("|")[2]; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
                     ProfileExes.Add(exe);
                 }
             }
@@ -264,10 +270,10 @@ namespace Instance_Manager.Methods
             {
                 CurrentExeList += exe + ", ";
             }
-            Console.WriteLine(CurrentExeList.Substring(0, CurrentExeList.Length - 2));
+            WriteLineIfDebug(CurrentExeList.Substring(0, CurrentExeList.Length - 2));
             if (UpdatedFormat)
             {
-                Console.WriteLine("Updated formatting, rewriting...");
+                WriteLineIfDebug("Updated formatting, rewriting...");
                 UpdatedFormat = false;
                 SaveProfileExes();
             }
@@ -276,17 +282,17 @@ namespace Instance_Manager.Methods
 
         public static void SaveProfileExes()
         {
-            Console.WriteLine("\nExecuting Method: SaveProfileExes");
+            WriteLineIfDebug("\nExecuting Method: SaveProfileExes");
 
             File.WriteAllLines(Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt", ProfileExes);
         }
 
         public static void AmendExe(string exe)
         {
-            Console.WriteLine("\nExecuting Method: AmendExe");
+            WriteLineIfDebug("\nExecuting Method: AmendExe");
             ProfileExes.Add(FormattedExeFromPath(exe));
             SaveProfileExes();
-            Console.WriteLine("Ammended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt");
+            WriteLineIfDebug("Ammended EXE " + SelectedExe + " to file " + Settings.Default.ProfilesDirectory + "\\" + Settings.Default.ActiveProfile + "\\Exes.txt");
         }
 
 

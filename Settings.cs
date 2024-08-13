@@ -23,7 +23,7 @@
         
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
             // Add code to handle the SettingsSaving event here.
-            Console.WriteLine("\nSaving settings\n");
+            WriteLineIfDebug("\nSaving settings\n");
 
         }
     }

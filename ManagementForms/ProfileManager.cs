@@ -53,7 +53,7 @@ namespace Instance_Manager
                             FileSystem.DeleteDirectory(Settings.Default.ProfilesDirectory + "\\" + Profile, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                             LoadProfiles();
                             PopulateManager();
-                            Console.WriteLine("Deleting profile " + Profile);
+                            WriteLineIfDebug("Deleting profile " + Profile);
                             NeedSelectedProfileRefresh = true;
                         }
 
@@ -68,7 +68,7 @@ namespace Instance_Manager
                         if (TextInputString != "")
                         {
                             Directory.Move(Settings.Default.ProfilesDirectory + "\\" + Profile, Settings.Default.ProfilesDirectory + "\\" + TextInputString);
-                            Console.WriteLine("Renamed " + Profile + " to " + TextInputString);
+                            WriteLineIfDebug("Renamed " + Profile + " to " + TextInputString);
                             LoadProfiles();
                             PopulateManager();
                             NeedSelectedProfileRefresh = true;
@@ -120,7 +120,7 @@ namespace Instance_Manager
                     tableLayoutPanel1.Controls.Add(renameButtonList[row], 1, row);
                     tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 2, row);
                     tableLayoutPanel1.Controls.Add(deleteButtonList[row], 3, row);
-                    Console.WriteLine("Adding buttons for profile " + Profile + " on row" + row);
+                    WriteLineIfDebug("Adding buttons for profile " + Profile + " on row" + row);
                 }
 
 
@@ -132,7 +132,7 @@ namespace Instance_Manager
             {
                 if (tableLayoutPanel1.Contains(Labels[temp]) == false)
                     break;
-                Console.WriteLine("Cleaning up " + Labels[temp]);
+                WriteLineIfDebug("Cleaning up " + Labels[temp]);
                 tableLayoutPanel1.Controls.Remove(Labels[temp]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(duplicateButtonList[temp]);
@@ -141,7 +141,7 @@ namespace Instance_Manager
             }
 
             tableLayoutPanel1.RowCount = row;
-            Console.WriteLine("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + Labels.Count);
+            WriteLineIfDebug("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + Labels.Count);
 
         }
 
@@ -168,7 +168,7 @@ namespace Instance_Manager
             while (Directory.Exists(Settings.Default.ProfilesDirectory + "\\Default" + profnum))
             {
                 profnum++;
-                Console.WriteLine("incremented profnum to " + profnum);
+                WriteLineIfDebug("incremented profnum to " + profnum);
             }
             PassedString = "Default" + profnum;
             TextIn.ShowDialog();

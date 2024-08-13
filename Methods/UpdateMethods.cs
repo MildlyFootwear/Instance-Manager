@@ -13,21 +13,21 @@ namespace Instance_Manager.Methods
 
         public async void CheckGitVersion()
         {
-            Console.WriteLine("\nExecuting Method: CheckGitVersion");
+            WriteLineIfDebug("\nExecuting Method: CheckGitVersion");
             string ver;
-            Console.WriteLine("Checking github for latest version.");
+            WriteLineIfDebug("Checking github for latest version.");
             try
             {
                 HttpClient client = new HttpClient();
                 using HttpResponseMessage response = await client.GetAsync("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
                 response.EnsureSuccessStatusCode();
                 ver = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Found " + ver);
+                WriteLineIfDebug("Found " + ver);
                 LatestVer = ver;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("CheckGitVersion Exception: " + ex.Message);
+                WriteLineIfDebug("CheckGitVersion Exception: " + ex.Message);
                 LatestVer = "Unknown";
             } 
 
@@ -86,14 +86,14 @@ namespace Instance_Manager.Methods
                             {
                                 Settings.Default.IngoreVersion = LatestVer;
                                 Settings.Default.Save();
-                                Console.WriteLine("Ignoring version " + LatestVer);
+                                WriteLineIfDebug("Ignoring version " + LatestVer);
                             }
                         }
                     }
-                    if (LatestVer == Settings.Default.IngoreVersion) { Console.WriteLine(LatestVer + " is ignored"); }
+                    if (LatestVer == Settings.Default.IngoreVersion) { WriteLineIfDebug(LatestVer + " is ignored"); }
                     else if (LatestVer == Settings.Default.Version)
                     {
-                        Console.WriteLine(Settings.Default.Version + " is up to date with repository version " + LatestVer);
+                        WriteLineIfDebug(Settings.Default.Version + " is up to date with repository version " + LatestVer);
 
                     }
                 }

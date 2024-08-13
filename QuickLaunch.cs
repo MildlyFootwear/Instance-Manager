@@ -17,33 +17,33 @@ namespace Instance_Manager
 
             int index = 0;
 
-            Console.WriteLine("\nQuick launching\n");
+            WriteLineIfDebug("\nQuick launching\n");
 
             string passedexe = null;
             string passedprofile = null;
 
             foreach (string arg in argsL)
             {
-                Console.WriteLine(arg);
+                WriteLineIfDebug(arg);
                 if (Path.GetExtension(arg) == ".exe")
                 {
                     if (File.Exists(arg))
                     {
                         passedexe = arg;
-                        Console.WriteLine("Found exe " + arg + " in args.");
+                        WriteLineIfDebug("Found exe " + arg + " in args.");
                     }
 
                 }
                 else if (Directory.Exists(Settings.Default.ProfilesDirectory + "\\" + arg))
                 {
                     passedprofile = arg;
-                    Console.WriteLine("Using profile " + arg);
+                    WriteLineIfDebug("Using profile " + arg);
                 }
             }
 
             if (passedprofile == null)
             {
-                Console.WriteLine("\nShowing quick profile");
+                WriteLineIfDebug("\nShowing quick profile");
                 Form QuickProf = new QuickProfile();
                 QuickProf.ShowDialog();
             }
