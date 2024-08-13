@@ -16,14 +16,12 @@ namespace Instance_Manager
         public static string LatestVer = null;
         public static List<string> ProhibChars = ["|"];
 
-        public static readonly HttpClient client = new HttpClient();
-
         public static List<string> Profiles = ["Empty"];
         public static List<string> ProfileDirectoryLinks = [];
         public static List<string> ProfileExes = [];
 
         public static bool QuickLaunch = false;
-        public static bool Debug = false;
+        public static bool ToolDebug = false;
         public static bool UpdatedFormat = false;
         public static bool Closing = false;
         public static bool TickTock = false;

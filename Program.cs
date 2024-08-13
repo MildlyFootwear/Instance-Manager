@@ -32,9 +32,9 @@ namespace Instance_Manager
             ImmutableList<string> argsL = args.ToImmutableList();
 
             if (argsL.IndexOf("-debug") == 0 || argsL.IndexOf("-debug") == 1)
-                Debug = true;
+                ToolDebug = true;
 
-            if (Debug)
+            if (ToolDebug)
                 AllocConsole();
 
             Console.WriteLine("Starting Instance Manager.");
@@ -139,7 +139,7 @@ namespace Instance_Manager
                 Thread.Sleep(1000);
             }
 
-            if (Debug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(4000); }
+            if (ToolDebug) { Console.WriteLine("\nProgram end reached"); Thread.Sleep(4000); }
 
         }
     }

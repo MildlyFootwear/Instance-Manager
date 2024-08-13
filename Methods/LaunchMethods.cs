@@ -18,8 +18,8 @@ namespace Instance_Manager.Methods
 
     public class LaunchMethods
     {
-        static int LastHookCount = 0;
-        static void threadMethod()
+        int LastHookCount = 0;
+        void threadMethod()
         {
             string[] exe = ReplaceVariables(SelectedExe).Split("|");
             if (!File.Exists(exe[1]))
@@ -28,7 +28,7 @@ namespace Instance_Manager.Methods
                 return;
             }
 
-            usvfsWrapSetDebug(Debug);
+            usvfsWrapSetDebug(ToolDebug);
 
             VFSActive = usvfsWrapCreateVFS("test", false, LogLevel.Warning, CrashDumpsType.None, "", 200);
 
@@ -68,20 +68,20 @@ namespace Instance_Manager.Methods
                 usvfsWrapFree(); 
             } catch (Exception e) 
             {
-                if (Debug)
+                if (ToolDebug)
                     Console.WriteLine(e.Message);
 
 
             }
             VFSInitializing = false;
-            if (Debug)
+            if (ToolDebug)
                 Console.WriteLine("VFS has been ended.");
         }
-        static Thread exeThread;
+        Thread exeThread;
 
-        static void VFSHookedCountMonitor()
+        void VFSHookedCountMonitor()
         {
-            if (Debug)
+            if (ToolDebug)
                 Console.WriteLine("HookMonitorThread started.");
             while (VFSInitializing)
             {
@@ -89,8 +89,15 @@ namespace Instance_Manager.Methods
             }
             while (VFSActive)
             {
-
-                VFSHookedProcesses = usvfsWrapGetHookedCount();
+                try
+                {
+                    VFSHookedProcesses = usvfsWrapGetHookedCount();
+                }
+                catch (Exception e)
+                {
+                    if (ToolDebug)
+                        Console.WriteLine(e.Message);
+                }
                 if ( VFSHookedProcesses != LastHookCount)
                 {
                     LastHookCount = VFSHookedProcesses;
@@ -98,12 +105,12 @@ namespace Instance_Manager.Methods
                 }
                 Thread.Sleep(1000);
             }
-            if (Debug)
+            if (ToolDebug)
                 Console.WriteLine("Hook monitor ended.");
         }
         static Thread hookedCountMonitor;
 
-        public static void LaunchExe()
+        public void LaunchExe()
         {
             Console.WriteLine("\nExecuting Method: LaunchExe");
             Console.WriteLine("Attempting to launch " + SelectedExe);
@@ -113,7 +120,7 @@ namespace Instance_Manager.Methods
                 exeThread = new Thread(threadMethod);
                 exeThread.Start();
                 hookedCountMonitor = new Thread(VFSHookedCountMonitor);
-                hookedCountMonitor.Start();
+                //hookedCountMonitor.Start();
                 Thread.Sleep(100);
             }
             else

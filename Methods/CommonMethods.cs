@@ -230,7 +230,7 @@ namespace Instance_Manager.Methods
         public static string FormattedExeFromPath(string path)
         {
             string s = Path.GetFileNameWithoutExtension(path) + "|" + path + "|"+Path.GetDirectoryName(path)+"|";
-            if (Debug)
+            if (ToolDebug)
                 Console.WriteLine("\nFormattedExeFromPath:\n    "+path+"\n    "+s);
             return s;
         }

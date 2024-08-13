@@ -13,6 +13,7 @@ using static Instance_Manager.CommonVars;
 using static Instance_Manager.Methods.CommonMethods;
 using static Microsoft.VisualBasic.Interaction;
 using Microsoft.Win32;
+using Instance_Manager.Methods;
 
 namespace Instance_Manager
 {
@@ -281,7 +282,8 @@ namespace Instance_Manager
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
             Console.WriteLine("\nExecuting Method: buttonLaunch_Click in MainUI");
-            LaunchExe();
+            LaunchMethods lM = new();
+            lM.LaunchExe();
         }
 
         private void SourceBrowserDialog_HelpRequest(object sender, EventArgs e)

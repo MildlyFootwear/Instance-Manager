@@ -1,4 +1,5 @@
-﻿using Instance_Manager.UtilityForms;
+﻿using Instance_Manager.Methods;
+using Instance_Manager.UtilityForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -75,7 +76,9 @@ namespace Instance_Manager
             }
 
             if (QuickLaunch)
-                LaunchExe();
+         {       LaunchMethods lM = new();
+                lM.LaunchExe();
+            }
 
         }
     }
