@@ -14,6 +14,7 @@ using static Instance_Manager.Methods.CommonMethods;
 using static Microsoft.VisualBasic.Interaction;
 using Microsoft.Win32;
 using Instance_Manager.Methods;
+using System.Windows.Documents;
 
 namespace Instance_Manager
 {
@@ -42,6 +43,8 @@ namespace Instance_Manager
         void UpdateTitle()
         {
             string s = ToolName + " " + Settings.Default.Version + " - " + Settings.Default.ActiveProfile;
+            if (VFSHookedProcesses > 0)
+                s += " - " + VFSHookedProcesses + " processes hooked.";
             Text = s;
         }
 
@@ -284,6 +287,28 @@ namespace Instance_Manager
             WriteLineIfDebug("\nExecuting Method: buttonLaunch_Click in MainUI");
             LaunchMethods lM = new();
             lM.LaunchExe();
+            Task UpTitle = new Task(() => {
+                WriteLineIfDebug("UpTitle task started");
+                int lastHooked = 0;
+                while (VFSInitializing)
+                    Thread.Sleep(100);
+                while (VFSActive)
+                {
+                    if (CommonVars.Closing)
+                        break;
+                    if (lastHooked != VFSHookedProcesses)
+                    {
+                        lastHooked = VFSHookedProcesses;
+                        WriteLineIfDebug("upTitle lastHooked updated to " + lastHooked);
+                        this.Invoke(new Action((UpdateTitle)));
+
+                    }
+                    Thread.Sleep(100);
+                }
+                WriteLineIfDebug("UpTitle task ended");
+                ;
+            });
+            UpTitle.Start();
         }
 
         private void SourceBrowserDialog_HelpRequest(object sender, EventArgs e)
