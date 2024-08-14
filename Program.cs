@@ -143,7 +143,7 @@ namespace Instance_Manager
             while (VFSActive)
                 Thread.Sleep(1000);
 
-            if (ToolDebug) { WriteLineIfDebug("\nProgram end reached"); Thread.Sleep(4000); }
+            if (ToolDebug) { WriteLineIfDebug("\n"+ToolName+" end reached"); Thread.Sleep(4000); }
 
         }
     }
