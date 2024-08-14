@@ -13,7 +13,7 @@ namespace Instance_Manager.Methods
         public static void EditLink(int index, bool second)
         {
             WriteLineIfDebug("\nExecuting Method: EditLink");
-            WriteIfDebug("Index is "+index);
+            WriteIfDebug("    Index is " + index);
             if (second) WriteLineIfDebug(". Editing destination."); else WriteLineIfDebug(". Editing source.");
             string link = ProfileDirectoryLinks[index];
             string[] splitlink = link.Split("|");
@@ -61,7 +61,7 @@ namespace Instance_Manager.Methods
             }
             else
             {
-                WriteLineIfDebug("Canceling link edit for " + link);
+                WriteLineIfDebug("    Canceling link edit for " + link);
             }
         }
 

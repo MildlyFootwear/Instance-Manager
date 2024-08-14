@@ -78,7 +78,7 @@ namespace Instance_Manager.UtilityForms
             WriteLineIfDebug("\nExecuting Method: QuickProfile_FormClosing");
             if (gamepad != null)
             {
-                WriteLineIfDebug("Gamepad valid, removing events.");
+                WriteLineIfDebug("    Gamepad valid, removing events.");
                 gamepad.StateChanged -= GamepadButton;
                 X.StopPolling();
             }

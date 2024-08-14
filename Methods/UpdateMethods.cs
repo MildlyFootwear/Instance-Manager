@@ -15,19 +15,19 @@ namespace Instance_Manager.Methods
         {
             WriteLineIfDebug("\nExecuting Method: CheckGitVersion");
             string ver;
-            WriteLineIfDebug("Checking github for latest version.");
+            WriteLineIfDebug("    Checking github for latest version.");
             try
             {
                 HttpClient client = new HttpClient();
                 using HttpResponseMessage response = await client.GetAsync("https://raw.githubusercontent.com/MildlyFootwear/Instance-Manager/master/ver.txt");
                 response.EnsureSuccessStatusCode();
                 ver = await response.Content.ReadAsStringAsync();
-                WriteLineIfDebug("Found " + ver);
+                WriteLineIfDebug("    Found " + ver);
                 LatestVer = ver;
             }
             catch (Exception ex)
             {
-                WriteLineIfDebug("CheckGitVersion Exception: " + ex.Message);
+                WriteLineIfDebug("    CheckGitVersion Exception: " + ex.Message);
                 LatestVer = "Unknown";
             } 
 
@@ -86,21 +86,23 @@ namespace Instance_Manager.Methods
                             {
                                 Settings.Default.IngoreVersion = LatestVer;
                                 Settings.Default.Save();
-                                WriteLineIfDebug("Ignoring version " + LatestVer);
+                                WriteLineIfDebug("    Ignoring version " + LatestVer);
                             }
                         }
                     }
-                    if (LatestVer == Settings.Default.IngoreVersion) { WriteLineIfDebug(LatestVer + " is ignored"); }
+                    if (LatestVer == Settings.Default.IngoreVersion) { WriteLineIfDebug("    "+LatestVer + " is ignored"); }
                     else if (LatestVer == Settings.Default.Version)
                     {
-                        WriteLineIfDebug(Settings.Default.Version + " is up to date with repository version " + LatestVer);
+                        WriteLineIfDebug("    "+Settings.Default.Version + " is up to date with repository version " + LatestVer);
 
                     }
                 }
             }
 
-            Thread C4U = new Thread(threadMethod);
-            C4U.Start();
+            threadMethod();
+
+            //Thread C4U = new Thread(threadMethod);
+            //C4U.Start();
 
         }
 

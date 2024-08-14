@@ -58,7 +58,7 @@ namespace Instance_Manager
             {
                 Settings.Default.ActiveProfile = Profiles[0];
                 Settings.Default.Save();
-                WriteLineIfDebug("Set profile not found, setting to " + Profiles[0]);
+                WriteLineIfDebug("    Set profile not found, setting to " + Profiles[0]);
                 ProfilesBox.SelectedIndex = 0;
             }
             UpdateTitle();
@@ -89,7 +89,7 @@ namespace Instance_Manager
                     Destination.Click += DestinationClick;
                     sourceLabels.Add(Source);
                     destLabels.Add(Destination);
-                    WriteLineIfDebug("Created labels " + Source.ToString() + " and " + Destination.ToString() + " for row " + row);
+                    WriteLineIfDebug("    Created labels " + Source.ToString() + " and " + Destination.ToString() + " for row " + row);
                 }
 
                 sourceLabels[row - 1].Text = splitlink[0];
@@ -109,12 +109,12 @@ namespace Instance_Manager
             {
                 tableLayoutPanel1.Controls.Remove(sourceLabels[temp]);
                 tableLayoutPanel1.Controls.Remove(destLabels[temp]);
-                WriteLineIfDebug("Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");
+                WriteLineIfDebug("    Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");
                 temp++;
             }
             tableLayoutPanel1.ResumeLayout();
             tableLayoutPanel1.RowCount = row + 1;
-            WriteLineIfDebug("Refreshed lists.");
+            WriteLineIfDebug("    Refreshed lists.");
         }
 
         void RefreshExes()
@@ -136,13 +136,13 @@ namespace Instance_Manager
                 if (ProfileExes.IndexOf(SelectedExe) > -1)
                 {
                     ExeBox.SelectedIndex = ProfileExes.IndexOf(SelectedExe);
-                    WriteLineIfDebug(SelectedExe + " found in prof exes, setting exebox index to " + ExeBox.SelectedIndex);
+                    WriteLineIfDebug("    " + SelectedExe + " found in prof exes, setting exebox index to " + ExeBox.SelectedIndex);
                 }
                 else
                 {
                     ExeBox.SelectedIndex = 0;
                     SelectedExe = ProfileExes[0];
-                    WriteLineIfDebug(SelectedExe + " not found in prof exes.");
+                    WriteLineIfDebug("    " + SelectedExe + " not found in prof exes.");
                 }
             }
             else
@@ -155,9 +155,9 @@ namespace Instance_Manager
         {
             WriteLineIfDebug("\nExecuting Method: MainUI_Load in MainUI");
             if (Settings.Default.SavedPosition != new Point(1, 1))
-                this.Location = Settings.Default.SavedPosition; WriteLineIfDebug("Set position to " + this.Location);
+                this.Location = Settings.Default.SavedPosition; WriteLineIfDebug("    Set position to " + this.Location);
             if (Settings.Default.SavedSize != new Size(1, 1))
-                this.Size = Settings.Default.SavedSize; WriteLineIfDebug("Set size to " + this.Size);
+                this.Size = Settings.Default.SavedSize; WriteLineIfDebug("    Set size to " + this.Size);
             SelectedExe = Settings.Default.SavedExe;
 
             Label column0Label = new Label();
@@ -208,7 +208,7 @@ namespace Instance_Manager
             {
 
                 SelectedExe = ProfileExes[ExeBox.SelectedIndex];
-                WriteLineIfDebug("Selected EXE " + SelectedExe);
+                WriteLineIfDebug("    Selected EXE " + SelectedExe);
                 Settings.Default.Save();
 
             }
@@ -225,10 +225,10 @@ namespace Instance_Manager
             SourceBrowserDialog.InitialDirectory = envEXELOC;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                WriteLineIfDebug(SourceBrowserDialog.SelectedPath + " chosen as source for link.");
+                WriteLineIfDebug("    "+SourceBrowserDialog.SelectedPath + " chosen as source for link.");
                 if (DestinationBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    WriteLineIfDebug(DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
+                    WriteLineIfDebug("    " + DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
                     ProfileDirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + "|" + DestinationBrowserDialog.SelectedPath));
                     SaveProfileLinks();
                     RefreshList();

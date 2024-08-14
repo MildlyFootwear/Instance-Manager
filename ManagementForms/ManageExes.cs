@@ -66,7 +66,7 @@ namespace Instance_Manager
                     {
                         string exe = ProfileExes[rowfun];
                         WriteLineIfDebug("\nExecuting Method: LaunchArgs in ManageExes");
-                        WriteLineIfDebug("Modifying args for "+exe);
+                        WriteLineIfDebug("    Modifying args for " + exe);
                         string[] splitexe = exe.Split("|");
 
                         Form TextIn = new TextInput();
@@ -76,7 +76,7 @@ namespace Instance_Manager
                         if (TextInputString != splitexe[3])
                         {
                             ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + splitexe[2]+"|"+ TextInputString;
-                            WriteLineIfDebug("Modified to " + ProfileExes[rowfun]);
+                            WriteLineIfDebug("    Modified to " + ProfileExes[rowfun]);
                             SaveProfileExes();
                             RefreshExes();
                         }
@@ -115,10 +115,11 @@ namespace Instance_Manager
                         Form TextIn = new TextInput();
                         TextIn.Text = "Rename " + Path.GetFileName(split[0]);
                         TextIn.ShowDialog();
-                        WriteLineIfDebug("Returned string " + TextInputString);
+                        WriteLineIfDebug("\nExecuting Method: Rename in ManageExes");
+                        WriteLineIfDebug("    Returned string " + TextInputString);
                         if (TextInputString != "" &&  TextInputString != split[0])
                         {
-                            WriteLineIfDebug("Setting exe index "+rowfun+" to "+ TextInputString + "|" + split[1] + "|" + split[2]);
+                            WriteLineIfDebug("    Setting exe index " + rowfun+" to "+ TextInputString + "|" + split[1] + "|" + split[2]);
                             ProfileExes[rowfun] = TextInputString + "|"+split[1]+"|"+split[2];
                             SaveProfileExes();
                             RefreshExes();
@@ -157,7 +158,7 @@ namespace Instance_Manager
             {
                 if (tableLayoutPanel1.Contains(exelabels[temp]) == false)
                     break;
-                WriteLineIfDebug("Cleaning up " + exelabels[temp]);
+                WriteLineIfDebug("    Cleaning up " + exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(exelabels[temp]);
                 tableLayoutPanel1.Controls.Remove(renameButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
@@ -167,7 +168,7 @@ namespace Instance_Manager
             }
 
             tableLayoutPanel1.RowCount = row;
-            WriteLineIfDebug("temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
+            WriteLineIfDebug("    temp is " + temp + " row count is " + tableLayoutPanel1.RowCount + " and label count is " + exelabels.Count);
 
 
         }

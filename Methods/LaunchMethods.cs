@@ -121,7 +121,7 @@ namespace Instance_Manager.Methods
         public void LaunchExe()
         {
             WriteLineIfDebug("\nExecuting Method: LaunchExe");
-            WriteLineIfDebug("Attempting to launch " + SelectedExe);
+            WriteLineIfDebug("    Attempting to launch " + SelectedExe);
             if (!VFSActive)
             {
                 VFSInitializing = true;
@@ -130,7 +130,9 @@ namespace Instance_Manager.Methods
                 Thread.Sleep(200);
                 hookedCountMonitor = new Thread(VFSHookedCountMonitor);
                 hookedCountMonitor.Start();
-                Thread.Sleep(100);
+
+                if (!QuickLaunch)
+                    MessageBox.Show("Launching " + SelectedExe.Split("|")[0], ToolName);
             }
             else
             {
