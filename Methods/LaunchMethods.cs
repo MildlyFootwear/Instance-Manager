@@ -63,10 +63,13 @@ namespace Instance_Manager.Methods
                 VFSActive = false;
 
             }
+            while (VFSMonitoring)
+                Thread.Sleep(100);
             try 
             {
                 if (ToolDebug)
                     usvfsWrapCreateVFSDump();
+
                 usvfsWrapFree(); 
             } catch (Exception e) 
             {
@@ -77,10 +80,11 @@ namespace Instance_Manager.Methods
             if (ToolDebug)
                 WriteLineIfDebug("VFS has been ended.");
         }
-        Thread exeThread;
+        static Thread exeThread;
 
         void VFSHookedCountMonitor()
         {
+            VFSMonitoring = true;
             if (ToolDebug)
                 WriteLineIfDebug("HookMonitorThread started.");
             while (VFSInitializing)
@@ -110,8 +114,9 @@ namespace Instance_Manager.Methods
             }
             if (ToolDebug)
                 WriteLineIfDebug("Hook monitor ended.");
+            VFSMonitoring = false;
         }
-        Thread hookedCountMonitor;
+        static Thread hookedCountMonitor;
 
         public void LaunchExe()
         {

@@ -133,11 +133,15 @@ namespace Instance_Manager
                 X.StopPolling();
             if (VFSActive)
                 WriteLineIfDebug();
+
             while (VFSActive && QuickLaunch == false)
             {
                 WriteIfDebug("\r"+DateTime.Now.ToString("HH:mm:ss")+" VFS still active with "+VFSHookedProcesses+" processes hooked into it.");
                 Thread.Sleep(1000);
             }
+
+            while (VFSActive)
+                Thread.Sleep(1000);
 
             if (ToolDebug) { WriteLineIfDebug("\nProgram end reached"); Thread.Sleep(4000); }
 
