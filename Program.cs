@@ -30,12 +30,22 @@ namespace Instance_Manager
             AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
 
             ImmutableList<string> argsL = args.ToImmutableList();
+            List<string> argsForIM = new List<string>();
 
-            if (argsL.IndexOf("-debug") == 0 || argsL.IndexOf("-debug") == 1)
+            foreach (string arg in args)
+            {
+                if (arg.IndexOf(".exe") != -1)
+                    break;
+                argsForIM.Add(arg);
+            }
+
+            if (argsForIM.IndexOf("-debug") != -1)
                 ToolDebug = true;
 
             if (ToolDebug)
-                AllocConsole();
+            { 
+                AllocConsole(); 
+            }
 
             WriteLineIfDebug("Starting Instance Manager.");
 
@@ -45,15 +55,25 @@ namespace Instance_Manager
             }
             else
             {
-                WriteLineIfDebug("Passed args: ");
-                foreach (string arg in argsL)
+                WriteLineIfDebug("Using args:");
+                int ind = 0;
+                foreach (string arg in argsForIM)
                 {
-                    WriteLineIfDebug(arg);
+                    WriteLineIfDebug("    "+arg);
+                    ind++;
                 }
-                WriteLineIfDebug();
+                if (argsL.Count != argsForIM.Count)
+                {
+                    WriteLineIfDebug("Exe args:");
+                    while (ind < argsL.Count)
+                    {
+                        WriteLineIfDebug("    " + argsL[ind]);
+                        ind++;
+                    }
+                }
             }
 
-            if (argsL.IndexOf("-quicklaunch") == 0 || argsL.IndexOf("-quicklaunch") == 1)
+            if (argsForIM.IndexOf("-quicklaunch") != -1)
                 QuickLaunch = true;
 
             if (X.IsAvailable)
@@ -64,14 +84,6 @@ namespace Instance_Manager
             int index = 0;
 
             SetDriveVariables();
-
-            foreach (string s in SystemVariables)
-            {
-                WriteLineIfDebug(s+" is " + SystemVariablesValues[index]);
-                index++;
-            }
-
-            WriteLineIfDebug("");
 
             string usvfsDll = envEXELOC + "\\usvfs\\usvfs_x64.dll";
             

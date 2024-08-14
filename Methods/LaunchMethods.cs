@@ -56,7 +56,7 @@ namespace Instance_Manager.Methods
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    MessageBox.Show("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message,ToolName);
                 }
                 while (VFSHookedProcesses > 0) 
                     Thread.Sleep(1000);
