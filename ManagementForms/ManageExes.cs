@@ -104,7 +104,7 @@ namespace Instance_Manager
                     {
                         int index = rowfun;
                         string[] split = ProfileExes[rowfun].Split("|");
-                        string path = split[1] + " " + split[2];
+                        string path = split[1] + " " + split[3];
                         toolTip.SetToolTip(ExeLabel, path);
                     }
 
