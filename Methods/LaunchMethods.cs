@@ -118,7 +118,7 @@ namespace Instance_Manager.Methods
         }
         static Thread hookedCountMonitor;
 
-        public void LaunchExe()
+        public bool LaunchExe()
         {
             WriteLineIfDebug("\nExecuting Method: LaunchExe");
             WriteLineIfDebug("    Attempting to launch " + SelectedExe);
@@ -133,10 +133,13 @@ namespace Instance_Manager.Methods
 
                 if (!QuickLaunch)
                     MessageBox.Show("Launching " + SelectedExe.Split("|")[0], ToolName);
+
+                return true;
             }
             else
             {
                 MessageBox.Show("VFS is already active with "+VFSHookedProcesses+" hooked processes.", ToolName);
+                return false;
             }
         }
 

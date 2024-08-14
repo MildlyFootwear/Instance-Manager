@@ -286,29 +286,31 @@ namespace Instance_Manager
         {
             WriteLineIfDebug("\nExecuting Method: buttonLaunch_Click in MainUI");
             LaunchMethods lM = new();
-            lM.LaunchExe();
-            Task UpTitle = new Task(() => {
-                WriteLineIfDebug("UpTitle task started");
-                int lastHooked = 0;
-                while (VFSInitializing)
-                    Thread.Sleep(100);
-                while (VFSActive)
-                {
-                    if (CommonVars.Closing)
-                        break;
-                    if (lastHooked != VFSHookedProcesses)
-                    {
-                        lastHooked = VFSHookedProcesses;
-                        WriteLineIfDebug("upTitle lastHooked updated to " + lastHooked);
-                        this.Invoke(new Action((UpdateTitle)));
+            if (lM.LaunchExe()) { 
 
+                Task UpTitle = new Task(() => {
+                    WriteLineIfDebug("UpTitle task started");
+                    int lastHooked = 0;
+                    while (VFSInitializing)
+                        Thread.Sleep(100);
+                    while (VFSActive)
+                    {
+                        if (CommonVars.Closing)
+                            break;
+                        if (lastHooked != VFSHookedProcesses)
+                        {
+                            lastHooked = VFSHookedProcesses;
+                            WriteLineIfDebug("upTitle lastHooked updated to " + lastHooked);
+                            this.Invoke(new Action((UpdateTitle)));
+
+                        }
+                        Thread.Sleep(100);
                     }
-                    Thread.Sleep(100);
-                }
-                WriteLineIfDebug("UpTitle task ended");
-                ;
-            });
-            UpTitle.Start();
+                    WriteLineIfDebug("UpTitle task ended");
+                });
+                UpTitle.Start();
+
+            }
         }
 
         private void SourceBrowserDialog_HelpRequest(object sender, EventArgs e)
