@@ -1,6 +1,7 @@
 # Warning
 
-This is very much an alpha program and power tool. Use with caution.
+This is very much an alpha program and power tool. Use with caution.  
+Not all applications are compatible. Notepad++, for example, will fail many file creation operations, while paint.net does them just fine.
 
 ## Description
 
