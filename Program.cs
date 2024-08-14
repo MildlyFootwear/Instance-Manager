@@ -73,21 +73,21 @@ namespace Instance_Manager
 
             WriteLineIfDebug("");
 
-            string usvfsdll = envEXELOC + "\\usvfs\\usvfs_x64.dll";
+            string usvfsDll = envEXELOC + "\\usvfs\\usvfs_x64.dll";
             
-            if (!File.Exists(usvfsdll))
+            if (!File.Exists(usvfsDll))
             {
-                if (MessageBox.Show("Can't find "+usvfsdll+"\nOpen the github repository so you can download the required files?", ToolName + " - Fatal Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Can't find "+usvfsDll+"\nOpen the github repository so you can download the required files?", ToolName + " - Fatal Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     System.Diagnostics.Process.Start("explorer.exe", "https://github.com/MildlyFootwear/Instance-Manager");
                 
                 return;
             }
 
-            string VFSLauncher = envEXELOC + "\\usvfs\\usvfsWrap.dll";
+            string usvfsWrapDll = envEXELOC + "\\usvfs\\usvfsWrap.dll";
 
-            if (!File.Exists(VFSLauncher))
+            if (!File.Exists(usvfsWrapDll))
             {
-                if (MessageBox.Show("Can't find "+VFSLauncher + "\nOpen the github repository so you can download the required files?", ToolName + " - Fatal Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Can't find "+usvfsWrapDll + "\nOpen the github repository so you can download the required files?", ToolName + " - Fatal Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     return;
             }
 
