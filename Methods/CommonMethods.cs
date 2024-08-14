@@ -58,6 +58,12 @@ namespace Instance_Manager.Methods
                 Console.WriteLine(s);
         }
 
+        public static void WriteIfDebug(string s = "")
+        {
+            if (ToolDebug)
+                Console.Write(s);
+        }
+
         public static void SetDriveVariables()
         {
             WriteLineIfDebug("\nExecuting Method: SetDriveVariables");
@@ -86,7 +92,7 @@ namespace Instance_Manager.Methods
         public static string InsertVariables(string path)
         {
             WriteLineIfDebug("\nExecuting Method: InsertVariables");
-            Console.Write("Inserting variables for " + path);
+            WriteIfDebug("Inserting variables for " + path);
             int index = 0;
             foreach (string s in SystemVariablesValues)
             {
@@ -94,7 +100,7 @@ namespace Instance_Manager.Methods
                 path = path.Replace(s, SystemVariables[index]);
                 index++;
             }
-            Console.Write(", returning " + path+"\n");
+            WriteIfDebug(", returning " + path+"\n");
             return path;
 
         }
@@ -102,7 +108,7 @@ namespace Instance_Manager.Methods
         public static string ReplaceVariables(string path)
         {
             WriteLineIfDebug("\nExecuting Method: ReplaceVariables");
-            Console.Write("Replacing variables for " + path);
+            WriteIfDebug("Replacing variables for " + path);
 
             int index = 0;
 
@@ -113,7 +119,7 @@ namespace Instance_Manager.Methods
                 index++;
             }
 
-            Console.Write(", returning "+path + "\n");
+            WriteIfDebug(", returning "+path + "\n");
             return path;
         }
 
@@ -257,11 +263,11 @@ namespace Instance_Manager.Methods
                     WriteLineIfDebug("Found "+cnt+" of | in "+exe);
 
                     if (cnt == 0)
-                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + Path.GetDirectoryName(exe) + "|"; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
+                        { WriteIfDebug("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe) + "|" + exe + "|" + Path.GetDirectoryName(exe) + "|"; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
                     else if (cnt == 1)
-                        { Console.Write("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe.Split("|")[0]) + "|" + exe.Split("|")[0] + "|" + Path.GetDirectoryName(exe) + "|" + exe.Split("|")[1]; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
+                        { WriteIfDebug("Updating format for\n    " + exe); exe = Path.GetFileNameWithoutExtension(exe.Split("|")[0]) + "|" + exe.Split("|")[0] + "|" + Path.GetDirectoryName(exe) + "|" + exe.Split("|")[1]; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
                     else if (cnt == 2)
-                        { Console.Write("Updating format for\n    " + exe); exe = exe.Split("|")[0] + "|" + exe.Split("|")[1] + "|" + Path.GetDirectoryName(exe.Split("|")[1]) + "|" + exe.Split("|")[2]; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
+                        { WriteIfDebug("Updating format for\n    " + exe); exe = exe.Split("|")[0] + "|" + exe.Split("|")[1] + "|" + Path.GetDirectoryName(exe.Split("|")[1]) + "|" + exe.Split("|")[2]; UpdatedFormat = true; WriteLineIfDebug("\nUpdated to\n    " + exe); }
                     ProfileExes.Add(exe);
                 }
             }

@@ -24,7 +24,7 @@
       <Value Profile="(Default)">Instance Manager</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">v0.3</Value>
+      <Value Profile="(Default)">v0.3a</Value>
     </Setting>
     <Setting Name="IngoreVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

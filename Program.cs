@@ -135,7 +135,7 @@ namespace Instance_Manager
                 WriteLineIfDebug();
             while (VFSActive && QuickLaunch == false)
             {
-                Console.Write("\r"+DateTime.Now.ToString("HH:mm:ss")+" VFS still active with "+VFSHookedProcesses+" processes hooked into it.");
+                WriteIfDebug("\r"+DateTime.Now.ToString("HH:mm:ss")+" VFS still active with "+VFSHookedProcesses+" processes hooked into it.");
                 Thread.Sleep(1000);
             }
 
