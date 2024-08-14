@@ -5,7 +5,7 @@ This is very much an alpha program and power tool. Use with caution.
 ## Description
 
 GUI Utility to set up virtual file systems and launch a given executable with it.  
-Uses https://github.com/MildlyFootwear/VFSLauncher which was itself built off of https://github.com/ModOrganizer2/usvfs  
+Uses https://github.com/MildlyFootwear/usvfsWrap which was built to use https://github.com/ModOrganizer2/usvfs  
 
 
 
