@@ -60,7 +60,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.exe&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.dll&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.runtimeconfig.json&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)latest\usvfs\usvfsWrap.dll&quot; &quot;$(ProjectDir)$(OutDir)usvfs&quot;&#xD;&#xA;copy &quot;$(ProjectDir)latest\usvfs\usvfs_x64.dll&quot; &quot;$(ProjectDir)$(OutDir)usvfs&quot;" />
+    <Exec Command="copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.exe&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.dll&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.dll.config&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)$(OutDir)Instance-Manager.runtimeconfig.json&quot; &quot;$(ProjectDir)latest&quot;&#xD;&#xA;copy &quot;$(ProjectDir)latest\usvfs\usvfsWrap.dll&quot; &quot;$(ProjectDir)$(OutDir)usvfs&quot;&#xD;&#xA;copy &quot;$(ProjectDir)latest\usvfs\usvfs_x64.dll&quot; &quot;$(ProjectDir)$(OutDir)usvfs&quot;" />
   </Target>
 
 </Project>

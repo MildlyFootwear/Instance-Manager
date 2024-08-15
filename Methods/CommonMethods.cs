@@ -64,6 +64,16 @@ namespace Instance_Manager.Methods
                 Console.Write(s);
         }
 
+        public static void ThreadedMessage(string Message, string TitleAppend = "")
+        {
+            void msgbx()
+            {
+                MessageBox.Show(Message, ToolName+TitleAppend);
+            }
+            Thread msg = new Thread(msgbx);
+            msg.Start();
+        }
+
         public static void SetDriveVariables()
         {
             WriteLineIfDebug("\nExecuting Method: SetDriveVariables");

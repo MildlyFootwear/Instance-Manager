@@ -21,6 +21,7 @@ namespace Instance_Manager.Methods
         int LastHookCount = 0;
         void threadMethod()
         {
+
             string[] exe = ReplaceVariables(SelectedExe).Split("|");
             if (!File.Exists(exe[1]))
             {
@@ -29,14 +30,16 @@ namespace Instance_Manager.Methods
             }
 
             usvfsWrapSetDebug(ToolDebug);
+            ActiveVFSName = Settings.Default.ActiveProfile;
 
-            VFSActive = usvfsWrapCreateVFS("test", false, LogLevel.Warning, CrashDumpsType.None, "", 200);
+            VFSActive = usvfsWrapCreateVFS(ActiveVFSName, false, LogLevel.Warning, CrashDumpsType.None, "", 200);
 
             if (VFSActive)
             {
                 VFSInitializing = false;
                 foreach (string s in ProfileDirectoryLinks)
                 {
+
                     string[] link = ReplaceVariables(s).Split("|");
                     string source = link[0];
                     string destination = link[1];
@@ -56,7 +59,7 @@ namespace Instance_Manager.Methods
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message,ToolName);
+                    ThreadedMessage("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message);
                 }
                 while (VFSHookedProcesses > 0) 
                     Thread.Sleep(1000);
@@ -77,6 +80,8 @@ namespace Instance_Manager.Methods
                     WriteLineIfDebug(e.Message);
             }
             VFSInitializing = false;
+            ActiveVFSName = "";
+
             if (ToolDebug)
                 WriteLineIfDebug("VFS has been ended.");
         }
@@ -132,13 +137,13 @@ namespace Instance_Manager.Methods
                 hookedCountMonitor.Start();
 
                 if (!QuickLaunch)
-                    MessageBox.Show("Launching " + SelectedExe.Split("|")[0], ToolName);
+                    ThreadedMessage("Launching " + SelectedExe.Split("|")[0], " - " + Settings.Default.ActiveProfile);
 
                 return true;
             }
             else
             {
-                MessageBox.Show("VFS is already active with "+VFSHookedProcesses+" hooked processes.", ToolName);
+                ThreadedMessage("VFS for "+ActiveVFSName+" is already active with "+VFSHookedProcesses+" hooked processes.");
                 return false;
             }
         }

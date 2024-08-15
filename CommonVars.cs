@@ -30,6 +30,7 @@ namespace Instance_Manager
         public static bool VFSInitializing = false;
         public static int VFSHookedProcesses = 0;
         public static bool VFSMonitoring = false;
+        public static string ActiveVFSName = "";
 
         public static X.Gamepad gamepad = null;
 
