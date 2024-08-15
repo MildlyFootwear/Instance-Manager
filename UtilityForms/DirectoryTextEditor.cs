@@ -19,16 +19,33 @@ namespace Instance_Manager
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            TextInputString = textBox1.Text;
-            if (TextInputString != "")
+
+            bool prohibChar = false;
+            foreach (string s in ProhibChars)
             {
-                if (TextInputString[TextInputString.Length - 1] == '\\' || TextInputString[TextInputString.Length - 1] == '/')
+                if (textBox1.Text.IndexOf(s) != -1)
                 {
-                    TextInputString = TextInputString.Substring(0, TextInputString.Length - 1); WriteLineIfDebug(TextInputString + " has been truncated.");
+                    prohibChar = true;
+                    MessageBox.Show("Character " + s + " can't be input.", ToolName);
                 }
-                this.FormClosing -= DirectoryTextEditor_FormClosing;
             }
-            this.Close();
+            if (!prohibChar)
+            {
+                TextInputString = textBox1.Text;
+                if (TextInputString != "")
+                {
+                    if (TextInputString[TextInputString.Length - 1] == '\\' || TextInputString[TextInputString.Length - 1] == '/')
+                    {
+                        TextInputString = TextInputString.Substring(0, TextInputString.Length - 1); WriteLineIfDebug(TextInputString + " has been truncated.");
+                    }
+                    this.FormClosing -= DirectoryTextEditor_FormClosing;
+                }
+                this.Close();
+            }
+
+
+
+
         }
 
         private void DirectoryTextEditor_Load(object sender, EventArgs e)
