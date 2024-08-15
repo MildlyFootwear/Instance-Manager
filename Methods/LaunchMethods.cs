@@ -21,6 +21,7 @@ namespace Instance_Manager.Methods
         int LastHookCount = 0;
         void threadMethod()
         {
+
             string[] exe = ReplaceVariables(SelectedExe).Split("|");
             if (!File.Exists(exe[1]))
             {
@@ -38,6 +39,7 @@ namespace Instance_Manager.Methods
                 VFSInitializing = false;
                 foreach (string s in ProfileDirectoryLinks)
                 {
+
                     string[] link = ReplaceVariables(s).Split("|");
                     string source = link[0];
                     string destination = link[1];
