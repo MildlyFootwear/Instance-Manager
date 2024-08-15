@@ -56,7 +56,7 @@ namespace Instance_Manager.Methods
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message,ToolName);
+                    ThreadedMessage("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message,ToolName);
                 }
                 while (VFSHookedProcesses > 0) 
                     Thread.Sleep(1000);
@@ -132,13 +132,13 @@ namespace Instance_Manager.Methods
                 hookedCountMonitor.Start();
 
                 if (!QuickLaunch)
-                    MessageBox.Show("Launching " + SelectedExe.Split("|")[0], ToolName);
+                    ThreadedMessage("Launching " + SelectedExe.Split("|")[0], ToolName);
 
                 return true;
             }
             else
             {
-                MessageBox.Show("VFS is already active with "+VFSHookedProcesses+" hooked processes.", ToolName);
+                ThreadedMessage("VFS is already active with "+VFSHookedProcesses+" hooked processes.", ToolName);
                 return false;
             }
         }

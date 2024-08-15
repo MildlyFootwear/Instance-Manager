@@ -30,6 +30,7 @@ namespace Instance_Manager
             AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
 
             ImmutableList<string> argsL = args.ToImmutableList();
+
             List<string> argsForIM = new List<string>();
 
             foreach (string arg in args)
