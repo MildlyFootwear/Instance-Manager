@@ -29,8 +29,9 @@ namespace Instance_Manager.Methods
             }
 
             usvfsWrapSetDebug(ToolDebug);
+            ActiveVFSName = Settings.Default.ActiveProfile;
 
-            VFSActive = usvfsWrapCreateVFS("test", false, LogLevel.Warning, CrashDumpsType.None, "", 200);
+            VFSActive = usvfsWrapCreateVFS(ActiveVFSName, false, LogLevel.Warning, CrashDumpsType.None, "", 200);
 
             if (VFSActive)
             {
@@ -56,7 +57,7 @@ namespace Instance_Manager.Methods
                 }
                 catch (Exception e)
                 {
-                    ThreadedMessage("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message,ToolName);
+                    ThreadedMessage("Exception launching: " + SelectedExe.Split("|")[0]+"\n"+e.Message);
                 }
                 while (VFSHookedProcesses > 0) 
                     Thread.Sleep(1000);
@@ -77,6 +78,8 @@ namespace Instance_Manager.Methods
                     WriteLineIfDebug(e.Message);
             }
             VFSInitializing = false;
+            ActiveVFSName = "";
+
             if (ToolDebug)
                 WriteLineIfDebug("VFS has been ended.");
         }
@@ -132,13 +135,13 @@ namespace Instance_Manager.Methods
                 hookedCountMonitor.Start();
 
                 if (!QuickLaunch)
-                    ThreadedMessage("Launching " + SelectedExe.Split("|")[0], ToolName);
+                    ThreadedMessage("Launching " + SelectedExe.Split("|")[0], " - " + Settings.Default.ActiveProfile);
 
                 return true;
             }
             else
             {
-                ThreadedMessage("VFS is already active with "+VFSHookedProcesses+" hooked processes.", ToolName);
+                ThreadedMessage("VFS for "+ActiveVFSName+" is already active with "+VFSHookedProcesses+" hooked processes.");
                 return false;
             }
         }

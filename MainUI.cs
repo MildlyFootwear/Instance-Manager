@@ -24,6 +24,8 @@ namespace Instance_Manager
         bool JustRefreshedExes = false;
         List<Label> sourceLabels = new List<Label>();
         List<Label> destLabels = new List<Label>();
+        LaunchMethods lM = new();
+
         public MainUI()
         {
             InitializeComponent();
@@ -285,7 +287,6 @@ namespace Instance_Manager
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
             WriteLineIfDebug("\nExecuting Method: buttonLaunch_Click in MainUI");
-            LaunchMethods lM = new();
             if (lM.LaunchExe()) { 
 
                 Task UpTitle = new Task(() => {
