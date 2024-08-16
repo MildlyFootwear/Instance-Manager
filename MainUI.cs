@@ -247,7 +247,7 @@ namespace Instance_Manager
         {
             string active = Settings.Default.ActiveProfile;
             WriteLineIfDebug("\nShowing profile manager.\n");
-            Form ProfileM = new ProfileManager();
+            Form ProfileM = new ManageProfiles();
             ProfileM.ShowDialog();
             if (NeedSelectedProfileRefresh == true)
             {

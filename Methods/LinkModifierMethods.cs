@@ -48,6 +48,7 @@ namespace Instance_Manager.Methods
                 {
                     if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Create directory?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
+                        try { 
                         Directory.CreateDirectory(ReplaceVariables(TextInputString));
                         if (second)
                             ProfileDirectoryLinks[ProfileDirectoryLinks.IndexOf(link)] = splitlink[0] + "|" + TextInputString;
@@ -55,7 +56,10 @@ namespace Instance_Manager.Methods
                             ProfileDirectoryLinks[ProfileDirectoryLinks.IndexOf(link)] = TextInputString + "|" + splitlink[1];
                         SaveProfileLinks();
                         NeedLinkMenuRefresh = true;
-
+                        }
+                        catch {
+                            ThreadedMessage("Couldn't create directory\n"+ ReplaceVariables(TextInputString));
+                        }
                     }
                 }
             }

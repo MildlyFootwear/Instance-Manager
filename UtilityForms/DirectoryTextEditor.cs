@@ -19,6 +19,15 @@ namespace Instance_Manager
 
         private void OKButton_Click(object sender, EventArgs e)
         {
+            string s = textBox1.Text;
+            foreach (string invalid in ProhibPathChars)
+            {
+                if (s.Contains(invalid))
+                {
+                    ThreadedMessage("Path can't contain " + invalid + ".");
+                    return;
+                }
+            }
             TextInputString = textBox1.Text;
             if (TextInputString != "")
             {

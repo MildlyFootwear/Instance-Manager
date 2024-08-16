@@ -2,9 +2,9 @@
 
 namespace Instance_Manager
 {
-    public partial class ProfileManager : Form
+    public partial class ManageProfiles : Form
     {
-        public ProfileManager()
+        public ManageProfiles()
         {
             InitializeComponent();
         }
@@ -62,10 +62,11 @@ namespace Instance_Manager
                     void RenameProfile(object sender, EventArgs e)
                     {
                         string Profile = RetrieveProfile(rowfun);
+                        PassedString = Profile;
                         Form TextIn = new TextInput();
                         TextIn.Text = "Rename Profile " + Profile;
                         TextIn.ShowDialog();
-                        if (TextInputString != "")
+                        if (TextInputString != "" && TextInputString != Profile)
                         {
                             Directory.Move(Settings.Default.ProfilesDirectory + "\\" + Profile, Settings.Default.ProfilesDirectory + "\\" + TextInputString);
                             WriteLineIfDebug("Renamed " + Profile + " to " + TextInputString);
