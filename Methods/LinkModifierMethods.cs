@@ -49,7 +49,8 @@ namespace Instance_Manager.Methods
                     if (MessageBox.Show("Could not find directory " + ReplaceVariables(TextInputString) + ". Create directory?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         try { 
-                         Directory.CreateDirectory(ReplaceVariables(TextInputString));
+                            Directory.CreateDirectory(ReplaceVariables(TextInputString));
+                            WriteIfDebug("    Created directory: " + Path.GetFullPath(ReplaceVariables(TextInputString)));
                         }
                         catch (Exception ex)
                         {

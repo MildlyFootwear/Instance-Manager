@@ -31,25 +31,25 @@ namespace Instance_Manager.Methods
 
             usvfsWrapSetDebug(ToolDebug);
             ActiveVFSName = Settings.Default.ActiveProfile;
-
+            WriteLineIfDebug("    Initializing VFS.");
             VFSActive = usvfsWrapCreateVFS(ActiveVFSName, false, LogLevel.Warning, CrashDumpsType.None, "", 200);
 
             if (VFSActive)
             {
-                VFSInitializing = false;
                 foreach (string s in ProfileDirectoryLinks)
                 {
 
                     string[] link = ReplaceVariables(s).Split("|");
-                    string source = link[0];
-                    string destination = link[1];
+                    string source = Path.GetFullPath(link[0]);
+                    string destination = Path.GetFullPath(link[1]);
 
                     usvfsWrapVirtualLinkDirectoryStatic(source, destination, LINKFLAG_RECURSIVE);
                     usvfsWrapVirtualLinkDirectoryStatic(source, destination, LINKFLAG_CREATETARGET);
                     usvfsWrapVirtualLinkDirectoryStatic(destination, source, LINKFLAG_MONITORCHANGES);
 
                 }
-
+                VFSInitializing = false;
+                WriteLineIfDebug("    VFS initialized.");
                 Thread.Sleep(1000);
 
                 try
