@@ -82,8 +82,6 @@ namespace Instance_Manager
                 gamepad = X.Gamepad_1;
             }
 
-            int index = 0;
-
             SetDriveVariables();
 
             string usvfsDll = envEXELOC + "\\usvfs\\usvfs_x64.dll";
