@@ -107,8 +107,10 @@ namespace Instance_Manager
             }
 
             int temp = row - 1;
-            while (temp < tableLayoutPanel1.RowCount - 2 && temp < sourceLabels.Count)
+            while (temp < sourceLabels.Count)
             {
+                if (!tableLayoutPanel1.Contains(sourceLabels[temp]))
+                    break;
                 tableLayoutPanel1.Controls.Remove(sourceLabels[temp]);
                 tableLayoutPanel1.Controls.Remove(destLabels[temp]);
                 WriteLineIfDebug("    Removed labels " + sourceLabels[temp] + " and " + destLabels[temp] + " from table layout panel");

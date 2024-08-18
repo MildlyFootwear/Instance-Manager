@@ -37,6 +37,8 @@ namespace Instance_Manager
                 }
                 this.FormClosing -= DirectoryTextEditor_FormClosing;
             }
+            if (TextInputString.Replace(" ", "") == "")
+                TextInputString = "Remove";
             this.Close();
         }
 
