@@ -80,6 +80,8 @@ namespace Instance_Manager.Methods
             DriveInfo[] Drives = DriveInfo.GetDrives();
             foreach (DriveInfo d in Drives)
             {
+                if (!d.IsReady)
+                    continue;
                 string label = d.VolumeLabel;
                 if (label == null || label == "")
                 {
