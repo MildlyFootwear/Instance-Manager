@@ -1,6 +1,6 @@
 ﻿namespace Instance_Manager
 {
-    partial class ProfileManager
+    partial class ManageProfiles
     {
         /// <summary>
         /// Required designer variable.

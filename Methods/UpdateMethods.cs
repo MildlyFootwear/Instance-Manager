@@ -24,6 +24,14 @@ namespace Instance_Manager.Methods
                 ver = await response.Content.ReadAsStringAsync();
                 WriteLineIfDebug("    Found " + ver);
                 LatestVer = ver;
+                if (LatestVer.Length > 40)
+                {
+                    throw new Exception("Version length too long.");
+                }
+                if (LatestVer == null)
+                {
+                    throw new Exception("Version is null.");
+                }
             }
             catch (Exception ex)
             {

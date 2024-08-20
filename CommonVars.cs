@@ -15,6 +15,7 @@ namespace Instance_Manager
         public static string ToolName = "Instance Manager";
         public static string LatestVer = null;
         public static List<string> ProhibChars = ["|"];
+        public static List<string> ProhibPathChars = ["|", "<",">","?","*","//","\\\\"];
 
         public static List<string> Profiles = ["Empty"];
         public static List<string> ProfileDirectoryLinks = [];

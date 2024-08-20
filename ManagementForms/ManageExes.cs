@@ -22,6 +22,7 @@ namespace Instance_Manager
         List<Button> deleteButtonList = new List<Button>();
         List<Button> argsButtonList = new List<Button>();
         List<Button> duplicateButtonList = new List<Button>();
+        List<Button> workdirButtonList = new List<Button>();
         ToolTip toolTip = new ToolTip();
 
         void RefreshExes()
@@ -39,14 +40,17 @@ namespace Instance_Manager
                     Button dupe = new();
                     Button commandargs = new();
                     Button remove = new();
+                    Button workdir = new();
                     rename.Text = "Rename";
                     dupe.Text = "Duplicate";
                     commandargs.Text = "Launch Arguments";
                     remove.Text = "Remove";
+                    workdir.Text = "Working Directory";
                     rename.AutoSize = true;
                     dupe.AutoSize = true;
                     commandargs.AutoSize = true;
                     remove.AutoSize = true;
+                    workdir.AutoSize = true;
                     ExeLabel.AutoSize = true;
                     ExeLabel.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left);
                     ExeLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -54,6 +58,7 @@ namespace Instance_Manager
                     dupe.BackColor = addExe.BackColor;
                     commandargs.BackColor = addExe.BackColor;
                     remove.BackColor = addExe.BackColor;
+                    workdir.BackColor = addExe.BackColor;
 
                     void DuplicateExe(object sender, EventArgs e)
                     {
@@ -76,6 +81,27 @@ namespace Instance_Manager
                         if (TextInputString != splitexe[3])
                         {
                             ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + splitexe[2]+"|"+ TextInputString;
+                            WriteLineIfDebug("    Modified to " + ProfileExes[rowfun]);
+                            SaveProfileExes();
+                            RefreshExes();
+                        }
+
+                    }
+
+                    void WorkingDirectory(object sender, EventArgs e)
+                    {
+                        string exe = ProfileExes[rowfun];
+                        WriteLineIfDebug("\nExecuting Method: WorkingDirectory in ManageExes");
+                        WriteLineIfDebug("    Modifying dir for " + exe);
+                        string[] splitexe = exe.Split("|");
+
+                        Form TextIn = new TextInput();
+                        TextIn.Text = "Arguments for " + Path.GetFileName(splitexe[1]);
+                        PassedString = splitexe[2];
+                        TextIn.ShowDialog();
+                        if (TextInputString != splitexe[2])
+                        {
+                            ProfileExes[rowfun] = splitexe[0] + "|" + splitexe[1] + "|" + TextInputString + "|" + splitexe[3];
                             WriteLineIfDebug("    Modified to " + ProfileExes[rowfun]);
                             SaveProfileExes();
                             RefreshExes();
@@ -131,12 +157,14 @@ namespace Instance_Manager
                     commandargs.Click += LaunchArgs;
                     dupe.Click += DuplicateExe;
                     ExeLabel.MouseEnter += DisplayPath;
+                    workdir.Click += WorkingDirectory;
                     
                     exelabels.Add(ExeLabel);
                     renameButtonList.Add(rename);
                     deleteButtonList.Add(remove);
                     argsButtonList.Add(commandargs);
                     duplicateButtonList.Add(dupe);
+                    workdirButtonList.Add(workdir);
 
                 }
 
@@ -148,7 +176,8 @@ namespace Instance_Manager
                     tableLayoutPanel1.Controls.Add(renameButtonList[row], 1, row);
                     tableLayoutPanel1.Controls.Add(duplicateButtonList[row], 2, row);
                     tableLayoutPanel1.Controls.Add(argsButtonList[row], 3, row);
-                    tableLayoutPanel1.Controls.Add(deleteButtonList[row], 4, row);
+                    tableLayoutPanel1.Controls.Add(workdirButtonList[row], 4, row);
+                    tableLayoutPanel1.Controls.Add(deleteButtonList[row], 5, row);
                 }
                 row++;
 
@@ -164,6 +193,7 @@ namespace Instance_Manager
                 tableLayoutPanel1.Controls.Remove(deleteButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(duplicateButtonList[temp]);
                 tableLayoutPanel1.Controls.Remove(argsButtonList[temp]);
+                tableLayoutPanel1.Controls.Remove(workdirButtonList[temp]);
                 temp++;
             }
 

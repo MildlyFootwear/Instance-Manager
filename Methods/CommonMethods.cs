@@ -95,7 +95,7 @@ namespace Instance_Manager.Methods
                 }
                 else
                 {
-                    MessageBox.Show("Variable " + varLabel + " is not free to assign for drive " + d.Name);
+                    MessageBox.Show("Variable " + varLabel + " is not free to assign for drive " + d.Name+"\n"+ToolName+" will only be able to refer to it with "+d.Name, ToolName+" - Minor Error");
                 }
 
             }
