@@ -218,18 +218,13 @@ namespace Instance_Manager
             }
         }
 
-        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
-        {
-
-        }
-
         private void LinkButton_Click(object sender, EventArgs e)
         {
             WriteLineIfDebug("\nExecuting Method: LinkButton_Click in MainUI");
             SourceBrowserDialog.InitialDirectory = envAPPLOC;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                WriteLineIfDebug("    "+SourceBrowserDialog.SelectedPath + " chosen as source for link.");
+                WriteLineIfDebug("    " + SourceBrowserDialog.SelectedPath + " chosen as source for link.");
                 if (DestinationBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     WriteLineIfDebug("    " + DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
@@ -257,7 +252,8 @@ namespace Instance_Manager
                 RefreshList();
                 RefreshExes();
                 NeedSelectedProfileRefresh = false;
-            } else { WriteLineIfDebug("\nSelected profile not refreshing."); RefreshProfiles(); }
+            }
+            else { WriteLineIfDebug("\nSelected profile not refreshing."); RefreshProfiles(); }
         }
 
         private void toolManageVariables_Click(object sender, EventArgs e)
@@ -281,17 +277,14 @@ namespace Instance_Manager
             Info.ShowDialog();
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void buttonLaunch_Click(object sender, EventArgs e)
         {
             WriteLineIfDebug("\nExecuting Method: buttonLaunch_Click in MainUI");
-            if (lM.LaunchExe()) { 
+            if (lM.LaunchExe())
+            {
 
-                Task UpTitle = new Task(() => {
+                Task UpTitle = new Task(() =>
+                {
                     WriteLineIfDebug("UpTitle task started");
                     int lastHooked = 0;
                     while (VFSInitializing)
