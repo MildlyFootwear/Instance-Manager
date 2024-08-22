@@ -84,7 +84,7 @@ namespace Instance_Manager
 
             SetDriveVariables();
 
-            string usvfsDll = envEXELOC + "\\usvfs\\usvfs_x64.dll";
+            string usvfsDll = envAPPLOC + "\\usvfs\\usvfs_x64.dll";
             
             if (!File.Exists(usvfsDll))
             {
@@ -94,7 +94,7 @@ namespace Instance_Manager
                 return;
             }
 
-            string usvfsWrapDll = envEXELOC + "\\usvfs\\usvfsWrap.dll";
+            string usvfsWrapDll = envAPPLOC + "\\usvfs\\usvfsWrap.dll";
 
             if (!File.Exists(usvfsWrapDll))
             {
@@ -104,7 +104,7 @@ namespace Instance_Manager
 
             if (!Settings.Default.CustomProfilesDirectory || Settings.Default.ProfilesDirectory == "NotInitialized")
             {
-                Settings.Default.ProfilesDirectory = envEXELOC + "\\Profiles";
+                Settings.Default.ProfilesDirectory = envAPPLOC + "\\Profiles";
                 Settings.Default.Save();
                 WriteLineIfDebug("Updated profiles directory to "+ Settings.Default.ProfilesDirectory);
             }

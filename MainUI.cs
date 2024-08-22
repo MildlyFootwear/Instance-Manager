@@ -226,7 +226,7 @@ namespace Instance_Manager
         private void LinkButton_Click(object sender, EventArgs e)
         {
             WriteLineIfDebug("\nExecuting Method: LinkButton_Click in MainUI");
-            SourceBrowserDialog.InitialDirectory = envEXELOC;
+            SourceBrowserDialog.InitialDirectory = envAPPLOC;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 WriteLineIfDebug("    "+SourceBrowserDialog.SelectedPath + " chosen as source for link.");

@@ -81,7 +81,18 @@ namespace Instance_Manager.Methods
             foreach (DriveInfo d in Drives)
             {
                 if (!d.IsReady)
+                {
+                    MessageBox.Show("A drive was not ready to be read from. Recommend restarting the program. If the problem persists, check your drive to ensure it is not failing. If the drive is fine, report to \".shoey\" on Discord or MildlyFootwear on Nexus Mods.", ToolName);
                     continue;
+                }
+                if (File.Exists(d.Name+"\\Instance-Manager\\DriveLabel.txt"))
+                {
+                    string s = "%CustomLabel "+File.ReadAllLines(d.Name + "\\Instance-Manager\\DriveLabel.txt")[0]+"%";
+                    WriteLineIfDebug("    Assigning label "+s+" for "+d.Name);
+                    SystemVariables.Add(s);
+                    SystemVariablesValues.Add(d.Name.Substring(0, 2));
+
+                }
                 string label = d.VolumeLabel;
                 if (label == null || label == "")
                 {
