@@ -226,13 +226,27 @@ namespace Instance_Manager
         private void LinkButton_Click(object sender, EventArgs e)
         {
             WriteLineIfDebug("\nExecuting Method: LinkButton_Click in MainUI");
-            SourceBrowserDialog.InitialDirectory = envEXELOC;
+            if (Settings.Default.LastSource == "")
+            {
+                Settings.Default.LastSource = envEXELOC;
+                Settings.Default.Save();
+            }
+            SourceBrowserDialog.InitialDirectory = Settings.Default.LastSource;
             if (SourceBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 WriteLineIfDebug("    "+SourceBrowserDialog.SelectedPath + " chosen as source for link.");
+                Settings.Default.LastSource = SourceBrowserDialog.SelectedPath;
+                if (Settings.Default.LastDest == "")
+                {
+                    Settings.Default.LastDest = envEXELOC;
+                }
+                Settings.Default.Save();
+                DestinationBrowserDialog.InitialDirectory=Settings.Default.LastDest;
                 if (DestinationBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     WriteLineIfDebug("    " + DestinationBrowserDialog.SelectedPath + " chosen as destination for link.");
+                    Settings.Default.LastDest = DestinationBrowserDialog.SelectedPath;
+                    Settings.Default.Save();
                     ProfileDirectoryLinks.Add(InsertVariables(SourceBrowserDialog.SelectedPath + "|" + DestinationBrowserDialog.SelectedPath));
                     SaveProfileLinks();
                     RefreshList();

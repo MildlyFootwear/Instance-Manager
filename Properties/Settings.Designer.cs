@@ -142,5 +142,29 @@ namespace Instance_Manager.Properties {
                 this["SuppressMissingDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSource {
+            get {
+                return ((string)(this["LastSource"]));
+            }
+            set {
+                this["LastSource"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastDest {
+            get {
+                return ((string)(this["LastDest"]));
+            }
+            set {
+                this["LastDest"] = value;
+            }
+        }
     }
 }

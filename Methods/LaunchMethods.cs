@@ -30,8 +30,8 @@ namespace Instance_Manager.Methods
             }
 
             usvfsWrapSetDebug(ToolDebug);
-            ActiveVFSName = Settings.Default.ActiveProfile;
-            WriteLineIfDebug("    Initializing VFS.");
+            ActiveVFSName = Settings.Default.ActiveProfile +" "+ DateTimeOffset.Now.ToString("yyyyMMddHHmmss");
+            WriteLineIfDebug("    Initializing VFS "+ActiveVFSName);
             VFSActive = usvfsWrapCreateVFS(ActiveVFSName, false, LogLevel.Warning, CrashDumpsType.None, "", 200);
 
             if (VFSActive)
