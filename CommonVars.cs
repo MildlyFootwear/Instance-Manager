@@ -44,9 +44,9 @@ namespace Instance_Manager
 
 
         public static string envUSERPROFILE = Environment.GetEnvironmentVariable("USERPROFILE");
-        public static string envEXELOC = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        public static string envAPPLOC = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         public static string profPATH;
-        public static List<string> SystemVariablesValues = new List<string> { "empty", envEXELOC, envUSERPROFILE };
+        public static List<string> SystemVariablesValues = new List<string> { "empty", envAPPLOC, envUSERPROFILE };
         public static List<string> SystemVariables = new List<string> { "%ACTIVEPROFILE%", "%APPLOC%", "%USERPROFILE%" };
         
     }

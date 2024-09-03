@@ -8,7 +8,10 @@ Not all applications are compatible. Notepad++, for example, will fail many file
 GUI Utility to set up virtual file systems and launch a given executable with it.  
 Uses https://github.com/MildlyFootwear/usvfsWrap which was built to use https://github.com/ModOrganizer2/usvfs  
 
+## Requirements
 
+* .NET 8
+* Visual C Runtime
 
 ## Usage
 

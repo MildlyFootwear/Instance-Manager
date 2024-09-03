@@ -92,6 +92,7 @@
             // 
             SourceBrowserDialog.Description = "Select Folder To Save and Load Files From";
             SourceBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            SourceBrowserDialog.ShowHiddenFiles = true;
             SourceBrowserDialog.UseDescriptionForTitle = true;
             SourceBrowserDialog.HelpRequest += SourceBrowserDialog_HelpRequest;
             // 
@@ -99,6 +100,7 @@
             // 
             DestinationBrowserDialog.Description = "Select Folder to Virtually Overlay On";
             DestinationBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            DestinationBrowserDialog.ShowHiddenFiles = true;
             DestinationBrowserDialog.UseDescriptionForTitle = true;
             // 
             // ExeBox
