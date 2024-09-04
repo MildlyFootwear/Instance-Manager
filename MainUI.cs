@@ -223,7 +223,7 @@ namespace Instance_Manager
             WriteLineIfDebug("\nExecuting Method: LinkButton_Click in MainUI");
             if (Settings.Default.LastSource == "")
             {
-                Settings.Default.LastSource = envEXELOC;
+                Settings.Default.LastSource = envAPPLOC;
                 Settings.Default.Save();
             }
             SourceBrowserDialog.InitialDirectory = Settings.Default.LastSource;
@@ -233,7 +233,7 @@ namespace Instance_Manager
                 Settings.Default.LastSource = SourceBrowserDialog.SelectedPath;
                 if (Settings.Default.LastDest == "")
                 {
-                    Settings.Default.LastDest = envEXELOC;
+                    Settings.Default.LastDest = envAPPLOC;
                 }
                 Settings.Default.Save();
                 DestinationBrowserDialog.InitialDirectory=Settings.Default.LastDest;
