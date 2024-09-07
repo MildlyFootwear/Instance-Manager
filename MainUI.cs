@@ -46,7 +46,7 @@ namespace Instance_Manager
         {
             string s = ToolName + " " + Settings.Default.Version + " - " + Settings.Default.ActiveProfile;
             if (VFSHookedProcesses > 0)
-                s += " - " + VFSHookedProcesses + " processes hooked.";
+                s += " - " + VFSHookedProcesses + " processes hooked into "+ActiveVFSName+".";
             Text = s;
         }
 
