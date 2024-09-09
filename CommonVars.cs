@@ -25,7 +25,6 @@ namespace Instance_Manager
         public static bool ToolDebug = false;
         public static bool UpdatedFormat = false;
         public static bool Closing = false;
-        public static bool TickTock = false;
 
         public static bool VFSActive = false;
         public static bool VFSInitializing = false;
