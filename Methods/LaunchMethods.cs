@@ -12,6 +12,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Net;
 using System.Security.Cryptography.Xml;
 using static usvfsWrap.usvfsWrapM;
+using System.Diagnostics;
 
 namespace Instance_Manager.Methods
 {
@@ -26,6 +27,15 @@ namespace Instance_Manager.Methods
             if (!File.Exists(exe[1]))
             {
                 MessageBox.Show("Could not locate executable.\n" + exe[1], ToolName);
+                return;
+            }
+
+            if (ProfileDirectoryLinks.Count == 0)
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo(exe[1]);
+                processStartInfo.WorkingDirectory = exe[2];
+                processStartInfo.Arguments = exe[3];
+                Process.Start(processStartInfo);
                 return;
             }
 
