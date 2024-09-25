@@ -30,15 +30,6 @@ namespace Instance_Manager.Methods
                 return;
             }
 
-            if (ProfileDirectoryLinks.Count == 0)
-            {
-                ProcessStartInfo processStartInfo = new ProcessStartInfo(exe[1]);
-                processStartInfo.WorkingDirectory = exe[2];
-                processStartInfo.Arguments = exe[3];
-                Process.Start(processStartInfo);
-                return;
-            }
-
             usvfsWrapSetDebug(ToolDebug);
             ActiveVFSName = Settings.Default.ActiveProfile;
             WriteLineIfDebug("    Initializing VFS "+ ActiveVFSName + " " + DateTimeOffset.Now.ToString("HHmmss"));
@@ -135,8 +126,25 @@ namespace Instance_Manager.Methods
 
         public bool LaunchExe()
         {
+
             WriteLineIfDebug("\nExecuting Method: LaunchExe");
             WriteLineIfDebug("    Attempting to launch " + SelectedExe);
+
+            string[] exe = ReplaceVariables(SelectedExe).Split("|");
+
+            if (ProfileDirectoryLinks.Count == 0)
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo(exe[1]);
+                processStartInfo.WorkingDirectory = exe[2];
+                processStartInfo.Arguments = exe[3];
+                Process.Start(processStartInfo);
+
+                if (!QuickLaunch)
+                    ThreadedMessage("Launching " + exe[0]);
+
+                return false;
+            }
+
             if (!VFSActive)
             {
                 VFSInitializing = true;
