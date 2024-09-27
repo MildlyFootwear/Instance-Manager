@@ -71,20 +71,18 @@ namespace Instance_Manager.Methods
                 Thread.Sleep(100);
             try 
             {
-                if (ToolDebug)
+                if (ToolDebug && false)
                     usvfsWrapCreateVFSDump();
 
                 usvfsWrapFree(); 
             } catch (Exception e) 
             {
-                if (ToolDebug)
-                    WriteLineIfDebug(e.Message);
+                WriteLineIfDebug(e.Message);
             }
             VFSInitializing = false;
             ActiveVFSName = "";
 
-            if (ToolDebug)
-                WriteLineIfDebug("VFS has been ended.");
+            WriteLineIfDebug("VFS has been ended.");
         }
         static Thread exeThread;
 
