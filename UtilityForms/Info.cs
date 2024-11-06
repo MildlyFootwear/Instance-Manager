@@ -26,7 +26,7 @@ namespace Instance_Manager
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("explorer.exe", "https://next.nexusmods.com/profile/MildlyFootwear/about-me");
+            System.Diagnostics.Process.Start("explorer.exe", "https://next.nexusmods.com/profile/MildlyShoey/about-me");
         }
 
         private void Info_Load(object sender, EventArgs e)

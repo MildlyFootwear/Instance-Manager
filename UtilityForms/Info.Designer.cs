@@ -76,7 +76,7 @@
             linkLabel2.Size = new Size(310, 15);
             linkLabel2.TabIndex = 3;
             linkLabel2.TabStop = true;
-            linkLabel2.Text = "https://next.nexusmods.com/profile/MildlyFootwear";
+            linkLabel2.Text = "https://next.nexusmods.com/profile/MildlyShoey\r\n\r\n";
             linkLabel2.TextAlign = ContentAlignment.TopCenter;
             linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
