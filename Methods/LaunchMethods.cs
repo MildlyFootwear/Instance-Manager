@@ -33,7 +33,7 @@ namespace Instance_Manager.Methods
             usvfsWrapSetDebug(ToolDebug);
             ActiveVFSName = Settings.Default.ActiveProfile;
             WriteLineIfDebug("    Initializing VFS "+ ActiveVFSName + " " + DateTimeOffset.Now.ToString("HHmmss"));
-            VFSActive = usvfsWrapCreateVFS(ActiveVFSName + " " + DateTimeOffset.Now.ToString("HHmmss"), ToolDebug, LogLevel.Warning, CrashDumpsType.None, "", 200);
+            VFSActive = usvfsWrapCreateVFS(ActiveVFSName, ToolDebug, LogLevel.Warning, CrashDumpsType.None, "", 1000);
 
             if (VFSActive)
             {
@@ -71,20 +71,18 @@ namespace Instance_Manager.Methods
                 Thread.Sleep(100);
             try 
             {
-                if (ToolDebug)
+                if (ToolDebug && false)
                     usvfsWrapCreateVFSDump();
 
                 usvfsWrapFree(); 
             } catch (Exception e) 
             {
-                if (ToolDebug)
-                    WriteLineIfDebug(e.Message);
+                WriteLineIfDebug(e.Message);
             }
             VFSInitializing = false;
             ActiveVFSName = "";
 
-            if (ToolDebug)
-                WriteLineIfDebug("VFS has been ended.");
+            WriteLineIfDebug("VFS has been ended.");
         }
         static Thread exeThread;
 
