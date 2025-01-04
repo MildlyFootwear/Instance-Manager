@@ -25,7 +25,7 @@ namespace Instance_Manager
             foreach (string arg in argsL)
             {
                 WriteLineIfDebug(arg);
-                if (Path.GetExtension(arg) == ".exe")
+                if (Path.GetExtension(arg) == ".exe" && passedexe == null)
                 {
                     if (File.Exists(arg))
                     {
@@ -69,14 +69,18 @@ namespace Instance_Manager
                     SelectedExe = FormattedExeFromPath(passedexe);
                     while (index < argsL.Count)
                     {
-                        SelectedExe += " " + argsL[index];
+                        if (argsL[index].Contains(" "))
+                            SelectedExe += " \"" + argsL[index]+"\"";
+                        else
+                            SelectedExe += " "+argsL[index];
                         index++;
                     }
                 }
             }
 
             if (QuickLaunch)
-         {       LaunchMethods lM = new();
+            {
+                LaunchMethods lM = new();
                 lM.LaunchExe();
             }
 
