@@ -24,7 +24,7 @@ namespace Instance_Manager
 
             static void ExceptionHandler(object sender, UnhandledExceptionEventArgs ex)
             {
-                MessageBox.Show((ex.ExceptionObject).ToString(), ToolName + " - Exception");
+                MessageBox.Show(ex.ExceptionObject.ToString(), ToolName + " - Exception");
             }
 
             AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
@@ -35,7 +35,7 @@ namespace Instance_Manager
 
             foreach (string arg in args)
             {
-                if (arg.IndexOf(".exe") != -1)
+                if (arg.IndexOf(".exe") != -1 || arg == "-break")
                     break;
                 argsForIM.Add(arg);
             }
@@ -152,7 +152,9 @@ namespace Instance_Manager
             }
 
             while (VFSActive)
+            {
                 Thread.Sleep(1000);
+            }
 
             if (ToolDebug) { WriteLineIfDebug("\n"+ToolName+" end reached"); Thread.Sleep(4000); }
 
